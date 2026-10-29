@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RL7F0Z4L2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-RL7F0Z4L2R');
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ポートフォリオを TypeScript にしよう | ITK Educate</title>
+  <meta name="description" content="JavaScriptに「型」を足した言語 TypeScript のしくみを学び、Lesson 9 で作ったポートフォリオのスクリプトを TypeScript に書き換えるレッスン。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">ITK <span>Educate</span></a>
+      <div class="header-actions">
+        <a href="../index.html">レッスン一覧</a>
+        <button class="theme-toggle" type="button">☾ ダーク</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <span class="eyebrow">LESSON 10</span>
+        <h1>ポートフォリオを<br>TypeScript にしよう</h1>
+        <p class="lead">
+          Lesson 9 で、JavaScript を使ってポートフォリオに動きを付けました。今回はそのスクリプトを、
+          現場でとてもよく使われている <strong>TypeScript（タイプスクリプト）</strong>に書き換えます。
+          見た目も動きも同じまま、<strong>「間違いに気づきやすいコード」</strong>に生まれ変わらせるのがゴールです。
+        </p>
+      </section>
+
+      <aside class="aside">
+        <p>
+          「せっかく完成したのに、また書き換えるの！？」と思った方。そのツッコミ、ごもっともです。
+          でも、できあがった家に<b>火災報知器</b>を付けるようなもの、と思ってください。普段の暮らし（見た目や動き）は何も変わりませんが、
+          何かおかしなことが起きそうになったら、すぐに知らせてくれるようになります。
+        </p>
+      </aside>
+
+      <nav class="toc" aria-label="目次">
+        <strong>このページの内容</strong>
+        <ol>
+          <li><a href="#what">TypeScriptとは</a></li>
+          <li><a href="#why">何がうれしいの？</a></li>
+          <li><a href="#compile">ブラウザは TypeScript を読めない</a></li>
+          <li><a href="#prepare">準備：Node.js と TypeScript を入れる</a></li>
+          <li><a href="#rewrite">script.js を TypeScript に書き換える</a></li>
+          <li><a href="#build">JavaScript に変換して動かす</a></li>
+          <li><a href="#try">わざと間違えてみよう</a></li>
+          <li><a href="#quiz">確認クイズ</a></li>
+        </ol>
+      </nav>
+
+      <!-- ===================== とは ===================== -->
+      <h2 id="what">1. TypeScriptとは</h2>
+      <p>
+        TypeScript は、Microsoft が開発した、<b>JavaScript に「型（かた）」というルールを足した言語</b>です。
+        JavaScript の書き方はほぼそのまま使えて、そこに「この箱には何を入れるか」というラベルを書き足していきます。
+      </p>
+      <div class="sub-grid">
+        <div class="sub">
+          <h4>JavaScript の箱</h4>
+          <p>どんなものでも入れられる、<b>ラベルのない箱</b>。数字を入れていた箱に、うっかり文字を入れても何も言われません。</p>
+<div class="code-block"><div class="code-head"><span>JavaScript</span><button class="copy-btn" type="button">コピー</button></div><pre><code>let angle = 0;
+angle = "ごど";   // 文字を入れても、何も言われない</code></pre></div>
+        </div>
+        <div class="sub">
+          <h4>TypeScript の箱</h4>
+          <p><b>「数字専用」とラベルを貼った箱</b>。数字以外を入れようとすると、その場で「それは入れられません」と教えてくれます。</p>
+<div class="code-block"><div class="code-head"><span>TypeScript</span><button class="copy-btn" type="button">コピー</button></div><pre><code>let angle: number = 0;
+angle = "ごど";   // ← エラー！「数字専用」の箱です</code></pre></div>
+        </div>
+      </div>
+      <p>
+        <code>: number</code> の部分が<b>型</b>です。キッチンの調味料の容器に「砂糖」「塩」とラベルを貼っておけば、取り違えを防げますよね。型はそのラベルのようなものです。
+      </p>
+      <div class="table-wrap">
+        <table style="min-width: 520px;">
+          <thead><tr><th>型</th><th>意味</th><th>例</th></tr></thead>
+          <tbody>
+            <tr><td><code>number</code></td><td>数字</td><td><code>0</code>、<code>5</code>、<code>3.14</code></td></tr>
+            <tr><td><code>string</code></td><td>文字（文字列）</td><td><code>"こんにちは！"</code></td></tr>
+            <tr><td><code>boolean</code></td><td>はい／いいえ</td><td><code>true</code>、<code>false</code></td></tr>
+            <tr><td><code>string[]</code></td><td>文字のリスト（配列）</td><td><code>["A", "B", "C"]</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ===================== why ===================== -->
+      <h2 id="why">2. 何がうれしいの？</h2>
+      <p>
+        JavaScript では、間違いに気づくのは<b>ブラウザで動かしてみたとき</b>です。しかも、エラーにならずに「なんだか変な動き」になるだけのこともあります。
+        TypeScript なら、<b>コードを書いている最中に</b>、VS Code が赤い波線で間違いを教えてくれます。
+      </p>
+      <div class="sub-grid">
+        <div class="sub">
+          <h4>JavaScript の場合</h4>
+          <p>書く → 保存 → ブラウザで確認 → 「あれ、動かない……」→ コンソールで原因を探す</p>
+        </div>
+        <div class="sub">
+          <h4>TypeScript の場合</h4>
+          <p>書いた瞬間に VS Code が「ここ、おかしいですよ」と赤い波線で教えてくれる</p>
+        </div>
+      </div>
+      <p>
+        数百行のポートフォリオなら JavaScript でも困りませんが、何十人もの PG が何万行ものコードを書く実際のシステム開発では、この差がとても大きくなります。
+        そのため、<a href="it-job-roles.html#front">フロントエンドエンジニア</a>の現場では、今や TypeScript で書くのが当たり前になりつつあります。
+      </p>
+
+      <!-- ===================== compile ===================== -->
+      <h2 id="compile">3. ブラウザは TypeScript を読めない</h2>
+      <p>
+        実は、ブラウザが理解できるのは JavaScript だけです。そのため、TypeScript で書いたファイルは、
+        <b>コンパイラ（翻訳ツール）</b>で JavaScript に変換してから使います。この変換を<b>コンパイル</b>と呼びます。
+      </p>
+      <figure class="figure">
+        <div class="flow">
+          <div class="col"><div class="box cat-web"><b>script.ts</b>TypeScript で書く<br>（型のラベル付き）</div></div>
+          <div class="arrow">→</div>
+          <div class="col"><div class="box cat-desktop"><b>tsc（コンパイラ）</b>型のチェックをして、<br>JavaScript に変換</div></div>
+          <div class="arrow">→</div>
+          <div class="col"><div class="box cat-mobile"><b>script.js</b>ブラウザが<br>読み込んで動かす</div></div>
+        </div>
+        <figcaption>型のラベルは「書くときの安全装置」なので、変換後の JavaScript からは取り除かれます。index.html は、これまでどおり script.js を読み込みます。</figcaption>
+      </figure>
+      <p class="muted">
+        英語の原稿を翻訳者にチェック・翻訳してもらってから、日本語版を印刷するイメージです。翻訳者（tsc）は、原稿の間違い（型のミス）も指摘してくれます。
+      </p>
+
+      <!-- ===================== prepare ===================== -->
+      <h2 id="prepare">4. 準備：Node.js と TypeScript を入れる</h2>
+      <p>
+        コンパイラ <code>tsc</code> を使うために、<b>Node.js</b>（ブラウザの外で JavaScript を動かす仕組み）と、
+        その付属ツール <b>npm</b>（便利なツールをダウンロードする仕組み）を使います。
+        会社のパソコンにインストールするときは、Lesson 6 と同じく<b>社内のルールに従って</b>ください。
+      </p>
+      <ol class="steps">
+        <li>
+          <h4>Node.js をインストールする</h4>
+          <p>
+            Chrome で <code>https://nodejs.org/</code> を開き、<b>LTS（長期サポート版）</b>の Windows 用インストーラーをダウンロードして実行します。
+            基本的には「Next」で進めて大丈夫です。途中の「Tools for Native Modules」のチェックは入れなくてかまいません。
+          </p>
+        </li>
+        <li>
+          <h4>インストールできたか確認する</h4>
+          <p>VS Code をいったん閉じて開き直し、ターミナルで次の2つを実行します。それぞれバージョン番号が表示されれば成功です。</p>
+<div class="code-block"><div class="code-head"><span>ターミナル</span><button class="copy-btn" type="button">コピー</button></div><pre><code>node -v
+npm -v</code></pre></div>
+        </li>
+        <li>
+          <h4>portfolio フォルダを npm 用に準備する</h4>
+          <p>VS Code で <code>portfolio</code> フォルダを開いた状態で、ターミナルに次のコマンドを入力します。<code>package.json</code> というファイルができます。</p>
+<div class="code-block"><div class="code-head"><span>ターミナル</span><button class="copy-btn" type="button">コピー</button></div><pre><code>npm init -y</code></pre></div>
+        </li>
+        <li>
+          <h4>TypeScript をインストールする</h4>
+<div class="code-block"><div class="code-head"><span>ターミナル</span><button class="copy-btn" type="button">コピー</button></div><pre><code>npm install --save-dev typescript</code></pre></div>
+          <p><code>node_modules</code> というフォルダができ、その中に TypeScript のコンパイラがダウンロードされます。このフォルダの中身は触らなくて大丈夫です。</p>
+        </li>
+        <li>
+          <h4>設定ファイル tsconfig.json を作る</h4>
+          <p><code>portfolio</code> フォルダに新しいファイル <code>tsconfig.json</code> を作り、次の内容を書きます。「どのファイルを、どんなルールで変換するか」の設定です。</p>
+<div class="code-block"><div class="code-head"><span>tsconfig.json</span><button class="copy-btn" type="button">コピー</button></div><pre><code>{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM"],
+    "strict": true
+  },
+  "files": ["script.ts"]
+}</code></pre></div>
+          <div class="table-wrap">
+            <table style="min-width: 480px;">
+              <thead><tr><th>設定</th><th>意味</th></tr></thead>
+              <tbody>
+                <tr><td><code>"target": "ES2020"</code></td><td>どのバージョンの JavaScript に変換するか</td></tr>
+                <tr><td><code>"lib": ["ES2020", "DOM"]</code></td><td><code>document</code> など、ブラウザの機能を使えるようにする</td></tr>
+                <tr><td><code>"strict": true</code></td><td>型のチェックを厳しくする（間違いを見つけやすくなる）</td></tr>
+                <tr><td><code>"files": ["script.ts"]</code></td><td>変換するファイル</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+
+      <div class="table-wrap">
+        <table style="min-width: 560px;">
+          <thead><tr><th>うまくいかないときは</th><th>確認すること</th></tr></thead>
+          <tbody>
+            <tr><td><code>node</code> や <code>npm</code> が見つからないと言われる</td><td>Node.js のインストール後に、VS Code を開き直したか確認してください。</td></tr>
+            <tr><td>「このシステムではスクリプトの実行が無効になっているため…」と出る</td><td>
+              PowerShell の安全設定によるものです。VS Code のターミナル右上の「＋」の横の「∨」から<b>「Command Prompt」</b>を選んでターミナルを開き直し、同じコマンドを実行してみてください。
+              それでもだめな場合は、情報システム担当者に相談してください。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ===================== rewrite ===================== -->
+      <h2 id="rewrite">5. script.js を TypeScript に書き換える</h2>
+      <h3>まずはファイル名を変えるだけ</h3>
+      <p>
+        VS Code で <code>script.js</code> を右クリック →「名前の変更」で、<b><code>script.ts</code></b> に変えます（<code>.ts</code> は TypeScript の印）。
+        すると、さっそくいくつかの行に<b>赤い波線</b>が出るはずです。波線の上にマウスを乗せると、こんなメッセージが表示されます。
+      </p>
+<div class="code-block"><div class="code-head"><span>VS Code に表示されるメッセージ</span><button class="copy-btn" type="button">コピー</button></div><pre><code>'greeting' は 'null' の可能性があります。</code></pre></div>
+      <p>
+        これは、「<code>getElementById("greeting")</code> で探しても、<b>見つからないかもしれない</b>よね？ 見つからなかったら（null＝空っぽ）、
+        <code>greeting.textContent</code> の行でエラーになりますよ」という指摘です。
+        JavaScript では、名札の名前を打ち間違えても、ブラウザで動かすまで気づけませんでした。TypeScript は、その可能性を書いている時点で教えてくれるわけです。
+      </p>
+
+      <h3>① あいさつ：「必ずある」と伝える、型を書く</h3>
+<div class="code-block"><div class="code-head"><span>script.ts（① あいさつ）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>// ① 時間帯に合わせて、あいさつを変える
+<span class="add">const greeting = document.getElementById("greeting") as HTMLElement;</span>
+<span class="add">const hour: number = new Date().getHours();</span></code></pre></div>
+      <ul>
+        <li><code>as HTMLElement</code>：「この名札の部分は、HTML に<b>必ずあります</b>。HTML の部品（HTMLElement）として扱ってください」と TypeScript に伝える書き方です。これで赤い波線が消えます</li>
+        <li><code>hour: number</code>：「<code>hour</code> の箱には数字を入れます」というラベル</li>
+      </ul>
+      <p class="muted">
+        <code>as</code> は「私が保証します」という約束なので、本当に HTML に <code>id="greeting"</code> があるかは自分で確認しておく必要があります。
+        本格的な開発では <code>if (greeting) { … }</code> のように「あるときだけ動かす」書き方もよく使われます。
+      </p>
+
+      <h3>② 鉄棒：箱にラベルを貼る</h3>
+<div class="code-block"><div class="code-head"><span>script.ts（② 鉄棒）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>// ② 鉄棒の人が、くるくる回り続ける
+<span class="add">const person = document.getElementById("person") as HTMLImageElement;</span>
+<span class="add">const tetsubo = document.getElementById("tetsubo") as HTMLElement;</span>
+<span class="add">let angle: number = 0;</span>
+<span class="add">let moving: boolean = true;</span>
+
+<span class="add">setInterval(function (): void {</span>
+  if (moving) {
+    angle = angle + 5;
+    person.style.transform = "rotate(" + angle + "deg)";
+  }
+}, 30);
+
+<span class="add">tetsubo.addEventListener("click", function (): void {</span>
+  moving = !moving;
+});</code></pre></div>
+      <ul>
+        <li><code>HTMLImageElement</code>：画像（<code>&lt;img&gt;</code>）の部品、という型。<code>person</code> は画像なので、より詳しい型を付けています</li>
+        <li><code>let angle: number</code>・<code>let moving: boolean</code>：角度は数字、動いているかどうかは「はい／いいえ」</li>
+        <li><code>function (): void</code>：<code>void</code> は「この処理は何も返さない（やるだけ）」という意味の型</li>
+      </ul>
+
+      <h3>③④ コントローラーとひとこと：同じ処理を「関数」にまとめる</h3>
+      <p>
+        Lesson 9 では、③ と ④ の両方で「ランダムに番号を選ぶ」処理（<code>Math.floor(Math.random() * …)</code>）を書いていました。
+        せっかくなので、これを1つの<b>関数</b>にまとめて、型も付けてみましょう。<code>script.ts</code> の<b>一番上</b>に書きます。
+      </p>
+<div class="code-block"><div class="code-head"><span>script.ts（一番上に追加）</span><button class="copy-btn" type="button">コピー</button></div><pre><code><span class="add">// 0〜(length - 1) のどれかの番号を、ランダムに選ぶ</span>
+<span class="add">function pickRandomIndex(length: number): number {</span>
+<span class="add">  return Math.floor(Math.random() * length);</span>
+<span class="add">}</span></code></pre></div>
+      <ul>
+        <li><code>function pickRandomIndex( … )</code>：「ランダムな番号を選ぶ」という名前の、自分専用の命令（関数）を作る</li>
+        <li><code>(length: number)</code>：この関数には、<b>数字を1つ渡して</b>使う（例：<code>pickRandomIndex(4)</code>）</li>
+        <li><code>): number {</code>：この関数は、<b>数字を返す</b></li>
+        <li><code>return …</code>：計算した結果を返す</li>
+      </ul>
+      <p>あとは、③ と ④ でこの関数を使うように書き換えます。</p>
+<div class="code-block"><div class="code-head"><span>script.ts（③ コントローラー）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>// ③ コントローラーのボタンが、ポチポチ光る
+const padButtons = document.querySelectorAll(".pad-button");
+
+setInterval(function (): void {
+<span class="add">  const padButton = padButtons[pickRandomIndex(padButtons.length)];</span>
+  padButton.classList.add("pressed");
+  setTimeout(function (): void {
+    padButton.classList.remove("pressed");
+  }, 200);
+}, 350);</code></pre></div>
+<div class="code-block"><div class="code-head"><span>script.ts（④ ひとこと）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>// ④ ボタンを押すと、ひとことがランダムに変わる
+<span class="add">const messages: string[] = [</span>
+  "最近はエアロピクルスも好きだよ",
+  "スーの歌も好きだよ",
+  "ねずみなんだけど丑年なんでスー"
+];
+<span class="add">const message = document.getElementById("message") as HTMLElement;</span>
+<span class="add">const messageButton = document.getElementById("message-button") as HTMLButtonElement;</span>
+
+messageButton.addEventListener("click", function (): void {
+<span class="add">  message.textContent = messages[pickRandomIndex(messages.length)];</span>
+});</code></pre></div>
+      <div class="note">
+        <strong>関数＋型の組み合わせが強い理由：</strong>
+        <code>pickRandomIndex("4")</code> のように数字ではなく文字を渡したり、返ってきた番号を文字の箱に入れようとしたりすると、TypeScript がすぐに教えてくれます。
+        関数は「たくさんの場所から使われる部品」なので、<b>使い方のルール（型）が書いてある</b>と、他の人が使うときにも迷いません。
+      </div>
+      <p>書き換えが終わった <code>script.ts</code> の全体はこちらです。</p>
+<div class="code-block"><div class="code-head"><span>script.ts</span><button class="copy-btn" type="button">コピー</button></div><pre><code>// 0〜(length - 1) のどれかの番号を、ランダムに選ぶ
+function pickRandomIndex(length: number): number {
+  return Math.floor(Math.random() * length);
+}
+
+// ① 時間帯に合わせて、あいさつを変える
+const greeting = document.getElementById("greeting") as HTMLElement;
+const hour: number = new Date().getHours();
+
+if (hour &lt; 10) {
+  greeting.textContent = "おはようございます！";
+} else if (hour &lt; 18) {
+  greeting.textContent = "こんにちは！";
+} else {
+  greeting.textContent = "こんばんは！";
+}
+
+// ② 鉄棒の人が、くるくる回り続ける
+const person = document.getElementById("person") as HTMLImageElement;
+const tetsubo = document.getElementById("tetsubo") as HTMLElement;
+let angle: number = 0;
+let moving: boolean = true;
+
+setInterval(function (): void {
+  if (moving) {
+    angle = angle + 5;
+    person.style.transform = "rotate(" + angle + "deg)";
+  }
+}, 30);
+
+tetsubo.addEventListener("click", function (): void {
+  moving = !moving;
+});
+
+// ③ コントローラーのボタンが、ポチポチ光る
+const padButtons = document.querySelectorAll(".pad-button");
+
+setInterval(function (): void {
+  const padButton = padButtons[pickRandomIndex(padButtons.length)];
+  padButton.classList.add("pressed");
+  setTimeout(function (): void {
+    padButton.classList.remove("pressed");
+  }, 200);
+}, 350);
+
+// ④ ボタンを押すと、ひとことがランダムに変わる
+const messages: string[] = [
+  "最近はエアロピクルスも好きだよ",
+  "スーの歌も好きだよ",
+  "ねずみなんだけど丑年なんでスー"
+];
+const message = document.getElementById("message") as HTMLElement;
+const messageButton = document.getElementById("message-button") as HTMLButtonElement;
+
+messageButton.addEventListener("click", function (): void {
+  message.textContent = messages[pickRandomIndex(messages.length)];
+});</code></pre></div>
+
+      <!-- ===================== build ===================== -->
+      <h2 id="build">6. JavaScript に変換して動かす</h2>
+      <ol class="steps">
+        <li>
+          <h4>コンパイルする</h4>
+          <p>ターミナルで次のコマンドを実行します。<code>npx</code> は「このフォルダにインストールしたツールを実行する」ためのコマンドです。</p>
+<div class="code-block"><div class="code-head"><span>ターミナル</span><button class="copy-btn" type="button">コピー</button></div><pre><code>npx tsc</code></pre></div>
+          <p>
+            何も表示されずに終われば成功です（エラーがあると、ここで表示されます）。<code>portfolio</code> フォルダに、変換された
+            <b><code>script.js</code></b> ができています。
+          </p>
+        </li>
+        <li>
+          <h4>ブラウザで確認する</h4>
+          <p>
+            <code>index.html</code> を Chrome で開きます。<code>index.html</code> は<b>何も変えていません</b>。
+            これまでどおり <code>script.js</code> を読み込むので、鉄棒もコントローラーもひとことも、Lesson 9 と同じように動けば成功です。
+          </p>
+        </li>
+      </ol>
+      <p>できあがった <code>script.js</code> の最初のほうを見てみると、<code>: number</code> や <code>as HTMLElement</code> などの型の部分が、きれいに消えているのがわかります。</p>
+<div class="code-block"><div class="code-head"><span>script.js（コンパイルで作られたファイルの一部）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>"use strict";
+// 0〜(length - 1) のどれかの番号を、ランダムに選ぶ
+function pickRandomIndex(length) {
+    return Math.floor(Math.random() * length);
+}
+// ① 時間帯に合わせて、あいさつを変える
+const greeting = document.getElementById("greeting");
+const hour = new Date().getHours();</code></pre></div>
+      <div class="note">
+        <strong>注意：</strong>
+        これからは <b><code>script.ts</code> の方を編集</b>します。<code>script.js</code> はコンパイルのたびに上書きされるので、直接書き換えても消えてしまいます。
+        <code>script.ts</code> を直したら、そのたびに <code>npx tsc</code> を実行しましょう。
+      </div>
+
+      <h3>毎回コマンドを打つのが面倒なら</h3>
+      <p>次のコマンドを実行しておくと、<code>script.ts</code> を保存するたびに自動でコンパイルしてくれます（止めるときは <kbd>Ctrl</kbd> + <kbd>C</kbd>）。</p>
+<div class="code-block"><div class="code-head"><span>ターミナル</span><button class="copy-btn" type="button">コピー</button></div><pre><code>npx tsc --watch</code></pre></div>
+      <p>
+        さらに、<code>package.json</code> の <code>"scripts"</code> を次のように書き換えておくと、<code>npm run build</code>（1回変換）・<code>npm run watch</code>（自動で変換）という短い名前で実行できます。
+        多くの開発現場で使われている書き方です。
+      </p>
+<div class="code-block"><div class="code-head"><span>package.json（&quot;scripts&quot; の部分）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>  "scripts": {
+<span class="add">    "build": "tsc",</span>
+<span class="add">    "watch": "tsc --watch"</span>
+  },</code></pre></div>
+      <p>最終的なフォルダの中身はこうなります。</p>
+<div class="code-block"><div class="code-head"><span>フォルダの構成</span><button class="copy-btn" type="button">コピー</button></div><pre><code>portfolio/
+├── index.html
+├── style.css
+<span class="add">├── script.ts       ← TypeScript（これを編集する）</span>
+<span class="add">├── script.js       ← tsc が作る JavaScript（直接編集しない）</span>
+<span class="add">├── tsconfig.json   ← TypeScript の設定</span>
+<span class="add">├── package.json    ← npm の設定</span>
+<span class="add">├── node_modules/   ← ダウンロードしたツール（触らない）</span>
+└── images/</code></pre></div>
+
+      <!-- ===================== try ===================== -->
+      <h2 id="try">7. わざと間違えてみよう</h2>
+      <p>TypeScript のありがたみを体験するために、<code>script.ts</code> の ② の部分を、わざと次のように書き換えてみてください。</p>
+<div class="code-block"><div class="code-head"><span>script.ts（② の中を、わざと間違える）</span><button class="copy-btn" type="button">コピー</button></div><pre><code><span class="add">    angle = angle + "5";</span></code></pre></div>
+      <p>すぐに VS Code が赤い波線を出し、<code>npx tsc</code> を実行すると次のエラーが表示されます。</p>
+<div class="code-block"><div class="code-head"><span>ターミナル</span><button class="copy-btn" type="button">コピー</button></div><pre><code>script.ts(26,5): error TS2322: Type 'string' is not assignable to type 'number'.</code></pre></div>
+      <p class="muted">VS Code の日本語表示では「型 'string' を型 'number' に割り当てることはできません。」と表示されます。<code>(26,5)</code> は「26行目の5文字目」という意味です（行番号は書き方によって変わります）。</p>
+      <p>
+        「数字専用の箱（<code>angle</code>）に、文字（<code>"5"</code>）をくっつけたものは入れられません」という意味です。
+        JavaScript だと、エラーにならずに <code>0</code> と <code>"5"</code> がくっついて <code>"05"</code> という文字になり、
+        「なぜか鉄棒の人の回り方がおかしい……」という<b>原因のわかりにくいバグ</b>になってしまいます。
+      </p>
+      <aside class="aside">
+        <p>
+          JavaScript だと、変な動きの原因を探してコンソールとにらめっこすること30分。TypeScript だと、書いた瞬間に赤い波線。
+          この「30分」が毎日・全員ぶん積み重なると……現場で TypeScript が選ばれる理由がわかりますね。
+        </p>
+      </aside>
+      <p>確認できたら、<code>angle = angle + 5;</code> に戻しておきましょう。</p>
+
+      <h3>Claude Code にも聞いてみよう</h3>
+      <p>型のエラーは、慣れるまでメッセージが難しく感じます。そんなときは Claude Code に聞いてみましょう。</p>
+<div class="code-block"><div class="code-head"><span>Claude Code への質問の例</span><button class="copy-btn" type="button">コピー</button></div><pre><code>script.ts で「'greeting' は 'null' の可能性があります。」というエラーが出ました。
+どういう意味か、初心者にもわかるように説明してください。直し方は2通り教えてください。</code></pre></div>
+
+      <!-- ===================== クイズ ===================== -->
+      <h2 id="quiz">確認クイズ</h2>
+      <p class="muted">選択肢をクリックしてください。</p>
+      <div class="quiz">
+        <div class="q" data-answer="型" data-explain="TypeScript は、JavaScript に「型」というルールを足した言語です。">
+          <p>Q1. TypeScript は、JavaScript に何を足した言語？</p>
+          <div class="choices"><button type="button">色</button><button type="button">型</button><button type="button">画像</button><button type="button">データベース</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="boolean" data-explain="true（はい）か false（いいえ）を入れる箱の型は boolean です。">
+          <p>Q2. <code>let moving = true;</code> の <code>moving</code> に付ける型は？</p>
+          <div class="choices"><button type="button">number</button><button type="button">string</button><button type="button">boolean</button><button type="button">void</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="JavaScript に変換する" data-explain="ブラウザは TypeScript を直接読めないので、tsc で JavaScript に変換（コンパイル）してから使います。">
+          <p>Q3. ブラウザで TypeScript のコードを動かすには、どうする？</p>
+          <div class="choices"><button type="button">そのまま読み込む</button><button type="button">JavaScript に変換する</button><button type="button">CSS に書く</button><button type="button">ファイル名を .html にする</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="script.ts" data-explain="script.js はコンパイルのたびに作り直されるので、編集するのは script.ts です。">
+          <p>Q4. TypeScript にしたあと、プログラムを直したいときに編集するファイルは？</p>
+          <div class="choices"><button type="button">script.js</button><button type="button">script.ts</button><button type="button">tsconfig.json</button><button type="button">node_modules</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="書いている最中" data-explain="TypeScript では、VS Code がコードを書いている最中に赤い波線で間違いを教えてくれます。">
+          <p>Q5. TypeScript を使うと、型の間違いにいつ気づける？</p>
+          <div class="choices"><button type="button">書いている最中</button><button type="button">お客様に指摘されたとき</button><button type="button">リリースした後</button><button type="button">気づけない</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <!-- ===================== まとめ ===================== -->
+      <h2>まとめ</h2>
+      <ul>
+        <li>TypeScript は、JavaScript に<b>「型」というラベル</b>を足した言語。<code>number</code>・<code>string</code>・<code>boolean</code> などがある。</li>
+        <li>型があると、<b>書いている最中に</b>間違いに気づける。大人数・大規模な開発ほど効果が大きい。</li>
+        <li>ブラウザは TypeScript を読めないので、<b>tsc で JavaScript にコンパイル</b>してから使う。</li>
+        <li>準備は <b>Node.js</b> → <code>npm init -y</code> → <code>npm install --save-dev typescript</code> → <code>tsconfig.json</code>。</li>
+        <li>編集するのは <code>script.ts</code>。直したら <code>npx tsc</code>（または <code>npx tsc --watch</code>）。</li>
+        <li>同じ処理は<b>関数</b>にまとめ、引数と戻り値に型を付けると、安全で使いやすい部品になる。</li>
+      </ul>
+
+      <nav class="pager">
+        <a href="portfolio-js.html">← Lesson 9：ポートフォリオ③ JavaScript</a>
+        <a href="../index.html">レッスン一覧へ →</a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">ITK Educate — 社内向け教材</div>
+  </footer>
+</body>
+</html>
