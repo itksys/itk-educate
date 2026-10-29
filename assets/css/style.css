@@ -1205,3 +1205,43 @@ kbd {
   .stack-row { grid-template-columns: 1fr; gap: 6px; }
   .stack-row.child { margin-left: 16px; }
 }
+
+/* ---------- 課題（成果物の提出） ---------- */
+
+.assignment-badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.6;
+  padding: 1px 10px;
+  border-radius: 999px;
+  background: var(--embedded);
+  color: #fff;
+  margin-left: 8px;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.eyebrow + .assignment-badge { margin-left: 4px; position: relative; top: -4px; }
+
+.lesson h3 .assignment-badge { position: relative; top: -2px; }
+
+.assignment {
+  border: 2px solid var(--embedded);
+  background: var(--embedded-soft);
+  border-radius: var(--radius);
+  padding: 8px 24px 20px;
+  margin: 48px 0 24px;
+}
+
+.assignment h2 { margin-top: 16px; color: var(--embedded); }
+
+.assignment h3 { margin-top: 20px; }
+
+.assignment .sub { background: var(--surface); }
+
+.checklist { list-style: none; padding: 0; margin: 8px 0; }
+
+.checklist li { display: flex; gap: 10px; align-items: flex-start; padding: 4px 0; }
+
+.checklist input { margin-top: 7px; accent-color: var(--embedded); flex: none; }

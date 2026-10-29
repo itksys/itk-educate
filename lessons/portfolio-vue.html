@@ -31,7 +31,7 @@
   <main>
     <div class="container">
       <section class="hero">
-        <span class="eyebrow">LESSON 12</span>
+        <span class="eyebrow">LESSON 12</span><span class="assignment-badge">課題あり！</span>
         <h1>ポートフォリオを<br>Vue.js にしよう</h1>
         <p class="lead">
           Lesson 10 で TypeScript にしたポートフォリオを、<a href="languages-and-frameworks.html">Lesson 11</a> で学んだ<strong>フレームワーク</strong>の1つ、
@@ -58,6 +58,7 @@
           <li><a href="#run">動かしてみる・公開用にまとめる</a></li>
           <li><a href="#compare">As-Is / To-Be で振り返る</a></li>
           <li><a href="#quiz">確認クイズ</a></li>
+          <li><a href="#assignment">課題：成果物の提出</a></li>
         </ol>
       </nav>
 
@@ -604,6 +605,74 @@ const greeting: string = getGreeting(new Date().getHours())
         HTML・CSS・JavaScript・TypeScript、そしてフレームワーク。Lesson 5 の「Hello World!」から、ついに現場と同じ道具立てまでたどり着きました。
         ここまで来れば、実際のプロジェクトのコードを見ても「あ、これは部品だな」「ここでデータを変えているな」と読み解けるはずです。
       </p>
+
+      <!-- ===================== 課題 ===================== -->
+      <section class="assignment" id="assignment">
+        <h2>課題：Vue.js 版のポートフォリオを提出しよう<span class="assignment-badge">課題あり！</span></h2>
+        <p>Lesson 10 の TypeScript 版と、このレッスンの Vue.js 版の<b>2つのプロジェクト</b>を、まとめて提出してください。</p>
+        <h3>課題の内容</h3>
+        <ul>
+          <li>Lesson 9 の課題で作った自分の内容（名前・画像・メッセージなど）を、Vue.js 版にも反映する</li>
+          <li><code>ProfileCard</code> を使って、新しいカード（例：「好きな食べ物」）を1枚以上追加する</li>
+          <li><code>npm run build</code> が、エラーなく最後まで成功することを確認する</li>
+          <li>（チャレンジ）新しいカードの中身を、自分で作った部品（<code>.vue</code> ファイル）にしてみる</li>
+        </ul>
+      <h3>提出前のチェックリスト</h3>
+      <ul class="checklist">
+          <li><input type="checkbox" aria-label="チェック"><span><code>npm run dev</code> で開いたページが、正しく表示されて動く</span></li>
+          <li><input type="checkbox" aria-label="チェック"><span><code>npm run build</code> がエラーなく成功する</span></li>
+          <li><input type="checkbox" aria-label="チェック"><span>提出用のフォルダに <code>portfolio</code>（TypeScript 版）と <code>portfolio-vue</code>（Vue.js 版）の2つが入っている</span></li>
+          <li><input type="checkbox" aria-label="チェック"><span>提出用のフォルダの中に <code>node_modules</code> が残っていない</span></li>
+      </ul>
+      <h3>提出のしかた</h3>
+      <ol class="steps">
+        <li>
+          <h4>提出用のフォルダを作る</h4>
+          <p>デスクトップなどに、<code>Lesson12_氏名</code> という名前のフォルダを作ります（例：<code>Lesson12_YamadaTaro</code>）。</p>
+        </li>
+        <li>
+          <h4>プロジェクトのフォルダをコピーして入れる</h4>
+          <p>Lesson 10 の <code>portfolio</code> フォルダと、このレッスンの <code>portfolio-vue</code> フォルダの<b>2つ</b>を、提出用のフォルダにコピーします。</p>
+        </li>
+        <li>
+          <h4>node_modules フォルダを削除する</h4>
+          <p>
+            コピーした <b>提出用のフォルダの中の</b> <code>portfolio</code> と <code>portfolio-vue</code> から、<code>node_modules</code> フォルダを削除します。
+            <code>node_modules</code> はとても大きい（数万ファイルになることも）うえに、<code>npm install</code> でいつでも作り直せるので、提出には含めません。
+          </p>
+          <p class="muted">元のフォルダの <code>node_modules</code> は消さないでください。消してしまった場合は、そのフォルダで <code>npm install</code> を実行すれば元に戻ります。</p>
+        </li>
+        <li>
+          <h4>zip ファイルにまとめる</h4>
+          <p>
+            提出用のフォルダを右クリック →「圧縮先」→「ZIP ファイル」を選びます（Windows 10 の場合は「送る」→「圧縮（zip 形式）フォルダー」）。
+            同じ場所に <code>Lesson12_氏名.zip</code> ができます。
+          </p>
+        </li>
+        <li>
+          <h4>共有する</h4>
+          <p>できた zip ファイルを、<b>講師・担当者から案内された共有先</b>にアップロードして提出します。</p>
+        </li>
+      </ol>
+      <p class="muted">提出する前に、zip ファイルをダブルクリックして中身を開き、必要なファイルがそろっているか確認しておくと安心です。</p>
+        <p>提出用のフォルダの中身は、次のようになります。</p>
+        <div class="code-block"><div class="code-head"><span>Lesson12_氏名 の中身</span></div><pre><code>Lesson12_氏名/
+├── portfolio/          ← Lesson 10 の TypeScript 版
+│   ├── index.html
+│   ├── style.css
+│   ├── script.ts
+│   ├── script.js
+│   ├── tsconfig.json
+│   ├── package.json
+│   └── images/
+└── portfolio-vue/      ← Lesson 12 の Vue.js 版
+    ├── index.html
+    ├── package.json
+    ├── vite.config.ts
+    ├── tsconfig.json など
+    └── src/
+<span class="del">    （node_modules は入れない）</span></code></pre></div>
+      </section>
 
       <nav class="pager">
         <a href="languages-and-frameworks.html">← Lesson 11：言語・フレームワーク・ライブラリ</a>
