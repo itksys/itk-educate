@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RL7F0Z4L2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-RL7F0Z4L2R');
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ポートフォリオを Vue.js にしよう | ITK Educate</title>
+  <meta name="description" content="フレームワークとは何かを学び、TypeScript 版のポートフォリオを Vue.js（Vite ＋ Vue 3 ＋ TypeScript）で作り直すレッスン。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">ITK <span>Educate</span></a>
+      <div class="header-actions">
+        <a href="../index.html">レッスン一覧</a>
+        <button class="theme-toggle" type="button">☾ ダーク</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <span class="eyebrow">LESSON 12</span>
+        <h1>ポートフォリオを<br>Vue.js にしよう</h1>
+        <p class="lead">
+          Lesson 10 で TypeScript にしたポートフォリオを、<a href="languages-and-frameworks.html">Lesson 11</a> で学んだ<strong>フレームワーク</strong>の1つ、
+          <strong>Vue.js（ビュー・ジェイエス）</strong>で作り直します。
+          最後には、現場と同じ形のプロジェクトで動かすところまで進みます。
+        </p>
+      </section>
+
+      <aside class="aside">
+        <p>
+          ここまでのポートフォリオは、いわば<b>手作りの一軒家</b>。柱を立てて、壁を貼って、配線もぜんぶ自分でやってきました。
+          今回は<b>ハウスメーカーの工法</b>を使って建て直します。「え、3回目の建て直し……？」という声が聞こえてきそうですが、
+          今回がいちばん「プロの現場っぽさ」を味わえる回です。
+        </p>
+      </aside>
+
+      <nav class="toc" aria-label="目次">
+        <strong>このページの内容</strong>
+        <ol>
+          <li><a href="#vue">Vue.js の考え方</a></li>
+          <li><a href="#create">Vue のプロジェクトを作る</a></li>
+          <li><a href="#move">これまでのファイルを引っ越す</a></li>
+          <li><a href="#components">部品（コンポーネント）に分けて書く</a></li>
+          <li><a href="#run">動かしてみる・公開用にまとめる</a></li>
+          <li><a href="#compare">As-Is / To-Be で振り返る</a></li>
+          <li><a href="#quiz">確認クイズ</a></li>
+        </ol>
+      </nav>
+
+      <div class="note">
+        <strong>Lesson 11 のおさらい：</strong>
+        フレームワークは「作り方の型」と便利な機能のセット。決まった型の中に、自分のコードを書き込んでいきます。
+        Vue.js は、HTML に近い書き方で学びやすい、画面（フロントエンド）のフレームワークです。
+      </div>
+
+      <!-- ===================== Vue の考え方 ===================== -->
+      <h2 id="vue">1. Vue.js の考え方</h2>
+      <h3>考え方①：データを変えると、画面が勝手に変わる</h3>
+      <p>
+        Lesson 9・10 では、画面を変えたいとき<b>「HTML の中から探して（getElementById）、書き換える（textContent）」</b>という2段階の作業をしていました。
+        Vue では、<b>データ（箱の中身）を変えるだけ</b>で、そのデータを表示している画面が自動で書き換わります。これを<b>リアクティブ</b>と呼びます。
+      </p>
+      <div class="asis-tobe">
+<div class="code-block"><div class="code-head"><span>Lesson 10：探して、書き換える</span><button class="copy-btn" type="button">コピー</button></div><pre><code>const message = document.getElementById("message") as HTMLElement;
+
+// 画面のどこを変えるか探してから、文字を書き換える
+message.textContent = "スーの歌も好きだよ";</code></pre></div>
+        <div class="asis-tobe-arrow" aria-hidden="true">→</div>
+<div class="code-block"><div class="code-head"><span>Lesson 12（Vue）：データを変えるだけ</span><button class="copy-btn" type="button">コピー</button></div><pre><code>const message = ref&lt;string&gt;("下のボタンを押してみてね。");
+
+// データを変えるだけ。画面は Vue が書き換えてくれる
+message.value = "スーの歌も好きだよ";
+
+&lt;!-- 画面（HTML）側には「ここに message を表示」と書いておく --&gt;
+&lt;p&gt;{{ message }}&lt;/p&gt;</code></pre></div>
+      </div>
+      <p class="muted">
+        たとえるなら、Lesson 10 は「掲示板の前まで歩いて行って、紙を貼り替える」やり方。Vue は「デジタルサイネージ」で、元のデータを変えれば、表示はすべて自動で切り替わります。
+      </p>
+
+      <h3>考え方②：画面を部品（コンポーネント）に分けて作る</h3>
+      <p>
+        Vue では、画面を<b>コンポーネント</b>という部品に分けて作ります。1つの部品は、1つの <code>.vue</code> ファイルに、
+        <b>その部品の動き（script）と見た目（template）をセットで</b>書きます。今回のポートフォリオは、こんな部品に分けます。
+      </p>
+      <figure class="figure">
+        <div class="flow">
+          <div class="col"><div class="box cat-web"><b>App.vue</b>ページ全体<br>（あいさつ・カードを並べる）</div></div>
+          <div class="arrow">→</div>
+          <div class="col"><div class="box cat-desktop"><b>ProfileCard.vue</b>カードの枠<br>（3回使い回す）</div></div>
+          <div class="arrow">→</div>
+          <div class="col">
+            <div class="box cat-mobile"><b>TetsuboAnimation.vue</b>鉄棒アニメーション</div>
+            <div class="box cat-mobile"><b>GameController.vue</b>コントローラー</div>
+            <div class="box cat-mobile"><b>RandomMessage.vue</b>ひとこと</div>
+          </div>
+        </div>
+        <figcaption>レゴブロックのように、小さな部品を組み合わせてページを作ります。カードの枠（ProfileCard）は、中身を変えて3回使い回しています。</figcaption>
+      </figure>
+
+      <!-- ===================== create ===================== -->
+      <h2 id="create">2. Vue のプロジェクトを作る</h2>
+      <p>
+        Vue のアプリは、<b>Vite（ヴィート）</b>という開発用ツールと組み合わせて作るのが標準です。Vite は、書いたコードをすぐにブラウザで確認できるようにしたり、
+        公開用のファイルにまとめたりしてくれます。準備には Lesson 10 で入れた <b>Node.js</b> を使います。
+      </p>
+      <ol class="steps">
+        <li>
+          <h4>作業する場所でターミナルを開く</h4>
+          <p>
+            VS Code の「ファイル」→「フォルダーを開く」で、<code>portfolio</code> フォルダがある場所（デスクトップなど）を開き、
+            「ターミナル」→「新しいターミナル」を選びます。新しいプロジェクトは、<code>portfolio</code> とは別のフォルダとして作ります。
+          </p>
+        </li>
+        <li>
+          <h4>プロジェクトを作るコマンドを実行する</h4>
+<div class="code-block"><div class="code-head"><span>ターミナル</span><button class="copy-btn" type="button">コピー</button></div><pre><code>npm create vue@latest</code></pre></div>
+          <p class="muted">「Need to install the following packages … Ok to proceed?」と聞かれたら、<kbd>y</kbd> を押して <kbd>Enter</kbd>。</p>
+        </li>
+        <li>
+          <h4>質問に答える</h4>
+          <p>いくつか英語で質問されるので、次のように答えます。矢印キーで選び、<kbd>Enter</kbd> で決定です。</p>
+          <div class="table-wrap">
+            <table style="min-width: 520px;">
+              <thead><tr><th>質問</th><th>答え</th></tr></thead>
+              <tbody>
+                <tr><td>Project name（プロジェクト名）</td><td><code>portfolio-vue</code> と入力</td></tr>
+                <tr><td>Use TypeScript?（TypeScript を使う？）</td><td><b>Yes</b>（Lesson 10 の続きなので）</td></tr>
+                <tr><td>Select features to include in your project（追加する機能）</td><td>何も選ばずに <kbd>Enter</kbd></td></tr>
+                <tr><td>Select experimental features to include in your project（実験的な機能）</td><td>何も選ばずに <kbd>Enter</kbd></td></tr>
+                <tr><td>Skip all example code and start with a blank Vue project?（サンプルを省いて空のプロジェクトにする？）</td><td><b>Yes</b></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="muted">質問の内容や順番は、ツールのバージョンによって少し変わることがあります。</p>
+        </li>
+        <li>
+          <h4>必要なツールをインストールして、起動する</h4>
+          <p>画面に表示されるとおり、次の3つを順番に実行します。</p>
+<div class="code-block"><div class="code-head"><span>ターミナル</span><button class="copy-btn" type="button">コピー</button></div><pre><code>cd portfolio-vue
+npm install
+npm run dev</code></pre></div>
+          <p>
+            <code>http://localhost:5173/</code> のようなアドレスが表示されたら、<kbd>Ctrl</kbd> を押しながらクリックします。
+            ブラウザに「You did it!」と表示されれば、Vue のプロジェクトが動いています。
+          </p>
+        </li>
+        <li>
+          <h4>VS Code で portfolio-vue フォルダを開き直す</h4>
+          <p>
+            「ファイル」→「フォルダーを開く」で <code>portfolio-vue</code> を開きます。右下に「推奨の拡張機能をインストールしますか？」と出たら
+            「インストール」を押してください（<b>Vue (Official)</b> という拡張機能で、<code>.vue</code> ファイルを色分けして、間違いを教えてくれます）。
+          </p>
+        </li>
+      </ol>
+      <div class="note">
+        <strong>localhost とは：</strong>
+        「自分のパソコン」という意味の特別な名前です。<code>npm run dev</code> を実行している間だけ、<b>自分のパソコンの中に小さな Web サーバー</b>が立ち上がり、
+        そこにブラウザでアクセスしています（<a href="how-apps-work.html#cs">Lesson 2</a> のクライアントとサーバーが、1台の中にいるイメージ）。
+        ターミナルで <kbd>Ctrl</kbd> + <kbd>C</kbd> を押すと止まります。
+      </div>
+
+      <p>作られたプロジェクトのうち、今回さわるのは次のファイルです。</p>
+<div class="code-block"><div class="code-head"><span>portfolio-vue のフォルダの構成（主なもの）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>portfolio-vue/
+├── index.html        ← ページの入り口（ほぼそのまま）
+├── package.json      ← npm の設定（dev・build などのコマンド）
+├── vite.config.ts    ← Vite の設定
+├── tsconfig.json など ← TypeScript の設定（さわらない）
+├── node_modules/     ← ダウンロードしたツール（さわらない）
+└── src/
+    ├── main.ts       ← アプリを起動するファイル
+    └── App.vue       ← いちばん外側の部品（ページ全体）</code></pre></div>
+
+      <!-- ===================== move ===================== -->
+      <h2 id="move">3. これまでのファイルを引っ越す</h2>
+      <ol class="steps">
+        <li>
+          <h4>CSS と画像をコピーする</h4>
+          <p>
+            Lesson 10 の <code>portfolio</code> フォルダから、<code>style.css</code> を <code>portfolio-vue/src/</code> に、
+            <code>images</code> フォルダの中身を <code>portfolio-vue/src/assets/images/</code> にコピーします（<code>assets/images</code> フォルダは自分で作ります）。
+            CSS は<b>1文字も変えずに</b>そのまま使えます。
+          </p>
+<div class="code-block"><div class="code-head"><span>フォルダの構成</span><button class="copy-btn" type="button">コピー</button></div><pre><code>portfolio-vue/
+└── src/
+<span class="add">    ├── style.css            ← portfolio からコピー</span>
+<span class="add">    └── assets/</span>
+<span class="add">        └── images/          ← portfolio の images の中身をコピー</span>
+<span class="add">            ├── tetsubo-bar.svg</span>
+<span class="add">            ├── person.svg</span>
+<span class="add">            └── game-base.svg</span></code></pre></div>
+        </li>
+        <li>
+          <h4>main.ts で CSS を読み込む</h4>
+          <p>Lesson 8 では HTML の <code>&lt;link&gt;</code> で CSS を読み込みましたが、Vue のプロジェクトでは <code>main.ts</code> に1行書いて読み込みます。</p>
+<div class="code-block"><div class="code-head"><span>src/main.ts</span><button class="copy-btn" type="button">コピー</button></div><pre><code>import { createApp } from 'vue'
+import App from './App.vue'
+import './style.css'
+
+createApp(App).mount('#app')</code></pre></div>
+          <p class="muted"><code>createApp(App).mount('#app')</code> は「App という部品を、index.html の <code>id="app"</code> の場所に表示してね」という意味です。</p>
+        </li>
+        <li>
+          <h4>index.html のタイトルを直す</h4>
+          <p><code>index.html</code> の <code>lang=""</code> を <code>lang="ja"</code> に、<code>&lt;title&gt;</code> を自分のサイト名に書き換えます。中身の <code>&lt;div id="app"&gt;&lt;/div&gt;</code> は空のままでOK。ここに Vue が画面を描きます。</p>
+<div class="code-block"><div class="code-head"><span>index.html</span><button class="copy-btn" type="button">コピー</button></div><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;link rel="icon" href="/favicon.ico"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Mayu Takahashi Portfolio&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id="app"&gt;&lt;/div&gt;
+    &lt;script type="module" src="/src/main.ts"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+        </li>
+      </ol>
+
+      <!-- ===================== components ===================== -->
+      <h2 id="components">4. 部品（コンポーネント）に分けて書く</h2>
+      <p>
+        <code>.vue</code> ファイルは、<b>上が <code>&lt;script setup lang="ts"&gt;</code>（動き・TypeScript）</b>、
+        <b>下が <code>&lt;template&gt;</code>（見た目・HTML）</b>という2つのパートでできています。1つずつ作っていきましょう。
+        <code>src</code> の中に <code>components</code> フォルダと <code>utils</code> フォルダを作っておきます。
+      </p>
+
+      <h3>部品0：ランダムに番号を選ぶ関数（utils/pickRandomIndex.ts）</h3>
+      <p>Lesson 10 で作った関数を、別のファイルに切り出します。<code>export</code> を付けると、他のファイルから <code>import</code> して使えるようになります。</p>
+<div class="code-block"><div class="code-head"><span>src/utils/pickRandomIndex.ts</span><button class="copy-btn" type="button">コピー</button></div><pre><code>// 0〜(length - 1) のどれかの番号を、ランダムに選ぶ
+export function pickRandomIndex(length: number): number {
+  return Math.floor(Math.random() * length)
+}</code></pre></div>
+      <p class="muted">Vue のプロジェクトでは、行の最後の <code>;</code> を省略する書き方が一般的です（付けても動きます）。</p>
+
+      <h3>部品1：カードの枠（components/ProfileCard.vue）</h3>
+      <p>3つのカードに共通の「枠」を、使い回せる部品にします。</p>
+<div class="code-block"><div class="code-head"><span>src/components/ProfileCard.vue</span><button class="copy-btn" type="button">コピー</button></div><pre><code>&lt;script setup lang="ts"&gt;
+// 親（App.vue）から受け取るデータ
+defineProps&lt;{
+  title: string
+  text?: string
+}&gt;()
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;section class="card"&gt;
+    &lt;h2&gt;{{ title }}&lt;/h2&gt;
+    &lt;p v-if="text"&gt;{{ text }}&lt;/p&gt;
+    &lt;slot&gt;&lt;/slot&gt;
+  &lt;/section&gt;
+&lt;/template&gt;</code></pre></div>
+      <div class="table-wrap">
+        <table style="min-width: 560px;">
+          <thead><tr><th>書き方</th><th>意味</th></tr></thead>
+          <tbody>
+            <tr><td><code>defineProps&lt;{ title: string; text?: string }&gt;()</code></td><td>この部品を使う側から受け取るデータ（<b>props</b>）。<code>title</code> は文字で必須、<code>text</code> は <code>?</code> が付いているので省略してもよい</td></tr>
+            <tr><td><code>{{ title }}</code></td><td>受け取った <code>title</code> を、ここに表示する</td></tr>
+            <tr><td><code>v-if="text"</code></td><td><code>text</code> があるときだけ、この <code>&lt;p&gt;</code> を表示する</td></tr>
+            <tr><td><code>&lt;slot&gt;&lt;/slot&gt;</code></td><td>使う側が中に入れたもの（鉄棒やコントローラーの部品）を、ここに差し込む</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted">props は「注文票」、slot は「お弁当箱の空いたスペース」のイメージです。枠は同じでも、注文票と中身を変えれば別のお弁当になります。</p>
+
+      <h3>部品2：鉄棒アニメーション（components/TetsuboAnimation.vue）</h3>
+<div class="code-block"><div class="code-head"><span>src/components/TetsuboAnimation.vue</span><button class="copy-btn" type="button">コピー</button></div><pre><code>&lt;script setup lang="ts"&gt;
+import { ref, onMounted, onUnmounted } from 'vue'
+
+// ② 鉄棒の人が、くるくる回り続ける
+const angle = ref&lt;number&gt;(0)
+const moving = ref&lt;boolean&gt;(true)
+let timer: number = 0
+
+onMounted(function (): void {
+  timer = window.setInterval(function (): void {
+    if (moving.value) {
+      angle.value = angle.value + 5
+    }
+  }, 30)
+})
+
+onUnmounted(function (): void {
+  window.clearInterval(timer)
+})
+
+function toggle(): void {
+  moving.value = !moving.value
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class="stage" id="tetsubo" @click="toggle"&gt;
+    &lt;img src="../assets/images/tetsubo-bar.svg" alt="鉄棒のイラスト"&gt;
+    &lt;img
+      src="../assets/images/person.svg"
+      alt=""
+      class="person"
+      :style="{ transform: 'rotate(' + angle + 'deg)' }"
+    &gt;
+  &lt;/div&gt;
+  &lt;p class="hint"&gt;イラストをクリックすると、止まったり動いたりします。&lt;/p&gt;
+&lt;/template&gt;</code></pre></div>
+      <div class="table-wrap">
+        <table style="min-width: 600px;">
+          <thead><tr><th>書き方</th><th>意味</th></tr></thead>
+          <tbody>
+            <tr><td><code>import { ref, onMounted, onUnmounted } from 'vue'</code></td><td>Vue の機能のうち、使うものを読み込む</td></tr>
+            <tr><td><code>const angle = ref&lt;number&gt;(0)</code></td><td><b>画面と連動する箱</b>を作る（中身は数字で、最初は 0）。script の中では <code>angle.value</code> で中身を読み書きする</td></tr>
+            <tr><td><code>onMounted( … )</code></td><td>この部品が<b>画面に表示されたとき</b>に実行する。ここでアニメーションを始める</td></tr>
+            <tr><td><code>onUnmounted( … )</code></td><td>この部品が<b>画面から消えるとき</b>に実行する。ここでアニメーションを止めて後片付けをする</td></tr>
+            <tr><td><code>@click="toggle"</code></td><td>クリックされたら <code>toggle</code> 関数を実行する（Lesson 9 の <code>addEventListener("click", …)</code> と同じ）</td></tr>
+            <tr><td><code>:style="{ transform: 'rotate(' + angle + 'deg)' }"</code></td><td><code>angle</code> の値を使って、回転のスタイルを付ける。<code>angle</code> が変わると、自動で回転も変わる</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        <strong>ポイント：</strong>
+        Lesson 10 では <code>person.style.transform = …</code> と、画面を直接書き換えていました。Vue 版のタイマーは <b><code>angle.value</code> を5増やしているだけ</b>。
+        画面の書き換えは Vue が引き受けてくれています。これが「1章の考え方①」のリアクティブです。
+        なお template の中では <code>.value</code> を付けずに <code>angle</code> と書けます。
+      </div>
+
+      <h3>部品3：コントローラー（components/GameController.vue）</h3>
+<div class="code-block"><div class="code-head"><span>src/components/GameController.vue</span><button class="copy-btn" type="button">コピー</button></div><pre><code>&lt;script setup lang="ts"&gt;
+import { ref, onMounted, onUnmounted } from 'vue'
+import { pickRandomIndex } from '../utils/pickRandomIndex'
+
+// ③ コントローラーのボタンが、ポチポチ光る
+const colors: string[] = ['red', 'yellow', 'green', 'blue']
+const pressedIndex = ref&lt;number&gt;(-1) // 光っているボタンの番号（-1 はどれも光っていない）
+let timer: number = 0
+
+onMounted(function (): void {
+  timer = window.setInterval(function (): void {
+    pressedIndex.value = pickRandomIndex(colors.length)
+    window.setTimeout(function (): void {
+      pressedIndex.value = -1
+    }, 200)
+  }, 350)
+})
+
+onUnmounted(function (): void {
+  window.clearInterval(timer)
+})
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class="stage"&gt;
+    &lt;img src="../assets/images/game-base.svg" alt="ゲームのコントローラーのイラスト"&gt;
+    &lt;span
+      v-for="(color, index) in colors"
+      :key="color"
+      class="pad-button"
+      :class="[color, { pressed: index === pressedIndex }]"
+    &gt;&lt;/span&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre></div>
+      <div class="table-wrap">
+        <table style="min-width: 600px;">
+          <thead><tr><th>書き方</th><th>意味</th></tr></thead>
+          <tbody>
+            <tr><td><code>const pressedIndex = ref&lt;number&gt;(-1)</code></td><td>今光っているボタンの番号を入れる箱。<code>-1</code> は「どれも光っていない」</td></tr>
+            <tr><td><code>v-for="(color, index) in colors"</code></td><td><code>colors</code> のリストの数（4つ）だけ、<code>&lt;span&gt;</code> を<b>くり返し作る</b>。HTML にボタンを4回書かなくてよい</td></tr>
+            <tr><td><code>:key="color"</code></td><td>くり返し作る1つ1つに付ける、見分けるための名前（<code>v-for</code> とセットで書くお約束）</td></tr>
+            <tr><td><code>:class="[color, { pressed: index === pressedIndex }]"</code></td><td>色の名札（<code>red</code> など）を付け、さらに「自分の番号が <code>pressedIndex</code> と同じなら <code>pressed</code> の名札も付ける」</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Lesson 10 では <code>classList.add("pressed")</code> → <code>classList.remove("pressed")</code> と、名札を手で付け外ししていました。
+        Vue 版は <b><code>pressedIndex</code> の番号を変えるだけ</b>で、どのボタンに名札を付けるかは Vue が判断してくれます。
+      </p>
+
+      <h3>部品4：ひとこと（components/RandomMessage.vue）</h3>
+<div class="code-block"><div class="code-head"><span>src/components/RandomMessage.vue</span><button class="copy-btn" type="button">コピー</button></div><pre><code>&lt;script setup lang="ts"&gt;
+import { ref } from 'vue'
+import { pickRandomIndex } from '../utils/pickRandomIndex'
+
+// ④ ボタンを押すと、ひとことがランダムに変わる
+const messages: string[] = [
+  '最近はエアロピクルスも好きだよ',
+  'スーの歌も好きだよ',
+  'ねずみなんだけど丑年なんでスー'
+]
+const message = ref&lt;string&gt;('下のボタンを押してみてね。')
+
+function showMessage(): void {
+  const picked = messages[pickRandomIndex(messages.length)]
+  if (picked) {
+    message.value = picked
+  }
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;p id="message"&gt;{{ message }}&lt;/p&gt;
+  &lt;button id="message-button" @click="showMessage"&gt;ひとことを見る&lt;/button&gt;
+&lt;/template&gt;</code></pre></div>
+      <p>
+        <code>if (picked) { … }</code> は、Lesson 10 で出てきた「見つからないかもしれない」への備えです。
+        Vue のプロジェクトは TypeScript の設定が少し厳しめで、「リストから取り出したものは、ないかもしれないよ（<code>undefined</code>）」と教えてくれるので、
+        <b>あるときだけ</b>表示を変えるようにしています。
+      </p>
+
+      <h3>部品を組み立てる（App.vue）</h3>
+      <p>最後に、いちばん外側の <code>App.vue</code> を書き換えて、部品を組み立てます。あいさつ（①）もここに書きます。</p>
+<div class="code-block"><div class="code-head"><span>src/App.vue</span><button class="copy-btn" type="button">コピー</button></div><pre><code>&lt;script setup lang="ts"&gt;
+import ProfileCard from './components/ProfileCard.vue'
+import TetsuboAnimation from './components/TetsuboAnimation.vue'
+import GameController from './components/GameController.vue'
+import RandomMessage from './components/RandomMessage.vue'
+
+// ① 時間帯に合わせて、あいさつを変える
+function getGreeting(hour: number): string {
+  if (hour &lt; 10) {
+    return 'おはようございます！'
+  } else if (hour &lt; 18) {
+    return 'こんにちは！'
+  } else {
+    return 'こんばんは！'
+  }
+}
+
+const greeting: string = getGreeting(new Date().getHours())
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;header&gt;
+    &lt;p id="greeting"&gt;{{ greeting }}&lt;/p&gt;
+    &lt;h1&gt;Mayu Takahashi Portfolio&lt;/h1&gt;
+    &lt;p&gt;はじめまして！ 私の好きなものを紹介します。&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;ProfileCard title="特技：鉄棒" text="子どものころから鉄棒が大好きです。"&gt;
+      &lt;TetsuboAnimation /&gt;
+    &lt;/ProfileCard&gt;
+
+    &lt;ProfileCard
+      title="今いちばんハマっているもの：Valorant"
+      text="5人対5人で戦う、チーム対戦型のシューティングゲームです。"
+    &gt;
+      &lt;GameController /&gt;
+    &lt;/ProfileCard&gt;
+
+    &lt;ProfileCard title="ひとこと"&gt;
+      &lt;RandomMessage /&gt;
+    &lt;/ProfileCard&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;&amp;copy; 2026 Mayu Takahashi&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/template&gt;</code></pre></div>
+      <ul>
+        <li><code>import ProfileCard from './components/ProfileCard.vue'</code>：作った部品を読み込む</li>
+        <li><code>&lt;ProfileCard title="…" text="…"&gt;</code>：読み込んだ部品は、<b>自分で作ったタグ</b>のように使える。<code>title</code>・<code>text</code> が props（注文票）</li>
+        <li><code>&lt;TetsuboAnimation /&gt;</code>：中身のない部品は、<code>/&gt;</code> で閉じて1行で書ける。カードの <code>&lt;slot&gt;</code> の場所に入る</li>
+        <li><code>{{ greeting }}</code>：あいさつの文字を表示する。HTML を探して書き換える必要はもうありません</li>
+      </ul>
+
+      <!-- ===================== run ===================== -->
+      <h2 id="run">5. 動かしてみる・公開用にまとめる</h2>
+      <h3>開発中：npm run dev</h3>
+      <p>
+        <code>npm run dev</code> を実行したままにしておくと、ファイルを保存した瞬間にブラウザの表示が自動で更新されます（いちいち <kbd>F5</kbd> を押す必要がありません）。
+        下のように、Lesson 10 と同じ見た目・同じ動きになれば成功です。
+      </p>
+      <div class="browser" style="--h: 560px;">
+        <div class="browser-bar"><i></i><i></i><i></i><span>localhost:5173（Vue.js 版）</span></div>
+        <iframe src="../samples/portfolio/step5-vue/dist/index.html" title="Vue.js 版のポートフォリオ" loading="lazy"></iframe>
+      </div>
+      <p class="browser-note">↑ Vue.js 版の完成見本です。見た目も動きも Lesson 10 と同じですが、中身はまったく別の作りになっています。</p>
+
+      <h3>公開するとき：npm run build</h3>
+      <p>Web サイトとして公開するときは、次のコマンドで<b>公開用のファイル</b>にまとめます。</p>
+<div class="code-block"><div class="code-head"><span>ターミナル</span><button class="copy-btn" type="button">コピー</button></div><pre><code>npm run build</code></pre></div>
+      <p>
+        型のチェック（Lesson 10 の <code>tsc</code> の役割）をしたうえで、<code>dist</code> フォルダに、ブラウザが読める HTML・CSS・JavaScript がまとめて作られます。
+        この <code>dist</code> フォルダの中身をサーバーに置けば公開完了です。
+        <code>npm run preview</code> を実行すると、まとめたファイルを公開前に確認できます。
+      </p>
+      <p class="muted">
+        このサイトの見本では、<code>vite.config.ts</code> に <code>base: './'</code> の1行を足して、どのフォルダに置いても動くようにしています。
+        なお、<code>dist/index.html</code> をダブルクリックで開いても表示されません。<code>npm run preview</code> や Web サーバーを通して開く必要があります。
+      </p>
+
+      <!-- ===================== compare ===================== -->
+      <h2 id="compare">6. As-Is / To-Be で振り返る</h2>
+      <div class="asis-tobe">
+        <div class="code-block"><div class="code-head"><span>As-Is（Lesson 10）</span></div><pre><code>portfolio/
+├── index.html      ← 画面の HTML を全部書く
+├── style.css
+<span class="del">├── script.ts       ← ①〜④ の動きを全部ここに</span>
+├── script.js       ← tsc が作る
+├── tsconfig.json
+├── package.json
+└── images/</code></pre></div>
+        <div class="asis-tobe-arrow" aria-hidden="true">→</div>
+        <div class="code-block"><div class="code-head"><span>To-Be（Lesson 12：Vue.js）</span></div><pre><code>portfolio-vue/
+├── index.html      ← 入り口だけ（中身は空）
+├── package.json
+├── vite.config.ts
+└── src/
+    ├── main.ts
+    ├── style.css   ← そのままコピー
+<span class="add">    ├── App.vue     ← ページ全体・① あいさつ</span>
+<span class="add">    ├── components/</span>
+<span class="add">    │   ├── ProfileCard.vue</span>
+<span class="add">    │   ├── TetsuboAnimation.vue  ← ②</span>
+<span class="add">    │   ├── GameController.vue    ← ③</span>
+<span class="add">    │   └── RandomMessage.vue     ← ④</span>
+<span class="add">    ├── utils/pickRandomIndex.ts</span>
+    └── assets/images/</code></pre></div>
+      </div>
+      <p class="code-legend"><span class="legend-del">1つのファイル</span>にまとめて書いていた動きが、<span>部品ごとのファイル</span>に分かれました。</p>
+      <div class="table-wrap">
+        <table style="min-width: 600px;">
+          <thead><tr><th>Lesson 10 のどこ</th><th>Lesson 12 のどこへ</th><th>変わったこと</th></tr></thead>
+          <tbody>
+            <tr><td>index.html の header・main・footer</td><td>App.vue の template</td><td>HTML は App.vue と各部品の template に分かれた</td></tr>
+            <tr><td>index.html の section（カード3つ）</td><td>ProfileCard.vue</td><td>同じ枠を3回書く代わりに、1つの部品を使い回す</td></tr>
+            <tr><td>script.ts ① あいさつ</td><td>App.vue</td><td><code>textContent</code> で書き換えず、<code>{{ greeting }}</code> で表示</td></tr>
+            <tr><td>script.ts ② 鉄棒</td><td>TetsuboAnimation.vue</td><td><code>angle</code> を変えるだけで回る（<code>:style</code>）</td></tr>
+            <tr><td>script.ts ③ コントローラー</td><td>GameController.vue</td><td>ボタン4つは <code>v-for</code> で作る。光らせるのは <code>:class</code></td></tr>
+            <tr><td>script.ts ④ ひとこと</td><td>RandomMessage.vue</td><td><code>@click</code> と <code>{{ message }}</code> で、探す処理が不要に</td></tr>
+            <tr><td>pickRandomIndex 関数</td><td>utils/pickRandomIndex.ts</td><td>別ファイルにして、必要な部品から <code>import</code></td></tr>
+            <tr><td>style.css</td><td>src/style.css</td><td><b>変更なし</b>。CSS の知識はそのまま使える</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <aside class="aside">
+        <p>
+          「ファイルが増えて、かえって大変になったのでは……？」と感じた方、鋭いです。このくらいの小さなページなら、正直そのとおりです。
+          でも、カードが30枚、ページが50画面、開発メンバーが10人……となったとき、<b>「どこに何が書いてあるか」がファイル名でわかる</b>ことのありがたさが効いてきます。
+          ハウスメーカーの工法も、犬小屋を建てるには大げさですが、マンションを建てるなら必須ですよね。
+        </p>
+      </aside>
+
+      <h3>Claude Code にも聞いてみよう</h3>
+<div class="code-block"><div class="code-head"><span>Claude Code への質問の例</span><button class="copy-btn" type="button">コピー</button></div><pre><code>GameController.vue の :class="[color, { pressed: index === pressedIndex }]" が
+どう動いているのか、1つずつ分解して初心者向けに説明してください。</code></pre></div>
+<div class="code-block"><div class="code-head"><span>Claude Code への質問の例</span><button class="copy-btn" type="button">コピー</button></div><pre><code>「好きな食べ物」のカードを追加したいです。ProfileCard を使って、
+どこに何を書けばいいか教えてください。コードはまだ書き換えないでください。</code></pre></div>
+
+      <!-- ===================== クイズ ===================== -->
+      <h2 id="quiz">確認クイズ</h2>
+      <p class="muted">選択肢をクリックしてください。</p>
+      <div class="quiz">
+        <div class="q" data-answer="コンポーネント" data-explain="Vue では、画面を .vue ファイルの部品（コンポーネント）に分けて作ります。">
+          <p>Q1. Vue で、画面を分けて作る「部品」のことを何と呼ぶ？</p>
+          <div class="choices"><button type="button">ライブラリ</button><button type="button">コンポーネント</button><button type="button">ブラウザ</button><button type="button">コンパイラ</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="データを変えるだけ" data-explain="Vue はリアクティブなので、ref の中身（データ）を変えるだけで、それを表示している画面が自動で書き換わります。">
+          <p>Q2. Vue で画面の文字を変えたいとき、どうする？</p>
+          <div class="choices"><button type="button">getElementById で探して書き換える</button><button type="button">データを変えるだけ</button><button type="button">ページを再読み込みする</button><button type="button">CSS を書き換える</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="v-for" data-explain="v-for を使うと、リストの数だけ要素をくり返し作れます。">
+          <p>Q3. リストの数だけ、同じタグをくり返し作るときに使う書き方は？</p>
+          <div class="choices"><button type="button">v-if</button><button type="button">v-for</button><button type="button">@click</button><button type="button">{{ }}</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="@click" data-explain="@click=&quot;関数名&quot; で、クリックされたときに関数を実行できます。">
+          <p>Q4. Vue の template で「クリックされたら」を書くときは？</p>
+          <div class="choices"><button type="button">:style</button><button type="button">v-if</button><button type="button">@click</button><button type="button">&lt;slot&gt;</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="npm run build" data-explain="npm run build で、公開用のファイルが dist フォルダにまとめて作られます。npm run dev は開発中の確認用です。">
+          <p>Q5. 公開用のファイルを dist フォルダにまとめるコマンドは？</p>
+          <div class="choices"><button type="button">npm run dev</button><button type="button">npm run build</button><button type="button">npm install</button><button type="button">npm create vue@latest</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <!-- ===================== まとめ ===================== -->
+      <h2>まとめ</h2>
+      <ul>
+        <li>Vue.js は<b>リアクティブ</b>：<code>ref</code> の中身（データ）を変えるだけで、画面が自動で書き換わる。</li>
+        <li>画面は<b>コンポーネント</b>（<code>.vue</code> ファイル）に分けて作る。1つのファイルに script（動き）と template（見た目）をセットで書く。</li>
+        <li>template では <code>{{ }}</code>（表示）・<code>@click</code>（クリック）・<code>:style</code> / <code>:class</code>（スタイル・名札）・<code>v-for</code>（くり返し）・<code>v-if</code>（条件）を使う。</li>
+        <li>部品には <b>props</b>（注文票）でデータを渡し、<b>slot</b> で中身を差し込める。</li>
+        <li>プロジェクトは <code>npm create vue@latest</code> で作り、開発中は <code>npm run dev</code>、公開するときは <code>npm run build</code>。</li>
+      </ul>
+      <p>
+        HTML・CSS・JavaScript・TypeScript、そしてフレームワーク。Lesson 5 の「Hello World!」から、ついに現場と同じ道具立てまでたどり着きました。
+        ここまで来れば、実際のプロジェクトのコードを見ても「あ、これは部品だな」「ここでデータを変えているな」と読み解けるはずです。
+      </p>
+
+      <nav class="pager">
+        <a href="languages-and-frameworks.html">← Lesson 11：言語・フレームワーク・ライブラリ</a>
+        <a href="../index.html">レッスン一覧へ →</a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">ITK Educate — 社内向け教材</div>
+  </footer>
+</body>
+</html>

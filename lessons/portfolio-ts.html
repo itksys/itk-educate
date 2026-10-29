@@ -404,16 +404,30 @@ const hour = new Date().getHours();</code></pre></div>
 <span class="add">    "build": "tsc",</span>
 <span class="add">    "watch": "tsc --watch"</span>
   },</code></pre></div>
-      <p>最終的なフォルダの中身はこうなります。</p>
-<div class="code-block"><div class="code-head"><span>フォルダの構成</span><button class="copy-btn" type="button">コピー</button></div><pre><code>portfolio/
+      <p>Lesson 9 のときと比べて、フォルダの中身はこう変わりました。</p>
+      <div class="asis-tobe">
+        <div class="code-block"><div class="code-head"><span>As-Is（Lesson 9 まで）</span></div><pre><code>portfolio/
 ├── index.html
 ├── style.css
-<span class="add">├── script.ts       ← TypeScript（これを編集する）</span>
-<span class="add">├── script.js       ← tsc が作る JavaScript（直接編集しない）</span>
+<span class="del">├── script.js   ← 自分で書く JavaScript</span>
+└── images/</code></pre></div>
+        <div class="asis-tobe-arrow" aria-hidden="true">→</div>
+        <div class="code-block"><div class="code-head"><span>To-Be（Lesson 10 から）</span></div><pre><code>portfolio/
+├── index.html
+├── style.css
+<span class="add">├── script.ts       ← 自分で書く TypeScript</span>
+├── script.js       ← tsc が自動で作る（編集しない）
 <span class="add">├── tsconfig.json   ← TypeScript の設定</span>
 <span class="add">├── package.json    ← npm の設定</span>
 <span class="add">├── node_modules/   ← ダウンロードしたツール（触らない）</span>
 └── images/</code></pre></div>
+      </div>
+      <p class="code-legend"><span class="legend-del">オレンジ</span>の <code>script.js</code> が、<span>緑</span>の <code>script.ts</code> に置き換わりました。</p>
+      <ul>
+        <li><b>自分で書くファイル</b>が、<code>script.js</code> から <code>script.ts</code> に変わります（中身は 5章で書き換えたとおり）。</li>
+        <li><code>script.js</code> はなくなるわけではなく、<b>tsc が <code>script.ts</code> から自動で作るファイル</b>になります。<code>index.html</code> がこれを読み込むので、HTML は変えなくてOKです。</li>
+        <li>増えた <code>tsconfig.json</code>・<code>package.json</code>・<code>node_modules/</code> は、TypeScript を使うための道具と設定です。</li>
+      </ul>
 
       <!-- ===================== try ===================== -->
       <h2 id="try">7. わざと間違えてみよう</h2>
@@ -484,7 +498,7 @@ const hour = new Date().getHours();</code></pre></div>
 
       <nav class="pager">
         <a href="portfolio-js.html">← Lesson 9：ポートフォリオ③ JavaScript</a>
-        <a href="../index.html">レッスン一覧へ →</a>
+        <a href="languages-and-frameworks.html">Lesson 11：言語・フレームワーク・ライブラリ →</a>
       </nav>
     </div>
   </main>

@@ -1,0 +1,147 @@
+/* ページ全体 */
+body {
+  margin: 0;
+  background-color: #17201b;
+  color: #f4f1e6;
+  font-family: "Yu Gothic UI", "Meiryo", "Hiragino Sans", sans-serif;
+  line-height: 1.8;
+}
+
+/* 一番上のタイトル部分 */
+header {
+  background: linear-gradient(135deg, #f9d84a, #4cc38a);
+  padding: 48px 16px;
+  text-align: center;
+  color: #17201b;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 36px;
+}
+
+/* 中身を中央に寄せる */
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+/* 紹介カード */
+.card {
+  background-color: #22302a;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.card h2 {
+  margin-top: 0;
+  color: #f9d84a;
+  border-left: 6px solid #4cc38a;
+  padding-left: 12px;
+}
+
+.card img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 16px auto 0;
+  border-radius: 12px;
+}
+
+/* 一番下の部分 */
+footer {
+  text-align: center;
+  padding: 24px;
+  color: #93a399;
+  font-size: 14px;
+}
+
+/* ===== ここから Lesson 9 で追加 ===== */
+
+/* ボタン */
+button {
+  display: block;
+  margin: 16px auto 0;
+  padding: 8px 24px;
+  border: none;
+  border-radius: 999px;
+  background-color: #4cc38a;
+  color: #17201b;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+button:active {
+  transform: scale(0.92);
+}
+
+#greeting {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#message {
+  text-align: center;
+  font-size: 20px;
+}
+
+/* 画像を重ねるための舞台 */
+.stage {
+  position: relative;
+  max-width: 300px;
+  margin: 16px auto 0;
+}
+
+.stage img {
+  margin: 0;
+}
+
+/* 鉄棒の人（にぎっている手を中心に回る） */
+.person {
+  position: absolute;
+  left: 40%;
+  top: 37.5%;
+  width: 20%;
+  transform-origin: 50% 11.8%;
+}
+
+#tetsubo {
+  cursor: pointer;
+}
+
+.hint {
+  text-align: center;
+  font-size: 14px;
+  color: #93a399;
+}
+
+/* コントローラーのボタン */
+.pad-button {
+  position: absolute;
+  width: 4.4%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  opacity: 0.35;
+  transition: opacity 0.1s, transform 0.1s;
+}
+
+.pad-button.red    { left: 62.8%; top: 48%;    background-color: #ff5a5f; }
+.pad-button.yellow { left: 67.8%; top: 54.8%;  background-color: #ffd25e; }
+.pad-button.green  { left: 57.8%; top: 54.8%;  background-color: #5fd3a3; }
+.pad-button.blue   { left: 62.8%; top: 61.5%;  background-color: #5fb2ff; }
+
+/* 押されている間の見た目 */
+.pad-button.pressed {
+  opacity: 1;
+  transform: scale(0.8);
+  box-shadow: 0 0 12px #ffffff;
+}

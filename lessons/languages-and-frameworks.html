@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-RL7F0Z4L2R"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-RL7F0Z4L2R');
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>言語・フレームワーク・ライブラリを整理しよう | ITK Educate</title>
+  <meta name="description" content="HTML・CSS・JavaScript・TypeScript・Java などの言語と、Vue.js・React・Spring Boot などのフレームワーク、jQuery などのライブラリの関係を整理するレッスン。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">ITK <span>Educate</span></a>
+      <div class="header-actions">
+        <a href="../index.html">レッスン一覧</a>
+        <button class="theme-toggle" type="button">☾ ダーク</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <span class="eyebrow">LESSON 11</span>
+        <h1>言語・フレームワーク・<br>ライブラリを整理しよう</h1>
+        <p class="lead">
+          HTML、CSS、JavaScript、TypeScript……と、ここまでで登場人物がずいぶん増えてきました。さらに次の Lesson 12 では Vue.js も登場します。
+          そこで今回は、手を動かすのをひと休みして、<strong>「言語」「フレームワーク」「ライブラリ」</strong>の関係を地図のように整理します。
+        </p>
+      </section>
+
+      <aside class="aside">
+        <p>
+          IT の世界は、とにかくカタカナと英語が多い世界です。「Java と JavaScript って親戚？」「jQuery はフレームワーク？」「Spring Boot って春のブーツ？」……
+          こうした疑問は、エンジニアになりたての人がみんな一度は通る道です。（ちなみに、どれも答えはこのページにあります）
+        </p>
+      </aside>
+
+      <nav class="toc" aria-label="目次">
+        <strong>このページの内容</strong>
+        <ol>
+          <li><a href="#three">言語・ライブラリ・フレームワークの違い</a></li>
+          <li><a href="#map">IT の言葉の地図</a></li>
+          <li><a href="#front">画面（フロントエンド）のフレームワーク</a></li>
+          <li><a href="#taste">同じものを4通りで書いてみると</a></li>
+          <li><a href="#back">裏側（バックエンド）のフレームワーク</a></li>
+          <li><a href="#choose">どうやって選ぶの？</a></li>
+          <li><a href="#quiz">確認クイズ</a></li>
+        </ol>
+      </nav>
+
+      <!-- ===================== 3つの違い ===================== -->
+      <h2 id="three">1. 言語・ライブラリ・フレームワークの違い</h2>
+      <p>3つの言葉を、料理にたとえて整理してみましょう。</p>
+      <div class="card-grid">
+        <div class="card cat-web">
+          <h3>言語</h3>
+          <p><b>コンピュータに指示を出すための「言葉」</b>そのもの。JavaScript、Java、Python など。</p>
+          <p style="margin-top: 8px;">料理でいうと <b>日本語のレシピの「言葉」</b>。読み書きできないと何も始まらない。</p>
+        </div>
+        <div class="card cat-mobile">
+          <h3>ライブラリ</h3>
+          <p><b>よく使う処理をまとめた「道具箱」</b>。必要なときに、自分のコードから呼び出して使う。jQuery など。</p>
+          <p style="margin-top: 8px;">料理でいうと <b>包丁・ピーラー・計量カップ</b>。いつ使うかは自分が決める。</p>
+        </div>
+        <div class="card cat-desktop">
+          <h3>フレームワーク</h3>
+          <p><b>アプリの「作り方の型」と便利な機能のセット</b>。決まった型の中に、自分のコードを書き込む。Vue.js、Spring Boot など。</p>
+          <p style="margin-top: 8px;">料理でいうと <b>ミールキット</b>。手順と材料がそろっていて、そのとおりに作ればおいしくできる。</p>
+        </div>
+      </div>
+
+      <h3>ライブラリとフレームワーク、何が違うの？</h3>
+      <p>どちらも「誰かが作ってくれた便利なコード」ですが、<b>主導権がどちらにあるか</b>が違います。</p>
+      <div class="table-wrap">
+        <table style="min-width: 560px;">
+          <thead><tr><th></th><th>ライブラリ</th><th>フレームワーク</th></tr></thead>
+          <tbody>
+            <tr><th>主導権</th><td><b>自分のコード</b>が、必要なときにライブラリを呼び出す</td><td><b>フレームワーク</b>が全体の流れを決めていて、決まった場所で自分のコードを呼び出す</td></tr>
+            <tr><th>自由度</th><td>高い。使いたいところだけ使える</td><td>型に従う必要がある。そのかわり迷わない</td></tr>
+            <tr><th>家づくりでいうと</th><td>電動ドリルなどの<b>工具</b></td><td>ハウスメーカーの<b>工法</b></td></tr>
+            <tr><th>例</th><td>jQuery、Chart.js（グラフを描く）</td><td>Vue.js、Angular、Spring Boot、Laravel</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        <strong>ややこしいポイント：</strong>
+        React は、公式には自分のことを「ライブラリ」と呼んでいます。ただ実際の現場では、Vue.js や Angular と並べて「フロントエンドのフレームワーク」として語られることがほとんどです。
+        境界があいまいなものもある、と知っておけば十分です。
+      </div>
+
+      <h3>言語にも、いくつか種類がある</h3>
+      <div class="table-wrap">
+        <table style="min-width: 560px;">
+          <thead><tr><th>種類</th><th>例</th><th>役割</th></tr></thead>
+          <tbody>
+            <tr><td><b>マークアップ言語</b></td><td>HTML</td><td>文章に「見出し」「段落」などの意味を付ける（<a href="html-basics.html">Lesson 5</a>）</td></tr>
+            <tr><td><b>スタイルシート言語</b></td><td>CSS</td><td>見た目を指定する（<a href="portfolio-css.html">Lesson 8</a>）</td></tr>
+            <tr><td><b>プログラミング言語</b></td><td>JavaScript、Java、Python など</td><td>計算や条件分岐など、処理の手順を書く（<a href="portfolio-js.html">Lesson 9</a>）</td></tr>
+            <tr><td><b>拡張した言語</b></td><td>TypeScript</td><td>ある言語（JavaScript）に機能（型）を足したもの（<a href="portfolio-ts.html">Lesson 10</a>）</td></tr>
+            <tr><td><b>データベース用の言語</b></td><td>SQL</td><td>データベースに「探して」「保存して」と指示する（<a href="how-apps-work.html#server">Lesson 2</a>）</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted">HTML と CSS は「処理の手順」を書くものではないので、厳密には「プログラミング言語」とは呼ばれません。でも、Web 開発に欠かせない大切な言語です。</p>
+
+      <!-- ===================== 地図 ===================== -->
+      <h2 id="map">2. IT の言葉の地図</h2>
+      <p>言語ごとに、その上で使われる主なフレームワーク・ライブラリをまとめると、次のようになります。</p>
+      <div class="stack-legend">
+        <span class="chip lang">言語</span>
+        <span class="chip fw">フレームワーク</span>
+        <span class="chip lib">ライブラリ</span>
+        <span class="chip env">実行環境・ツール</span>
+      </div>
+
+      <div class="stack">
+        <div class="stack-group">画面の骨組みと見た目（どの Web サイトでも使う）</div>
+        <div class="stack-row">
+          <div class="stack-name"><b>HTML</b><small>マークアップ言語</small></div>
+          <div class="stack-items"><span class="muted">ページの骨組み・中身。フレームワークを使っても、最終的にブラウザに届くのは HTML</span></div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-name"><b>CSS</b><small>スタイルシート言語</small></div>
+          <div class="stack-items"><span class="chip fw">Bootstrap</span><span class="chip fw">Tailwind CSS</span><span class="muted">… CSS のフレームワークもある</span></div>
+        </div>
+
+        <div class="stack-group">画面の動き（フロントエンド）／ サーバー側でも使える</div>
+        <div class="stack-row">
+          <div class="stack-name"><b>JavaScript</b><small>プログラミング言語</small></div>
+          <div class="stack-items">
+            <span class="chip fw">Vue.js</span><span class="chip fw">React</span><span class="chip fw">Angular</span>
+            <span class="chip lib">jQuery</span><span class="chip lib">Chart.js</span>
+            <span class="chip env">Node.js</span><span class="chip env">Vite</span>
+          </div>
+        </div>
+        <div class="stack-row child">
+          <div class="stack-name"><b>TypeScript</b><small>JavaScript を拡張した言語</small></div>
+          <div class="stack-items"><span class="muted">JavaScript のフレームワーク・ライブラリは、ほぼすべて TypeScript でも使える。Angular は TypeScript が前提</span></div>
+        </div>
+
+        <div class="stack-group">裏側の処理（バックエンド）</div>
+        <div class="stack-row">
+          <div class="stack-name"><b>Java</b><small>プログラミング言語</small></div>
+          <div class="stack-items"><span class="chip fw">Spring Boot</span><span class="chip fw">Spring Framework</span><span class="muted">… 日本の業務システムで特に多い</span></div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-name"><b>PHP</b><small>プログラミング言語</small></div>
+          <div class="stack-items"><span class="chip fw">Laravel</span><span class="muted">… Web サイト・Web サービスで多い。WordPress も PHP 製</span></div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-name"><b>Python</b><small>プログラミング言語</small></div>
+          <div class="stack-items"><span class="chip fw">Django</span><span class="chip fw">FastAPI</span><span class="chip lib">pandas</span><span class="muted">… AI・データ分析でも大人気</span></div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-name"><b>Ruby</b><small>プログラミング言語</small></div>
+          <div class="stack-items"><span class="chip fw">Ruby on Rails</span><span class="muted">… 日本生まれの言語</span></div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-name"><b>C#</b><small>プログラミング言語</small></div>
+          <div class="stack-items"><span class="chip fw">ASP.NET Core</span><span class="muted">… Microsoft 製。Windows のアプリやゲーム（Unity）でも使う</span></div>
+        </div>
+
+        <div class="stack-group">スマホアプリ（<a href="what-it-engineers-build.html#mobile">Lesson 1</a>）</div>
+        <div class="stack-row">
+          <div class="stack-name"><b>Swift</b><small>iOS アプリの言語</small></div>
+          <div class="stack-items"><span class="chip fw">SwiftUI</span></div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-name"><b>Kotlin</b><small>Android アプリの言語</small></div>
+          <div class="stack-items"><span class="chip fw">Jetpack Compose</span></div>
+        </div>
+
+        <div class="stack-group">データ</div>
+        <div class="stack-row">
+          <div class="stack-name"><b>SQL</b><small>データベース用の言語</small></div>
+          <div class="stack-items"><span class="chip env">MySQL</span><span class="chip env">PostgreSQL</span><span class="chip env">Oracle Database</span><span class="muted">… データベースの製品</span></div>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>よくある勘違い：Java と JavaScript</strong>
+        名前は似ていますが、<b>まったく別の言語</b>です。JavaScript が生まれた当時、人気のあった Java にあやかって名前が付けられた、と言われています。
+        「メロン」と「メロンパン」くらい別物、と覚えておきましょう。
+      </div>
+      <div class="note">
+        <strong>Node.js は言語？ フレームワーク？</strong>
+        どちらでもなく、<b>JavaScript をブラウザの外で動かすための「実行環境」</b>です。Lesson 10 で TypeScript のコンパイラを動かしたように、
+        開発ツールを動かしたり、JavaScript でサーバー側の処理を書いたりするのに使います。
+      </div>
+
+      <!-- ===================== フロントエンド ===================== -->
+      <h2 id="front">3. 画面（フロントエンド）のフレームワーク</h2>
+      <p>
+        画面を作る分野では、次の4つの名前をよく耳にします。jQuery だけは「ライブラリ」で、少し前の時代の主役です。
+      </p>
+      <div class="table-wrap">
+        <table style="min-width: 760px;">
+          <thead><tr><th>名前</th><th>種類</th><th>開発元</th><th>特徴</th><th>こんなときに</th></tr></thead>
+          <tbody>
+            <tr><td><b>Vue.js</b></td><td>フレームワーク</td><td>Evan You 氏とコミュニティ</td><td>HTML に近い書き方で、<b>学びやすい</b>。日本でも人気が高い</td><td>小〜中規模のサービス、管理画面。少しずつ導入したいとき</td></tr>
+            <tr><td><b>React</b></td><td>ライブラリ<br><small class="muted">（実質フレームワーク扱い）</small></td><td>Meta（旧 Facebook）</td><td><b>世界でいちばん使われている</b>。情報や関連ツールがとにかく多い</td><td>大規模な Web サービス。React Native でスマホアプリも作れる</td></tr>
+            <tr><td><b>Angular</b></td><td>フレームワーク</td><td>Google</td><td>必要な機能が<b>最初から全部そろっている</b>。ルールが厳格で、TypeScript が前提</td><td>大人数で長く保守する業務システム</td></tr>
+            <tr><td><b>jQuery</b></td><td>ライブラリ</td><td>jQuery チーム</td><td>HTML の部品を「探して書き換える」を短く書ける。2010年代に大流行</td><td>既存のサイトの保守。新しく作るときに選ばれることは減っている</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted">
+        さらに、React の上に乗る <b>Next.js</b>、Vue.js の上に乗る <b>Nuxt</b> のように、「フレームワークの上に乗るフレームワーク」もあります。
+        ページの切り替えやサーバー側の処理など、Web サイト全体を作るための機能を足したものです。
+      </p>
+
+      <!-- ===================== 同じものを4通り ===================== -->
+      <h2 id="taste">4. 同じものを4通りで書いてみると</h2>
+      <p>
+        「ボタンを押すと、押した回数が増える」という同じ部品を、それぞれで書いてみるとこうなります。
+        細かい文法は読めなくて大丈夫。<b>雰囲気の違い</b>を感じてみてください。
+      </p>
+      <div class="sub-grid" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));">
+        <div>
+<div class="code-block"><div class="code-head"><span>jQuery（ライブラリ）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>&lt;button id="btn"&gt;押した回数：&lt;span id="count"&gt;0&lt;/span&gt;&lt;/button&gt;
+
+&lt;script&gt;
+  let count = 0;
+  $("#btn").on("click", function () {
+    count = count + 1;
+    $("#count").text(count);  // 探して、書き換える
+  });
+&lt;/script&gt;</code></pre></div>
+        </div>
+        <div>
+<div class="code-block"><div class="code-head"><span>Vue.js</span><button class="copy-btn" type="button">コピー</button></div><pre><code>&lt;script setup lang="ts"&gt;
+import { ref } from 'vue'
+const count = ref(0)
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;button @click="count++"&gt;押した回数：{{ count }}&lt;/button&gt;
+&lt;/template&gt;</code></pre></div>
+        </div>
+        <div>
+<div class="code-block"><div class="code-head"><span>React</span><button class="copy-btn" type="button">コピー</button></div><pre><code>import { useState } from 'react'
+
+export function Counter() {
+  const [count, setCount] = useState(0)
+  return (
+    &lt;button onClick={() =&gt; setCount(count + 1)}&gt;
+      押した回数：{count}
+    &lt;/button&gt;
+  )
+}</code></pre></div>
+        </div>
+        <div>
+<div class="code-block"><div class="code-head"><span>Angular</span><button class="copy-btn" type="button">コピー</button></div><pre><code>import { Component, signal } from '@angular/core';
+
+@Component({
+  selector: 'app-counter',
+  template: `&lt;button (click)="increment()"&gt;押した回数：{{ count() }}&lt;/button&gt;`,
+})
+export class Counter {
+  count = signal(0);
+  increment() {
+    this.count.update((c) =&gt; c + 1);
+  }
+}</code></pre></div>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table style="min-width: 560px;">
+          <thead><tr><th></th><th>考え方</th></tr></thead>
+          <tbody>
+            <tr><td><b>jQuery</b></td><td>Lesson 9 と同じく「<b>HTML から探して、書き換える</b>」。それを短く書けるようにした道具。</td></tr>
+            <tr><td><b>Vue.js</b></td><td>「<b>データ（count）を変えれば、画面が変わる</b>」。画面の部分は HTML とほぼ同じ見た目で書ける。</td></tr>
+            <tr><td><b>React</b></td><td>考え方は Vue.js と同じ。画面の部分も <b>JavaScript の中に</b>書く（JSX という書き方）。</td></tr>
+            <tr><td><b>Angular</b></td><td>考え方は同じ。<b>クラス</b>という型にはめて、きっちり書く。大人数でも書き方がそろいやすい。</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Vue.js・React・Angular は、書き方こそ違いますが、<b>「データを変えれば画面が変わる」「画面を部品に分ける」</b>という根っこの考え方は同じです。
+        1つを身につければ、ほかのものも覚えやすくなります。次の Lesson 12 では、その中から Vue.js を使って、ポートフォリオを作り直します。
+      </p>
+
+      <!-- ===================== バックエンド ===================== -->
+      <h2 id="back">5. 裏側（バックエンド）のフレームワーク</h2>
+      <p>
+        <a href="how-apps-work.html#server">Lesson 2</a> で学んだ「AP サーバー」で動くプログラムにも、言語ごとにフレームワークがあります。
+        ログイン、データベースとのやりとり、セキュリティ対策など、どのシステムでも必要になる処理を引き受けてくれます。
+      </p>
+      <div class="table-wrap">
+        <table style="min-width: 600px;">
+          <thead><tr><th>フレームワーク</th><th>言語</th><th>特徴</th></tr></thead>
+          <tbody>
+            <tr><td><b>Spring Boot</b></td><td>Java</td><td>Java の定番フレームワーク「Spring」を、すぐに使い始められるようにしたもの。<b>日本の業務システムで特に多く使われている</b></td></tr>
+            <tr><td><b>Laravel</b></td><td>PHP</td><td>書きやすさと機能の豊富さで人気。Web サービスでよく使われる</td></tr>
+            <tr><td><b>Django</b>・<b>FastAPI</b></td><td>Python</td><td>Django は機能がそろった大型、FastAPI は軽くて速い。AI を使うサービスとも相性がよい</td></tr>
+            <tr><td><b>Ruby on Rails</b></td><td>Ruby</td><td>「少ないコードで素早く作れる」ことで有名。スタートアップで人気</td></tr>
+            <tr><td><b>ASP.NET Core</b></td><td>C#</td><td>Microsoft 製。Windows や Azure との相性がよい</td></tr>
+            <tr><td><b>Express</b></td><td>JavaScript（Node.js）</td><td>シンプルで軽い。画面と同じ JavaScript でサーバーも書ける</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Spring Boot をちょっとだけのぞいてみる</h3>
+      <p>Spring Boot では、たとえば「<code>/hello</code> にアクセスされたら Hello World! と返す」という処理が、これだけで書けます。</p>
+<div class="code-block"><div class="code-head"><span>HelloController.java（Spring Boot）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>@RestController
+public class HelloController {
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello World!";
+    }
+}</code></pre></div>
+      <ul>
+        <li><code>@RestController</code>：「このクラスは、ブラウザなどからのリクエストを受け付ける窓口です」という目印</li>
+        <li><code>@GetMapping("/hello")</code>：「<code>/hello</code> というアドレスにアクセスされたら、下の処理を動かして」という目印</li>
+        <li><code>return "Hello World!";</code>：レスポンスとして「Hello World!」を返す</li>
+      </ul>
+      <p>
+        <code>@</code> で始まる目印（アノテーション）を付けるだけで、通信の受け付けやレスポンスの作成といった面倒な部分は Spring Boot が引き受けてくれます。
+        <a href="how-apps-work.html#flow">Lesson 2</a> の「HTTP リクエスト → サーバーが処理 → HTTP レスポンス」の、「サーバーが処理」の部分を書いているわけです。
+        Lesson 5 の Hello World! が、今度はサーバー側から返ってくる、と思うとちょっと感慨深いですね。
+      </p>
+
+      <!-- ===================== 選び方 ===================== -->
+      <h2 id="choose">6. どうやって選ぶの？</h2>
+      <p>「結局どれがいちばんいいの？」という質問の答えは、残念ながら<b>「作るもの次第」</b>です。現場では、次のような点を考えて選びます。</p>
+      <div class="sub-grid">
+        <div class="sub"><h4>何を作るか</h4><p>Web サービスか、業務システムか、スマホアプリか。規模はどれくらいか。</p></div>
+        <div class="sub"><h4>チームが慣れているか</h4><p>メンバーがすでに経験のある言語・フレームワークなら、早く確実に作れる。</p></div>
+        <div class="sub"><h4>長く使えるか</h4><p>開発が続いていて、何年もサポートされるか。情報や経験者が多いか。</p></div>
+        <div class="sub"><h4>お客様・会社の方針</h4><p>既存のシステムとの相性や、会社の標準として決まっている技術があるか。</p></div>
+      </div>
+      <aside class="aside">
+        <p>
+          IT の世界には流行りすたりがあります。10年前は「Web 制作といえば jQuery」の時代でしたが、今は新しく作るなら Vue.js や React が主流です。
+          とはいえ jQuery で作られたサイトは今もたくさん動いていて、その保守もエンジニアの大事な仕事。
+          「新しいものを追いかける力」と「今動いているものを支える力」、どちらも同じくらい大切です。
+        </p>
+      </aside>
+
+      <h3>このシリーズの地図</h3>
+      <p>ここまでのレッスンと、次のレッスンで使うものを地図に当てはめると、こうなります。</p>
+      <div class="table-wrap">
+        <table style="min-width: 520px;">
+          <thead><tr><th>レッスン</th><th>使ったもの</th><th>種類</th></tr></thead>
+          <tbody>
+            <tr><td>Lesson 5・7</td><td>HTML</td><td><span class="chip lang">言語</span></td></tr>
+            <tr><td>Lesson 8</td><td>CSS</td><td><span class="chip lang">言語</span></td></tr>
+            <tr><td>Lesson 9</td><td>JavaScript</td><td><span class="chip lang">言語</span></td></tr>
+            <tr><td>Lesson 10</td><td>TypeScript ／ Node.js・npm</td><td><span class="chip lang">言語</span> <span class="chip env">実行環境・ツール</span></td></tr>
+            <tr><td>Lesson 12</td><td>Vue.js ／ Vite</td><td><span class="chip fw">フレームワーク</span> <span class="chip env">実行環境・ツール</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ===================== クイズ ===================== -->
+      <h2 id="quiz">確認クイズ</h2>
+      <p class="muted">選択肢をクリックしてください。</p>
+      <div class="quiz">
+        <div class="q" data-answer="ライブラリ" data-explain="jQuery は、必要なときに呼び出して使う「道具箱」なので、ライブラリです。">
+          <p>Q1. jQuery はどれ？</p>
+          <div class="choices"><button type="button">言語</button><button type="button">ライブラリ</button><button type="button">フレームワーク</button><button type="button">データベース</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="Java" data-explain="Spring Boot は Java のフレームワークです。日本の業務システムで特に多く使われています。">
+          <p>Q2. Spring Boot は、どの言語のフレームワーク？</p>
+          <div class="choices"><button type="button">JavaScript</button><button type="button">Java</button><button type="button">PHP</button><button type="button">Python</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="まったく別の言語" data-explain="名前は似ていますが、Java と JavaScript はまったく別の言語です。">
+          <p>Q3. Java と JavaScript の関係は？</p>
+          <div class="choices"><button type="button">同じ言語</button><button type="button">親子関係</button><button type="button">まったく別の言語</button><button type="button">JavaScript は Java のフレームワーク</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="JavaScript に型を足したもの" data-explain="TypeScript は JavaScript を拡張し、型を足した言語です（Lesson 10）。">
+          <p>Q4. TypeScript はどんな言語？</p>
+          <div class="choices"><button type="button">Java を短くしたもの</button><button type="button">JavaScript に型を足したもの</button><button type="button">CSS のフレームワーク</button><button type="button">データベース用の言語</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="フレームワーク" data-explain="作り方の型が決まっていて、その中に自分のコードを書き込むのがフレームワークです。主導権はフレームワーク側にあります。">
+          <p>Q5. 「全体の流れが決まっていて、決まった場所に自分のコードを書き込む」のはどれ？</p>
+          <div class="choices"><button type="button">言語</button><button type="button">ライブラリ</button><button type="button">フレームワーク</button><button type="button">実行環境</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <!-- ===================== まとめ ===================== -->
+      <h2>まとめ</h2>
+      <ul>
+        <li><b>言語</b>はコンピュータへの指示の「言葉」、<b>ライブラリ</b>は呼び出して使う「道具箱」、<b>フレームワーク</b>は「作り方の型」。</li>
+        <li>ライブラリとフレームワークの違いは<b>主導権</b>。ライブラリは自分が呼び出し、フレームワークは決まった流れの中で自分のコードが呼ばれる。</li>
+        <li>JavaScript（TypeScript）の上には、<b>Vue.js・React・Angular</b>（フレームワーク）や <b>jQuery</b>（ライブラリ）がある。</li>
+        <li>Java の上には <b>Spring Boot</b>、PHP には Laravel、Python には Django など、言語ごとにフレームワークがある。</li>
+        <li><b>Java と JavaScript は別物</b>。<b>Node.js は実行環境</b>。</li>
+        <li>どれを選ぶかは、作るもの・チームの経験・長く使えるか・会社の方針で決める。</li>
+      </ul>
+
+      <nav class="pager">
+        <a href="portfolio-ts.html">← Lesson 10：TypeScript にしよう</a>
+        <a href="portfolio-vue.html">Lesson 12：Vue.js にしよう →</a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">ITK Educate — 社内向け教材</div>
+  </footer>
+</body>
+</html>

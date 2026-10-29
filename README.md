@@ -21,10 +21,12 @@ itk-educate/
 │   ├── portfolio-html.html             Lesson 7: ポートフォリオ① HTML
 │   ├── portfolio-css.html              Lesson 8: ポートフォリオ② CSS
 │   ├── portfolio-js.html               Lesson 9: ポートフォリオ③ JavaScript
-│   └── portfolio-ts.html               Lesson 10: ポートフォリオを TypeScript にしよう
+│   ├── portfolio-ts.html               Lesson 10: ポートフォリオを TypeScript にしよう
+│   ├── languages-and-frameworks.html   Lesson 11: 言語・フレームワーク・ライブラリを整理しよう
+│   └── portfolio-vue.html              Lesson 12: ポートフォリオを Vue.js にしよう
 ├── samples/
 │   ├── hello/                          Lesson 5 の Hello World
-│   └── portfolio/step1-html〜step4-ts/  Lesson 7〜10 の完成見本（レッスン中のコードはここと同じ内容。step4-ts は npm install 後に npx tsc で script.js を再生成できる）
+│   └── portfolio/step1-html〜step5-vue/ Lesson 7〜10・12 の完成見本（レッスン中のコードはここと同じ内容。step4-ts は npm install 後に npx tsc、step5-vue は npm install 後に npm run build で dist/ を作り直せる。dist/ はレッスン内の表示用にコミットする）
 └── assets/
     ├── css/style.css                   共通スタイル（ライト / ダーク対応）
     └── js/main.js                      テーマ切り替え・確認クイズ

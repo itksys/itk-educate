@@ -1117,3 +1117,91 @@ kbd {
   border-radius: 4px;
   background: var(--surface);
 }
+
+/* ---------- As-Is / To-Be の比較 ---------- */
+
+.asis-tobe {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 12px;
+  align-items: center;
+  margin: 16px 0;
+}
+
+.asis-tobe .code-block { margin: 0; height: 100%; }
+
+.asis-tobe-arrow {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.code-block .del { background: var(--embedded-soft); color: var(--embedded); font-weight: 600; }
+
+.code-legend .legend-del { background: var(--embedded-soft); color: var(--embedded); }
+
+@media (max-width: 760px) {
+  .asis-tobe { grid-template-columns: 1fr; }
+  .asis-tobe-arrow { transform: rotate(90deg); }
+}
+
+/* ---------- 言語・フレームワーク・ライブラリの地図 ---------- */
+
+.stack-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin: 12px 0;
+  font-size: 13px;
+}
+
+.stack { display: grid; gap: 10px; margin: 16px 0; }
+
+.stack-group {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin: 12px 0 -2px;
+}
+
+.stack-row {
+  display: grid;
+  grid-template-columns: 210px 1fr;
+  gap: 12px;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+}
+
+.stack-row.child { margin-left: 32px; border-style: dashed; }
+
+.stack-name b { display: block; font-size: 17px; }
+
+.stack-name small { color: var(--text-muted); font-size: 12px; }
+
+.stack-items { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+
+.stack-items .muted { font-size: 13px; }
+
+.chip {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+.chip.lang { background: var(--web-soft);      color: var(--web);      border-color: var(--web); }
+.chip.fw   { background: var(--desktop-soft);  color: var(--desktop);  border-color: var(--desktop); }
+.chip.lib  { background: var(--mobile-soft);   color: var(--mobile);   border-color: var(--mobile); }
+.chip.env  { background: var(--embedded-soft); color: var(--embedded); border-color: var(--embedded); }
+
+@media (max-width: 600px) {
+  .stack-row { grid-template-columns: 1fr; gap: 6px; }
+  .stack-row.child { margin-left: 16px; }
+}
