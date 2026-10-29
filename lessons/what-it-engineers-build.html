@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ITエンジニアは何を作る人？ | ITK Educate</title>
+  <meta name="description" content="Webアプリ・モバイルアプリ・組み込みアプリなど、ITエンジニアが作るものの種類と違いを学ぶレッスン。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">ITK <span>Educate</span></a>
+      <div class="header-actions">
+        <a href="../index.html">レッスン一覧</a>
+        <button class="theme-toggle" type="button">☾ ダーク</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <span class="eyebrow">LESSON 1</span>
+        <h1>ITエンジニアは何を作る人？</h1>
+        <p class="lead">
+          ひとくちに「ITエンジニア」「プログラマー」と言っても、作っているものは人によって大きく違います。
+          このレッスンでは、<strong>そのソフトウェアが「どこで動くか」</strong>という視点で、作るものの種類を整理します。
+        </p>
+      </section>
+
+      <nav class="toc" aria-label="目次">
+        <strong>このページの内容</strong>
+        <ol>
+          <li><a href="#map">全体マップ</a></li>
+          <li><a href="#web">Webアプリ</a></li>
+          <li><a href="#mobile">モバイルアプリ（iOS / Android）</a></li>
+          <li><a href="#embedded">組み込みアプリ</a></li>
+          <li><a href="#desktop">デスクトップアプリ</a></li>
+          <li><a href="#compare">比較表</a></li>
+          <li><a href="#combine">実際のサービスは「組み合わせ」</a></li>
+          <li><a href="#quiz">確認クイズ</a></li>
+        </ol>
+      </nav>
+
+      <!-- ===================== 全体マップ ===================== -->
+      <h2 id="map">1. 全体マップ：「どこで動くか」で4つに分ける</h2>
+      <p>
+        ソフトウェア（アプリ）は、動く場所によって大きく次の4種類に分けられます。
+        動く場所が違うと、使うプログラミング言語・開発ツール・届け方（配布方法）・気をつけることが変わります。
+      </p>
+
+      <div class="card-grid">
+        <a class="card cat-web" href="#web">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+          </div>
+          <h3>Webアプリ</h3>
+          <p>ブラウザ（Chrome・Safariなど）で動く。インストール不要。</p>
+          <span class="more">詳しく →</span>
+        </a>
+        <a class="card cat-mobile" href="#mobile">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
+          </div>
+          <h3>モバイルアプリ</h3>
+          <p>スマホ・タブレットで動く。iOS と Android がある。</p>
+          <span class="more">詳しく →</span>
+        </a>
+        <a class="card cat-embed" href="#embedded">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="1"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg>
+          </div>
+          <h3>組み込みアプリ</h3>
+          <p>家電・自動車・機械などのハードウェアの中で動く。</p>
+          <span class="more">詳しく →</span>
+        </a>
+        <a class="card cat-desktop" href="#desktop">
+          <div class="icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <h3>デスクトップアプリ</h3>
+          <p>パソコン（Windows / Mac）にインストールして動く。</p>
+          <span class="more">詳しく →</span>
+        </a>
+      </div>
+
+      <div class="note">
+        <strong>ポイント：</strong>
+        「スマホで使う＝モバイルアプリ」とは限りません。スマホのブラウザで開くネットショップは <b>Webアプリ</b> です。
+        「何で見るか」ではなく、<b>プログラムがどこにインストールされ、どこで動いているか</b>で考えましょう。
+      </div>
+
+      <!-- ===================== Webアプリ ===================== -->
+      <section class="category cat-web">
+        <h2 id="web">2. Webアプリ</h2>
+        <p>
+          ブラウザでURLを開くと使えるアプリです。ユーザーはインストール不要で、パソコンでもスマホでも同じものを使えます。
+          作り手は大きく<strong>「画面側」と「裏側」</strong>に分かれます。
+        </p>
+        <ul class="examples">
+          <li>身近な例：ネットショップ、ネットバンキング、Gmail、YouTube（ブラウザ版）、勤怠管理・経費精算などの社内システム</li>
+        </ul>
+
+        <div class="sub-grid">
+          <div class="sub">
+            <h4>フロントエンド（画面側）</h4>
+            <p>ユーザーが見て操作する画面を作ります。ボタン・入力フォーム・レイアウト・見やすさや使いやすさを担当。</p>
+            <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>TypeScript</li><li>React</li><li>Vue.js</li></ul>
+          </div>
+          <div class="sub">
+            <h4>バックエンド（裏側・サーバー）</h4>
+            <p>ログイン、データの保存・検索、計算、メール送信など、画面の裏で動く処理を作ります。</p>
+            <ul class="tags"><li>Java</li><li>PHP</li><li>Python</li><li>Ruby</li><li>Go</li><li>Node.js</li><li>C#</li><li>SQL</li></ul>
+          </div>
+          <div class="sub">
+            <h4>インフラ（土台）</h4>
+            <p>アプリを動かすサーバー・ネットワーク・データベースを用意し、止まらないように運用します。最近はクラウドが主流です。</p>
+            <ul class="tags"><li>AWS</li><li>Azure</li><li>Google Cloud</li><li>Linux</li><li>MySQL</li><li>PostgreSQL</li></ul>
+          </div>
+        </div>
+
+        <h3>Webアプリの特徴</h3>
+        <ul>
+          <li><b>更新が簡単：</b>サーバー側を更新すれば、全ユーザーに即座に反映される（ユーザーのアップデート作業は不要）。</li>
+          <li><b>どの端末でも使える：</b>ブラウザさえあれば OS を問わない。</li>
+          <li><b>苦手なこと：</b>ネットにつながっていないと基本的に使えない。カメラやセンサーなど端末の機能は使える範囲が限られる。</li>
+        </ul>
+      </section>
+
+      <!-- ===================== モバイルアプリ ===================== -->
+      <section class="category cat-mobile">
+        <h2 id="mobile">3. モバイルアプリ（iOS / Android）</h2>
+        <p>
+          スマートフォンやタブレットにインストールして使うアプリです。スマホの OS（基本ソフト）には
+          <strong>iOS（Apple の iPhone / iPad）</strong>と<strong>Android（Google ほか各社のスマホ）</strong>の2つがあり、
+          原則として<b>それぞれ別々に作る</b>必要があります。
+        </p>
+        <ul class="examples">
+          <li>身近な例：LINE、各種ゲームアプリ、銀行アプリ、交通系アプリ、フードデリバリーアプリ</li>
+        </ul>
+
+        <div class="sub-grid">
+          <div class="sub">
+            <h4>iOSアプリ</h4>
+            <p>iPhone / iPad 向け。</p>
+            <ul class="tags"><li>Swift</li><li>SwiftUI</li><li>Xcode</li></ul>
+            <dl>
+              <dt>開発に必要なもの</dt><dd>Mac（Xcode は Mac でしか動かない）</dd>
+              <dt>配布方法</dt><dd>App Store（Apple の審査あり）</dd>
+            </dl>
+          </div>
+          <div class="sub">
+            <h4>Androidアプリ</h4>
+            <p>Android スマホ / タブレット向け。メーカー・機種が多いのが特徴。</p>
+            <ul class="tags"><li>Kotlin</li><li>Java</li><li>Android Studio</li></ul>
+            <dl>
+              <dt>開発に必要なもの</dt><dd>Windows / Mac / Linux いずれでも可</dd>
+              <dt>配布方法</dt><dd>Google Play（審査あり）</dd>
+            </dl>
+          </div>
+          <div class="sub">
+            <h4>クロスプラットフォーム</h4>
+            <p>1つのコードから iOS と Android の両方を作る方法。開発コストを抑えられる。</p>
+            <ul class="tags"><li>Flutter（Dart）</li><li>React Native</li></ul>
+            <dl>
+              <dt>注意点</dt><dd>OS 固有の細かい機能は個別対応が必要になることもある</dd>
+            </dl>
+          </div>
+        </div>
+
+        <h3>モバイルアプリの特徴</h3>
+        <ul>
+          <li><b>端末の機能をフル活用：</b>カメラ・GPS・プッシュ通知・Bluetooth・生体認証などが使える。</li>
+          <li><b>オフラインでも動かせる：</b>端末にプログラムが入っているため。</li>
+          <li><b>リリースに時間がかかる：</b>ストアの審査があり、ユーザーにアップデートしてもらう必要がある。</li>
+          <li><b>裏側は Web と同じ：</b>データの保存やログインは、多くの場合 Web と同じようなサーバー（バックエンド）とやりとりしている。</li>
+        </ul>
+      </section>
+
+      <!-- ===================== 組み込みアプリ ===================== -->
+      <section class="category cat-embed">
+        <h2 id="embedded">4. 組み込みアプリ（組み込みソフトウェア）</h2>
+        <p>
+          家電・自動車・医療機器・工場の機械など、<strong>特定のハードウェアの中に組み込まれて動く</strong>ソフトウェアです。
+          ユーザーからは見えにくいですが、世の中で最も数多く動いているソフトウェアの一つです。
+          機器そのものを動かす基本的なプログラムは「ファームウェア」とも呼ばれます。
+        </p>
+        <ul class="examples">
+          <li>身近な例：炊飯器・エアコン・洗濯機の制御、カーナビやエンジン制御、デジカメ、自動販売機、ATM、工場のロボット、スマートメーター</li>
+        </ul>
+
+        <div class="sub-grid">
+          <div class="sub">
+            <h4>マイコン制御</h4>
+            <p>小さなコンピュータ（マイコン）で、センサーの値を読んだりモーターを動かしたりします。メモリや処理能力がとても限られた環境です。</p>
+            <ul class="tags"><li>C言語</li><li>C++</li><li>RTOS</li></ul>
+          </div>
+          <div class="sub">
+            <h4>組み込み Linux</h4>
+            <p>カーナビ・ネットワーク機器・高機能な家電など、画面や通信を持つ比較的大きな機器で使われます。</p>
+            <ul class="tags"><li>C / C++</li><li>Linux</li><li>Python</li></ul>
+          </div>
+          <div class="sub">
+            <h4>IoT / M2M</h4>
+            <p>機器をネットワークにつなぎ、データをクラウドへ送ったり遠隔で操作したりします。機器同士が人を介さず通信することを M2M（Machine to Machine）と呼びます。</p>
+            <ul class="tags"><li>C / C++</li><li>通信プロトコル</li><li>クラウド連携</li></ul>
+          </div>
+        </div>
+
+        <h3>組み込みアプリの特徴</h3>
+        <ul>
+          <li><b>ハードウェアの知識が必要：</b>電子回路・センサー・通信の仕組みを理解して作る。</li>
+          <li><b>リソースが限られる：</b>少ないメモリ・低い処理能力・省電力の中で動かす工夫が必要。</li>
+          <li><b>リアルタイム性：</b>「ブレーキを踏んだら○ミリ秒以内に反応」のように、決められた時間内に確実に動くことが求められる。</li>
+          <li><b>品質への要求が高い：</b>出荷後の修正が難しく、不具合は製品回収や事故につながることもあるため、テストが特に重要。</li>
+        </ul>
+      </section>
+
+      <!-- ===================== デスクトップアプリ ===================== -->
+      <section class="category cat-desktop">
+        <h2 id="desktop">5. デスクトップアプリ</h2>
+        <p>
+          パソコン（Windows / Mac）にインストールして使うアプリです。最近は Web アプリに置き換わるものも増えていますが、
+          高い処理性能が必要なソフトや、社内の業務端末で使うソフトでは今も多く使われています。
+        </p>
+        <ul class="examples">
+          <li>身近な例：Excel・Word、Teams・Zoom（PC版）、Photoshop、会計ソフト、工場や店舗の専用端末のソフト</li>
+        </ul>
+        <ul class="tags"><li>C#（.NET）</li><li>C++</li><li>Swift（Mac）</li><li>Electron（JavaScript）</li></ul>
+      </section>
+
+      <!-- ===================== 比較表 ===================== -->
+      <h2 id="compare">6. 比較表</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>種類</th>
+              <th>動く場所</th>
+              <th>主な言語・技術</th>
+              <th>ユーザーへの届け方</th>
+              <th>更新のしやすさ</th>
+              <th>身近な例</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="cat-web">
+              <th>Webアプリ</th>
+              <td>ブラウザ ＋ サーバー</td>
+              <td>HTML / CSS / JavaScript、Java、PHP、Python など</td>
+              <td>URLを開くだけ</td>
+              <td>◎ サーバー更新で即反映</td>
+              <td>ネットショップ、社内システム</td>
+            </tr>
+            <tr class="cat-mobile">
+              <th>モバイルアプリ</th>
+              <td>スマホ・タブレット（iOS / Android）</td>
+              <td>Swift（iOS）、Kotlin（Android）、Flutter</td>
+              <td>App Store / Google Play</td>
+              <td>○ ストア審査 ＋ ユーザーのアップデート</td>
+              <td>LINE、銀行アプリ、ゲーム</td>
+            </tr>
+            <tr class="cat-embed">
+              <th>組み込みアプリ</th>
+              <td>家電・機械などのハードウェア</td>
+              <td>C、C++、組み込み Linux</td>
+              <td>製品に搭載して出荷</td>
+              <td>△ ファームウェア更新が必要（できない機器も）</td>
+              <td>炊飯器、自動車、IoT機器</td>
+            </tr>
+            <tr class="cat-desktop">
+              <th>デスクトップアプリ</th>
+              <td>パソコン（Windows / Mac）</td>
+              <td>C#、C++、Electron</td>
+              <td>インストーラー・ストア</td>
+              <td>○ ユーザーのアップデート</td>
+              <td>Excel、Zoom、会計ソフト</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ===================== 組み合わせ ===================== -->
+      <h2 id="combine">7. 実際のサービスは「組み合わせ」でできている</h2>
+      <p>
+        世の中のサービスの多くは、ここまでの種類を<strong>組み合わせて</strong>作られています。
+        例として、フードデリバリーサービスを分解してみましょう。
+      </p>
+
+      <figure class="figure">
+        <div class="flow">
+          <div class="col">
+            <div class="box cat-mobile"><b>モバイルアプリ</b>注文する人のアプリ<br>（iOS / Android）</div>
+            <div class="box cat-mobile"><b>モバイルアプリ</b>配達員のアプリ</div>
+          </div>
+          <div class="arrow">⇄</div>
+          <div class="col">
+            <div class="box cat-web"><b>Web（バックエンド）</b>注文・決済・配達員の割り当てを処理するサーバー</div>
+          </div>
+          <div class="arrow">⇄</div>
+          <div class="col">
+            <div class="box cat-web"><b>Webアプリ</b>お店向けの管理画面<br>運営会社の社内管理画面</div>
+            <div class="box cat-embed"><b>組み込み</b>お店の注文受付端末・レシートプリンター</div>
+          </div>
+        </div>
+        <figcaption>1つのサービスでも、モバイル・Web・組み込みのエンジニアがそれぞれ担当して協力しています。</figcaption>
+      </figure>
+
+      <div class="note">
+        <strong>弊社の場合：</strong>
+        弊社のプロジェクトも、機器とつながる M2M（組み込み・IoT 側）、AWS 上のバックエンド、
+        ブラウザで操作する Web フロントエンドといった複数の種類を組み合わせて作られています。
+      </div>
+
+      <!-- ===================== クイズ ===================== -->
+      <h2 id="quiz">8. 確認クイズ</h2>
+      <p class="muted">次のソフトウェアはどの種類でしょう？ 選択肢をクリックしてください。</p>
+
+      <div class="quiz">
+        <div class="q" data-answer="Webアプリ" data-explain="スマホで見ていても、ブラウザで動いているので Web アプリです。">
+          <p>Q1. スマホの Safari で開いて使うネットショップ</p>
+          <div class="choices"><button type="button">Webアプリ</button><button type="button">モバイルアプリ</button><button type="button">組み込みアプリ</button><button type="button">デスクトップアプリ</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="組み込みアプリ" data-explain="炊飯器の中のマイコンで動き、ヒーターの温度などを制御しています。">
+          <p>Q2. 炊飯器の「炊き上がりまであと○分」の計算と火加減の制御</p>
+          <div class="choices"><button type="button">Webアプリ</button><button type="button">モバイルアプリ</button><button type="button">組み込みアプリ</button><button type="button">デスクトップアプリ</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="モバイルアプリ" data-explain="App Store からスマホにインストールして使うのでモバイルアプリ（iOSアプリ）です。">
+          <p>Q3. App Store からダウンロードした家計簿アプリ</p>
+          <div class="choices"><button type="button">Webアプリ</button><button type="button">モバイルアプリ</button><button type="button">組み込みアプリ</button><button type="button">デスクトップアプリ</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="組み込みアプリ" data-explain="機器の中で動き、データをクラウドへ送る IoT / M2M のソフトウェアです。">
+          <p>Q4. 工場の機械に取り付けて、温度データを自動でクラウドへ送る装置のソフト</p>
+          <div class="choices"><button type="button">Webアプリ</button><button type="button">モバイルアプリ</button><button type="button">組み込みアプリ</button><button type="button">デスクトップアプリ</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="デスクトップアプリ" data-explain="パソコンにインストールして使うのでデスクトップアプリです。">
+          <p>Q5. パソコンにインストールして使う Excel</p>
+          <div class="choices"><button type="button">Webアプリ</button><button type="button">モバイルアプリ</button><button type="button">組み込みアプリ</button><button type="button">デスクトップアプリ</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <!-- ===================== まとめ ===================== -->
+      <h2>まとめ</h2>
+      <ul>
+        <li>ソフトウェアは<b>「どこで動くか」</b>で、Web・モバイル・組み込み・デスクトップに分けて考えるとわかりやすい。</li>
+        <li><b>Webアプリ</b>はブラウザで動き、フロントエンド・バックエンド・インフラに役割が分かれる。</li>
+        <li><b>モバイルアプリ</b>は iOS と Android で作り方が違い、ストアを通じて届ける。</li>
+        <li><b>組み込みアプリ</b>はハードウェアの中で動き、リソースの制約と高い品質が求められる。</li>
+        <li>実際のサービスは、これらを<b>組み合わせて</b>作られている。</li>
+      </ul>
+
+      <nav class="pager">
+        <a href="../index.html">← レッスン一覧へ</a>
+        <a href="how-apps-work.html">Lesson 2：アプリが動くしくみ →</a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">ITK Educate — 社内向け教材</div>
+  </footer>
+</body>
+</html>

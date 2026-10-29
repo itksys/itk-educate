@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HTMLとは？はじめての Hello World | ITK Educate</title>
+  <meta name="description" content="Webページの骨組みを作る言語「HTML」のしくみを学び、メモ帳とブラウザだけで Hello World を表示するレッスン。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">ITK <span>Educate</span></a>
+      <div class="header-actions">
+        <a href="../index.html">レッスン一覧</a>
+        <button class="theme-toggle" type="button">☾ ダーク</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <span class="eyebrow">LESSON 5</span>
+        <h1>HTMLとは？<br>はじめての Hello World</h1>
+        <p class="lead">
+          ここからは、いよいよ<strong>実際に手を動かして</strong>作ってみます。
+          最初に学ぶのは、Webページの骨組みを作る言語<strong>「HTML」</strong>。
+          ゴールは、自分で書いたHTMLでブラウザに <code>Hello World!</code> を表示することです。
+        </p>
+      </section>
+
+      <aside class="aside">
+        <p>
+          「プログラミングって、黒い画面に英語がずらーっと並ぶやつでしょ……？」と身構えた方。大丈夫です。
+          今日使う道具は、<b>どのパソコンにも最初から入っている「メモ帳」とブラウザだけ</b>。インストールも不要です。
+        </p>
+        <p>所要時間は約20分。コーヒーが冷める前に、はじめての Webページが完成します。</p>
+      </aside>
+
+      <nav class="toc" aria-label="目次">
+        <strong>このページの内容</strong>
+        <ol>
+          <li><a href="#where">HTMLはどこで使う？</a></li>
+          <li><a href="#trio">HTML・CSS・JavaScript の役割分担</a></li>
+          <li><a href="#tag">HTMLは「タグ」で意味を付ける</a></li>
+          <li><a href="#tags">よく使うタグ</a></li>
+          <li><a href="#structure">HTMLページの基本の形</a></li>
+          <li><a href="#hello">やってみよう：Hello World!</a></li>
+          <li><a href="#trouble">うまくいかないときは</a></li>
+          <li><a href="#quiz">確認クイズ</a></li>
+        </ol>
+      </nav>
+
+      <!-- ===================== どこで使う ===================== -->
+      <h2 id="where">1. HTMLはどこで使う？</h2>
+      <p>
+        <a href="it-job-roles.html#axis">Lesson 3</a> で見た職種の表を思い出してください。
+        HTMLを書くのは、<b>フロントエンド（画面）を担当する PG（プログラマー）</b>のマスです。
+      </p>
+      <div class="table-wrap">
+        <table class="matrix" style="min-width: 620px;">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="cat-mobile" style="color: var(--c);">フロントエンド<br><small>画面</small></th>
+              <th class="cat-web" style="color: var(--c);">バックエンド<br><small>サーバーの処理</small></th>
+              <th class="cat-desktop" style="color: var(--c);">DB<br><small>データ</small></th>
+              <th class="cat-embed" style="color: var(--c);">インフラ<br><small>土台</small></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th>SE<br><small class="muted">設計する</small></th><td>画面の構成・<br>操作の流れを設計</td><td>機能・処理の<br>仕組みを設計</td><td>データの持ち方を設計</td><td>サーバー構成を設計</td></tr>
+            <tr><th>PG<br><small class="muted">作る</small></th><td class="here">画面をコーディング<br><small>← HTML・CSS・JS はここ！</small></td><td>処理を<br>プログラミング</td><td>SQL を書いて<br>データを操作</td><td>サーバーを構築・設定</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        また <a href="how-apps-work.html#flow">Lesson 2</a> では、Webサーバーから届いた HTML・CSS・JavaScript を、
+        <b>ブラウザが組み立てて画面に表示する</b>ことを学びました。今日はその「届けられる側のファイル」を、自分で作ってみます。
+      </p>
+
+      <!-- ===================== 3兄弟 ===================== -->
+      <h2 id="trio">2. HTML・CSS・JavaScript の役割分担</h2>
+      <p>Webページは、役割の違う3つの言語でできています。このシリーズでも、この3つを順番に学んでいきます。</p>
+      <div class="card-grid">
+        <div class="card cat-web">
+          <h3>HTML</h3>
+          <p><b>骨組み・中身</b>を作る。「ここは見出し」「ここは文章」「ここに画像」と、ページの構造を決めます。</p>
+          <p style="margin-top: 8px;">家でいうと <b>柱・壁・間取り</b></p>
+        </div>
+        <div class="card cat-mobile">
+          <h3>CSS</h3>
+          <p><b>見た目</b>を整える。色・文字の大きさ・配置・余白など、デザインを担当します。</p>
+          <p style="margin-top: 8px;">家でいうと <b>壁紙・塗装・家具の配置</b></p>
+        </div>
+        <div class="card cat-embed">
+          <h3>JavaScript</h3>
+          <p><b>動き</b>を付ける。ボタンを押したら何かが起きる、などの仕掛けを作ります。</p>
+          <p style="margin-top: 8px;">家でいうと <b>照明のスイッチ・自動ドア</b></p>
+        </div>
+      </div>
+      <p>この3つは、Lesson 7〜9 のポートフォリオ作りで、<b>HTML → CSS → JavaScript</b> の順に1つずつ足していきます。今日はまず HTML です。</p>
+
+      <!-- ===================== タグ ===================== -->
+      <h2 id="tag">3. HTMLは「タグ」で意味を付ける</h2>
+      <p>
+        HTML は <b>HyperText Markup Language</b> の略です。「Markup（マークアップ）」とは、文章に<b>目印を付ける</b>こと。
+        HTMLでは、<code>&lt;</code> と <code>&gt;</code> で囲んだ<b>タグ</b>という目印で、文章の各部分が「何なのか」をブラウザに伝えます。
+      </p>
+      <figure class="figure">
+        <div class="anatomy">
+          <div><code class="t">&lt;h1&gt;</code><small>開始タグ</small></div>
+          <div><code class="c">Hello World!</code><small>内容</small></div>
+          <div><code class="t">&lt;/h1&gt;</code><small>終了タグ（/ が付く）</small></div>
+        </div>
+        <div class="anatomy-whole">全体で「要素（ようそ）」と呼ぶ</div>
+        <figcaption>
+          <code>h1</code> は「いちばん大きな見出し（heading 1）」という意味のタグ。
+          開始タグと終了タグで内容をはさむと、ブラウザは「これは大見出しだな」と理解して、大きく太い文字で表示します。
+        </figcaption>
+      </figure>
+      <div class="note">
+        <strong>ポイント：</strong>
+        HTMLは「見た目」ではなく<b>「意味」</b>を伝える言語です。<code>&lt;h1&gt;</code> は「大きな文字にして」ではなく「これは見出しです」という意味。
+        見た目を変えるのは、Lesson 8 で学ぶ CSS の役割です。
+      </div>
+
+      <!-- ===================== よく使うタグ ===================== -->
+      <h2 id="tags">4. よく使うタグ</h2>
+      <p>タグはたくさんありますが、最初はこれだけ知っていれば十分です。どれも Lesson 7 のポートフォリオで使います。</p>
+      <div class="table-wrap">
+        <table style="min-width: 560px;">
+          <thead><tr><th>タグ</th><th>意味</th><th>書き方の例</th></tr></thead>
+          <tbody>
+            <tr><td><code>h1</code>〜<code>h6</code></td><td>見出し（数字が小さいほど大きな見出し）</td><td><code>&lt;h1&gt;自己紹介&lt;/h1&gt;</code></td></tr>
+            <tr><td><code>p</code></td><td>段落（ひとまとまりの文章）</td><td><code>&lt;p&gt;はじめまして。&lt;/p&gt;</code></td></tr>
+            <tr><td><code>ul</code> と <code>li</code></td><td>箇条書きのリスト</td><td><code>&lt;ul&gt;&lt;li&gt;りんご&lt;/li&gt;&lt;/ul&gt;</code></td></tr>
+            <tr><td><code>img</code></td><td>画像（終了タグがない）</td><td><code>&lt;img src="cat.jpg" alt="ねこ"&gt;</code></td></tr>
+            <tr><td><code>a</code></td><td>リンク</td><td><code>&lt;a href="https://..."&gt;こちら&lt;/a&gt;</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        <code>src="cat.jpg"</code> のように、タグの中に書く追加情報を<b>属性（ぞくせい）</b>と呼びます。
+        <code>img</code> なら「どの画像を表示するか（<code>src</code>）」「画像の説明（<code>alt</code>）」を属性で指定します。
+      </p>
+
+      <!-- ===================== 基本の形 ===================== -->
+      <h2 id="structure">5. HTMLページの基本の形</h2>
+      <p>HTMLファイルは、いつも次のような「お決まりの形」で書きます。最初は意味を全部覚えなくて大丈夫。<b>「こういう箱に入れるもの」</b>と思ってください。</p>
+<div class="code-block"><div class="code-head"><span>基本の形（← から右は説明なので、書かなくてOK）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>&lt;!DOCTYPE html&gt;            ← 「これはHTMLです」という宣言
+&lt;html lang="ja"&gt;           ← ここからHTML（日本語のページ）
+&lt;head&gt;                     ← ページの「設定」を書く場所（画面には出ない）
+  &lt;meta charset="UTF-8"&gt;   ← 文字コードの指定（文字化け防止）
+  &lt;title&gt;タイトル&lt;/title&gt;  ← ブラウザのタブに表示される名前
+&lt;/head&gt;
+&lt;body&gt;                     ← ここに書いたものが画面に表示される
+  ここに中身を書く
+&lt;/body&gt;
+&lt;/html&gt;                    ← HTMLの終わり</code></pre></div>
+      <p>
+        たとえるなら、<code>&lt;head&gt;</code> は<b>荷物の送り状</b>（中身ではないけれど大事な情報）、
+        <code>&lt;body&gt;</code> は<b>箱の中身</b>です。
+      </p>
+
+      <!-- ===================== Hello World ===================== -->
+      <h2 id="hello">6. やってみよう：Hello World!</h2>
+      <p>
+        プログラミングの世界では、はじめて書くプログラムで <b>「Hello World!」</b>と表示するのが昔からのお約束です。
+        1970年代のプログラミング言語の入門書で使われたのが始まりと言われ、今では世界中のエンジニアが最初に通る「入学式」のようなもの。
+        さっそくやってみましょう。（ここでは Windows のメモ帳を使います）
+      </p>
+
+      <ol class="steps">
+        <li>
+          <h4>作業用のフォルダを作る</h4>
+          <p>デスクトップで右クリック →「新規作成」→「フォルダー」を選び、名前を <code>hello</code> にします。</p>
+        </li>
+        <li>
+          <h4>メモ帳を開く</h4>
+          <p>スタートメニューで「メモ帳」と検索して開きます。</p>
+        </li>
+        <li>
+          <h4>次のコードを入力する</h4>
+          <p>まずは1文字ずつ自分で打ってみるのがおすすめ。どうしても大変なら「コピー」ボタンを使ってもOKです。</p>
+<div class="code-block"><div class="code-head"><span>hello.html</span><button class="copy-btn" type="button">コピー</button></div><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;はじめてのHTML&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hello World!&lt;/h1&gt;
+  &lt;p&gt;これが私のはじめてのWebページです。&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+        </li>
+        <li>
+          <h4>「hello.html」という名前で保存する</h4>
+          <p>
+            メニューの「ファイル」→「名前を付けて保存」を選び、先ほど作った <code>hello</code> フォルダに保存します。
+            このとき、次の3点に注意してください。
+          </p>
+          <ul class="examples">
+            <li>ファイル名：<code>hello.html</code>（最後を <code>.html</code> にする）</li>
+            <li>ファイルの種類：<b>「すべてのファイル」</b>を選ぶ（「テキスト文書」のままだと <code>hello.html.txt</code> になってしまう）</li>
+            <li>エンコード：<b>「UTF-8」</b>を選ぶ（文字化け防止）</li>
+          </ul>
+        </li>
+        <li>
+          <h4>ダブルクリックで開く</h4>
+          <p>保存した <code>hello.html</code> をダブルクリックすると、ブラウザが開いて次のように表示されます。</p>
+        </li>
+      </ol>
+
+      <div class="browser" style="--h: 220px;">
+        <div class="browser-bar"><i></i><i></i><i></i><span>hello.html</span></div>
+        <iframe src="../samples/hello/hello.html" title="Hello World の表示例" loading="lazy"></iframe>
+      </div>
+      <p class="browser-note">↑ 表示例（実物です）。ブラウザのタブには <code>&lt;title&gt;</code> に書いた「はじめてのHTML」が表示されます。</p>
+
+      <div class="note">
+        <strong>おめでとうございます！</strong>
+        これであなたも、HTMLで Webページを作ったことのある人の仲間入りです。
+        世界中のどんな大きな Webサイトも、根っこはこの数行と同じ仕組みでできています。
+      </div>
+
+      <h3>ちょっと改造してみよう</h3>
+      <p>メモ帳に戻ってコードを書き換え、上書き保存（<kbd>Ctrl</kbd> + <kbd>S</kbd>）してから、ブラウザで再読み込み（<kbd>F5</kbd>）してみましょう。</p>
+      <ul>
+        <li><code>Hello World!</code> を自分の名前に変えてみる</li>
+        <li><code>&lt;p&gt;</code> の行をコピーして、2行・3行と増やしてみる</li>
+        <li><code>&lt;h1&gt;</code> を <code>&lt;h2&gt;</code> や <code>&lt;h3&gt;</code> に変えて、大きさの違いを見てみる</li>
+      </ul>
+
+      <h3>おまけ：他のサイトのHTMLものぞいてみよう</h3>
+      <p>
+        ブラウザで好きな Webページを開いて、<kbd>Ctrl</kbd> + <kbd>U</kbd> を押してみてください。
+        そのページの HTML（ソースコード）が表示されます。どんな大きなサイトも、<code>&lt;html&gt;</code> や <code>&lt;body&gt;</code> から始まっているのがわかるはずです。
+        もちろん、このページでも見られますよ。
+      </p>
+
+      <!-- ===================== トラブル ===================== -->
+      <h2 id="trouble">7. うまくいかないときは</h2>
+      <div class="table-wrap">
+        <table style="min-width: 560px;">
+          <thead><tr><th>こんなときは</th><th>原因と対処</th></tr></thead>
+          <tbody>
+            <tr><td>ダブルクリックするとメモ帳が開く</td><td>ファイル名が <code>hello.html.txt</code> になっている可能性があります。エクスプローラーの「表示」→「表示」→「ファイル名拡張子」にチェックを入れて確認し、<code>.txt</code> を消してください。</td></tr>
+            <tr><td>日本語が「縺薙ｌ縺ｯ…」のように文字化けする</td><td>保存時のエンコードが UTF-8 になっていない可能性があります。「名前を付けて保存」でエンコードを「UTF-8」にして保存し直してください。</td></tr>
+            <tr><td>タグがそのまま画面に表示される</td><td><code>&lt;</code> や <code>&gt;</code> が全角（＜＞）になっていないか確認してください。HTMLのタグは<b>半角</b>で書きます。</td></tr>
+            <tr><td>書き換えたのに表示が変わらない</td><td>メモ帳で上書き保存したか、ブラウザで再読み込み（<kbd>F5</kbd>）したかを確認してください。</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ===================== クイズ ===================== -->
+      <h2 id="quiz">確認クイズ</h2>
+      <p class="muted">選択肢をクリックしてください。</p>
+      <div class="quiz">
+        <div class="q" data-answer="HTML" data-explain="ページの骨組み（見出し・文章・画像などの構造）を作るのは HTML です。">
+          <p>Q1. Webページの「骨組み・中身」を作る言語はどれ？</p>
+          <div class="choices"><button type="button">HTML</button><button type="button">CSS</button><button type="button">JavaScript</button><button type="button">SQL</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="&lt;/p&gt;" data-explain="終了タグは、タグ名の前に / を付けて書きます。">
+          <p>Q2. <code>&lt;p&gt;</code> の終了タグはどれ？</p>
+          <div class="choices"><button type="button">&lt;p/&gt;</button><button type="button">&lt;/p&gt;</button><button type="button">&lt;\p&gt;</button><button type="button">&lt;end p&gt;</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="body" data-explain="画面に表示される中身は &lt;body&gt; の中に書きます。&lt;head&gt; にはページの設定を書きます。">
+          <p>Q3. 画面に表示したい文章や画像は、どのタグの中に書く？</p>
+          <div class="choices"><button type="button">head</button><button type="button">title</button><button type="button">body</button><button type="button">meta</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="すべてのファイル" data-explain="「テキスト文書」のままだと、ファイル名の最後に .txt が付いてしまいます。">
+          <p>Q4. メモ帳で hello.html を保存するとき、「ファイルの種類」は何を選ぶ？</p>
+          <div class="choices"><button type="button">テキスト文書</button><button type="button">すべてのファイル</button><button type="button">HTMLファイル</button><button type="button">何でもよい</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <!-- ===================== まとめ ===================== -->
+      <h2>まとめ</h2>
+      <ul>
+        <li>HTMLは、Webページの<b>骨組み・中身</b>を作る言語。フロントエンドの PG が書く。</li>
+        <li>見た目は <b>CSS</b>、動きは <b>JavaScript</b> が担当する。</li>
+        <li>HTMLは<b>タグ</b>で文章に「見出し」「段落」などの意味を付ける。開始タグ＋内容＋終了タグ＝<b>要素</b>。</li>
+        <li>画面に出る中身は <code>&lt;body&gt;</code>、ページの設定は <code>&lt;head&gt;</code> に書く。</li>
+        <li>メモ帳とブラウザだけでも、Webページは作れる！</li>
+      </ul>
+      <p>
+        次の Lesson 6 では、プロのエンジニアも使っている道具（VS Code・Chrome・Claude Code）をそろえて、
+        もっと快適に作れるようにします。
+      </p>
+
+      <nav class="pager">
+        <a href="development-process.html">← Lesson 4：開発の流れ</a>
+        <a href="dev-environment.html">Lesson 6：開発環境を整えよう →</a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">ITK Educate — 社内向け教材</div>
+  </footer>
+</body>
+</html>

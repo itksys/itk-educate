@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>アプリが動くしくみ | ITK Educate</title>
+  <meta name="description" content="OSI参照モデルを入り口に、URLを入力してから画面が表示されるまでのしくみと、サーバー・データベース・クラウドの役割を学ぶレッスン。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">ITK <span>Educate</span></a>
+      <div class="header-actions">
+        <a href="../index.html">レッスン一覧</a>
+        <button class="theme-toggle" type="button">☾ ダーク</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <span class="eyebrow">LESSON 2</span>
+        <h1>アプリが動くしくみ</h1>
+        <p class="lead">
+          Lesson 1 では「どこで動くか」でアプリを分類しました。今回は、アプリがネットワークを通じて
+          <strong>どうやってデータをやりとりし、画面を表示しているのか</strong>を学びます。
+          入り口は、通信のしくみを整理した<strong>「OSI参照モデル」</strong>です。
+        </p>
+      </section>
+
+      <nav class="toc" aria-label="目次">
+        <strong>このページの内容</strong>
+        <ol>
+          <li><a href="#cs">クライアントとサーバー</a></li>
+          <li><a href="#protocol">通信のルール「プロトコル」</a></li>
+          <li><a href="#osi">OSI参照モデル（7階層）</a></li>
+          <li><a href="#encap">データは「封筒」に包まれて届く</a></li>
+          <li><a href="#flow">URLを入力してから画面が出るまで</a></li>
+          <li><a href="#server">サーバーの中身（3層構造）</a></li>
+          <li><a href="#cloud">クラウド（IaaS / PaaS / SaaS）</a></li>
+          <li><a href="#other">モバイル・組み込みの場合</a></li>
+          <li><a href="#fe">コラム：基本情報技術者試験とは</a></li>
+          <li><a href="#quiz">確認クイズ</a></li>
+        </ol>
+      </nav>
+
+      <!-- ===================== クライアントとサーバー ===================== -->
+      <h2 id="cs">1. クライアントとサーバー</h2>
+      <p>
+        アプリの通信は、ほとんどが<strong>「お願いする側」と「応える側」</strong>の関係でできています。
+      </p>
+      <div class="card-grid">
+        <div class="card cat-mobile">
+          <h3>クライアント（お願いする側）</h3>
+          <p>ユーザーが操作する端末やアプリ。ブラウザ、スマホアプリ、IoT機器など。「このページを見せて」「このデータを保存して」と<b>リクエスト（要求）</b>を送ります。</p>
+        </div>
+        <div class="card cat-web">
+          <h3>サーバー（応える側）</h3>
+          <p>リクエストを受け取って処理し、結果を<b>レスポンス（応答）</b>として返すコンピュータ。データの保存や計算を集中して担当します。</p>
+        </div>
+      </div>
+      <p>
+        この形を<b>クライアントサーバシステム</b>と呼びます。
+        レストランにたとえると、クライアントは「注文するお客さん」、サーバーは「注文を受けて料理を出す厨房」です。
+      </p>
+
+      <!-- ===================== プロトコル ===================== -->
+      <h2 id="protocol">2. 通信のルール「プロトコル」</h2>
+      <p>
+        世界中のメーカー・OS・アプリが問題なく通信できるのは、<strong>共通のルール（プロトコル）</strong>が決められているからです。
+        手紙で言えば「宛名の書き方」「切手の貼り方」「郵便番号の形式」が決まっているようなものです。
+      </p>
+      <ul class="tags">
+        <li>HTTP / HTTPS（Webページ）</li><li>SMTP（メール送信）</li><li>POP3 / IMAP（メール受信）</li>
+        <li>DNS（名前解決）</li><li>DHCP（IPアドレスの自動割り当て）</li><li>TCP / UDP</li><li>IP</li>
+      </ul>
+      <p>
+        ただし、通信には「電気信号をどう流すか」から「Webページをどう要求するか」まで、たくさんの段階があります。
+        それを<b>役割ごとに7つの階層</b>に整理したのが、次の OSI参照モデルです。
+      </p>
+
+      <!-- ===================== OSI参照モデル ===================== -->
+      <h2 id="osi">3. OSI参照モデル（7階層）</h2>
+      <p>
+        <strong>OSI参照モデル</strong>は、国際標準化機構（ISO）が定めた「通信の役割分担表」です。
+        通信の機能を7つの層に分け、<b>各層は自分の担当だけに集中し、上下の層とだけやりとりする</b>という考え方です。
+        こうすることで、例えば「ケーブルを有線から Wi-Fi に変えても、Webブラウザは何も変えなくてよい」という仕組みが実現できています。
+      </p>
+
+      <div class="table-wrap">
+        <table class="osi">
+          <thead>
+            <tr>
+              <th>層</th>
+              <th>名称</th>
+              <th>役割（ざっくり）</th>
+              <th>代表的なプロトコル・キーワード</th>
+              <th>動作する機器</th>
+              <th>TCP/IP<br>モデル</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="upper">
+              <td class="layer-no">7</td>
+              <td class="layer-name">アプリケーション層</td>
+              <td>アプリごとの具体的なやりとりを決める（Webページの取得、メール送信など）</td>
+              <td>HTTP、HTTPS、SMTP、POP3、IMAP、FTP、DNS、DHCP</td>
+              <td rowspan="3">ゲートウェイ</td>
+              <td class="tcpip" rowspan="3">アプリケーション層</td>
+            </tr>
+            <tr class="upper">
+              <td class="layer-no">6</td>
+              <td class="layer-name">プレゼンテーション層</td>
+              <td>データの表現形式をそろえる（文字コード、圧縮、暗号化など）</td>
+              <td>文字コード（UTF-8 など）、JPEG、MPEG</td>
+            </tr>
+            <tr class="upper">
+              <td class="layer-no">5</td>
+              <td class="layer-name">セッション層</td>
+              <td>通信の開始から終了までの「会話」を管理する</td>
+              <td>セッションの確立・維持・終了</td>
+            </tr>
+            <tr class="trans">
+              <td class="layer-no">4</td>
+              <td class="layer-name">トランスポート層</td>
+              <td>データを確実に（または速く）届ける。どのアプリ宛てかを<b>ポート番号</b>で区別する</td>
+              <td>TCP（確実）、UDP（高速）、ポート番号（HTTP:80、HTTPS:443）</td>
+              <td>ゲートウェイ</td>
+              <td class="tcpip">トランスポート層</td>
+            </tr>
+            <tr class="net">
+              <td class="layer-no">3</td>
+              <td class="layer-name">ネットワーク層</td>
+              <td><b>IPアドレス</b>を使って、離れたネットワークの宛先まで経路を選んで届ける（ルーティング）</td>
+              <td>IP、ICMP（ping）、IPアドレス</td>
+              <td>ルータ、L3スイッチ</td>
+              <td class="tcpip">インターネット層</td>
+            </tr>
+            <tr class="lower">
+              <td class="layer-no">2</td>
+              <td class="layer-name">データリンク層</td>
+              <td>同じネットワーク内の隣の機器へ届ける。<b>MACアドレス</b>で相手を識別する</td>
+              <td>イーサネット、Wi-Fi（無線LAN）、MACアドレス</td>
+              <td>ブリッジ、L2スイッチ</td>
+              <td class="tcpip" rowspan="2">ネットワーク<br>インタフェース層</td>
+            </tr>
+            <tr class="lower">
+              <td class="layer-no">1</td>
+              <td class="layer-name">物理層</td>
+              <td>0と1を電気信号・光・電波に変えて実際に流す</td>
+              <td>LANケーブル、光ファイバ、コネクタ形状</td>
+              <td>リピータ、ハブ</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>実際のインターネットは「TCP/IP」の4階層</h3>
+      <p>
+        OSI参照モデルは「考え方の物差し」で、実際のインターネットでは表の右端にある <b>TCP/IP モデル（4階層）</b>が使われています。
+        それでも OSI の7階層は、エンジニア同士の会話で「それは L3（第3層）の問題だね」のように<b>共通言語</b>として今も使われます。
+      </p>
+
+      <!-- ===================== カプセル化 ===================== -->
+      <h2 id="encap">4. データは「封筒」に包まれて届く</h2>
+      <p>
+        送る側では、データが上の層から下の層へ渡されるたびに、その層の情報（<b>ヘッダ</b>）が付け足されます。
+        封筒にさらに封筒をかぶせていくイメージで、これを<b>カプセル化</b>と呼びます。受け取る側では逆に、下の層から順に封筒を開けていきます。
+      </p>
+      <figure class="figure">
+        <div class="encap">
+          <div class="row">
+            <span class="label">7〜5 アプリケーション</span>
+            <div class="packet"><span class="data">HTTPのデータ（「このページを見せて」）</span></div>
+          </div>
+          <div class="row">
+            <span class="label">4 トランスポート</span>
+            <div class="packet"><span class="h-tcp">TCPヘッダ</span><span class="data">データ</span></div>
+          </div>
+          <div class="row">
+            <span class="label">3 ネットワーク</span>
+            <div class="packet"><span class="h-ip">IPヘッダ</span><span class="h-tcp">TCP</span><span class="data">データ</span></div>
+          </div>
+          <div class="row">
+            <span class="label">2 データリンク</span>
+            <div class="packet"><span class="h-eth">Ethernetヘッダ</span><span class="h-ip">IP</span><span class="h-tcp">TCP</span><span class="data">データ</span><span class="h-eth">末尾</span></div>
+          </div>
+          <div class="row">
+            <span class="label">1 物理</span>
+            <div class="packet"><span class="h-eth">0101100111010…（電気・光・電波の信号）</span></div>
+          </div>
+        </div>
+        <figcaption>
+          TCPヘッダには「ポート番号（どのアプリ宛てか）」、IPヘッダには「IPアドレス（どのコンピュータ宛てか）」、
+          Ethernetヘッダには「MACアドレス（隣のどの機器宛てか）」が書かれています。
+        </figcaption>
+      </figure>
+
+      <h3>例：実際の電文の中身</h3>
+      <p>
+        パソコン（<code>192.168.1.10</code>）から Webサーバー（<code>203.0.113.10</code>）へ、
+        「トップページをください」と送るときの電文を、封筒を1枚ずつ開けるように外側から見てみましょう。
+      </p>
+
+      <figure class="figure">
+        <div class="frame frame-eth">
+          <div class="frame-title">Ethernetフレーム<span>第2層 データリンク層</span></div>
+          <dl class="fields">
+            <dt>宛先MACアドレス</dt><dd><code>00:1a:2b:3c:4d:5e</code>（隣のルータ）</dd>
+            <dt>送信元MACアドレス</dt><dd><code>a4:83:e7:12:34:56</code>（自分のパソコン）</dd>
+            <dt>タイプ</dt><dd><code>0x0800</code>（中身は IPv4 のパケット）</dd>
+          </dl>
+
+          <div class="frame frame-ip">
+            <div class="frame-title">IPパケット<span>第3層 ネットワーク層</span></div>
+            <dl class="fields">
+              <dt>送信元IPアドレス</dt><dd><code>192.168.1.10</code>（自分のパソコン）</dd>
+              <dt>宛先IPアドレス</dt><dd><code>203.0.113.10</code>（Webサーバー）</dd>
+              <dt>TTL（生存時間）</dt><dd><code>64</code>（ルータを1台通るごとに1減り、0になると破棄）</dd>
+              <dt>プロトコル</dt><dd><code>6</code>（中身は TCP）</dd>
+            </dl>
+
+            <div class="frame frame-tcp">
+              <div class="frame-title">TCPセグメント<span>第4層 トランスポート層</span></div>
+              <dl class="fields">
+                <dt>送信元ポート番号</dt><dd><code>52341</code>（ブラウザ側で一時的に使う番号）</dd>
+                <dt>宛先ポート番号</dt><dd><code>80</code>（HTTP ＝ Webサーバーのプログラム宛て）</dd>
+                <dt>シーケンス番号</dt><dd><code>1001</code>（データの順番。届かなければ再送する）</dd>
+              </dl>
+
+              <div class="frame frame-http">
+                <div class="frame-title">HTTPリクエスト<span>第7層 アプリケーション層</span></div>
+<pre class="message"><span class="hl">GET / HTTP/1.1</span>            ← 「トップページ（/）をください」
+Host: example.com         ← どのサイト宛てか
+User-Agent: Mozilla/5.0   ← 使っているブラウザの情報
+Accept: text/html         ← HTML で返してほしい</pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="frame-trailer">FCS（末尾）：途中でデータが壊れていないかを確かめるための検査用の値</div>
+        </div>
+        <figcaption>※ 説明のため、各ヘッダの項目は主要なものだけを抜き出しています。</figcaption>
+      </figure>
+
+      <p>このリクエストを受け取ったサーバーは、同じように封筒に包んで次のようなレスポンスを返します。</p>
+      <figure class="figure">
+        <div class="frame frame-http">
+          <div class="frame-title">HTTPレスポンス<span>第7層 アプリケーション層</span></div>
+<pre class="message"><span class="hl">HTTP/1.1 200 OK</span>                         ← 成功しました（ステータスコード 200）
+Content-Type: text/html; charset=UTF-8  ← 中身は HTML、文字コードは UTF-8
+
+&lt;!doctype html&gt;                         ← ここからが画面の本体（HTML）
+&lt;html&gt;
+  &lt;head&gt;&lt;title&gt;Example&lt;/title&gt;&lt;/head&gt;
+  &lt;body&gt;&lt;h1&gt;ようこそ&lt;/h1&gt;&lt;/body&gt;
+&lt;/html&gt;</pre>
+        </div>
+      </figure>
+
+      <div class="note">
+        <strong>ポイント：</strong>
+        IPアドレス（最終的な宛先）は最後まで変わりませんが、MACアドレス（隣の機器）は<b>ルータを通るたびに付け替えられます</b>。
+        住所（IPアドレス）は同じまま、配達区間ごとに担当の配達員（MACアドレス）が交代していくイメージです。
+        なお、HTTPS の場合は HTTP の部分が暗号化されるため、途中で盗み見ても中身は読めません。
+        また、家庭や会社のネットワークでは、出口のルータで送信元IPアドレスが書き換えられる（NAT）のが一般的です。
+      </div>
+
+      <aside class="aside">
+        <p>
+          ……さて。ここまで読んで「MACアドレス？ TTL？ シーケンス番号？ <b>何かの呪文？</b>」と思った方、安心してください。
+          それは正常な反応です。初めてこの電文を見て、すぐに「なるほど」と言えた人はたぶんいません。
+        </p>
+        <p>
+          というわけで、専門用語はいったん全部忘れて大丈夫です。<b>もう一段階かんたんな例</b>で見てみましょう。
+        </p>
+      </aside>
+
+      <h3>たとえ話：会社に注文の手紙を送る</h3>
+      <p>
+        <b>宅配便で会社に注文の手紙を送る</b>場面に置き換えてみます。
+        実は上の電文と、まったく同じ入れ子の形になっています。
+      </p>
+
+      <figure class="figure">
+        <div class="frame frame-eth">
+          <div class="frame-title">配送伝票<span>＝ Ethernetヘッダ（MACアドレス）</span></div>
+          <dl class="fields">
+            <dt>次の配達先</dt><dd>○○集配センター（隣の中継地点）</dd>
+            <dt>出発地</dt><dd>近所の営業所</dd>
+          </dl>
+
+          <div class="frame frame-ip">
+            <div class="frame-title">外側の封筒の宛名<span>＝ IPヘッダ（IPアドレス）</span></div>
+            <dl class="fields">
+              <dt>お届け先</dt><dd>大阪府大阪市○○ 1-2-3　株式会社サンプル商事</dd>
+              <dt>差出人</dt><dd>東京都千代田区△△ 4-5-6　山田 太郎</dd>
+            </dl>
+
+            <div class="frame frame-tcp">
+              <div class="frame-title">内側の封筒の宛名<span>＝ TCPヘッダ（ポート番号）</span></div>
+              <dl class="fields">
+                <dt>宛先の部署</dt><dd>営業部 御中（会社の中のどの窓口宛てか）</dd>
+                <dt>通し番号</dt><dd>全3通のうち1通目（足りなければ再送をお願いする）</dd>
+              </dl>
+
+              <div class="frame frame-http">
+                <div class="frame-title">手紙の本文<span>＝ HTTPリクエスト</span></div>
+<pre class="message"><span class="hl">商品カタログを1部送ってください。</span>
+送り先：山田 太郎
+日本語の冊子でお願いします。</pre>
+              </div>
+            </div>
+          </div>
+
+          <div class="frame-trailer">「開封厳禁」シール ＝ FCS：途中で破れたり開けられたりしていないかの確認</div>
+        </div>
+      </figure>
+
+      <div class="table-wrap">
+        <table style="min-width: 560px;">
+          <thead>
+            <tr><th>層</th><th>電文の項目</th><th>手紙・宅配便でいうと</th><th>ポイント</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>7 アプリケーション</td><td>HTTPリクエスト</td><td>手紙の本文</td><td>本当に伝えたい中身</td></tr>
+            <tr><td>4 トランスポート</td><td>ポート番号</td><td>部署名（営業部 御中）</td><td>会社（コンピュータ）の<b>中の</b>どの窓口（プログラム）宛てか</td></tr>
+            <tr><td>3 ネットワーク</td><td>IPアドレス</td><td>封筒の住所・会社名</td><td>最終的なお届け先。<b>最後まで変わらない</b></td></tr>
+            <tr><td>2 データリンク</td><td>MACアドレス</td><td>配送伝票の「次の配達先」</td><td>中継地点ごとに<b>貼り替えられる</b></td></tr>
+            <tr><td>1 物理</td><td>電気・光・電波の信号</td><td>トラック・道路</td><td>実際に荷物を運ぶ手段</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        受け取った会社では、まず配送伝票をはがし（データリンク層）、住所を確認して（ネットワーク層）、
+        「営業部宛てだ」と社内の担当へ回し（トランスポート層）、最後に営業部の人が手紙を読んで返事を書きます（アプリケーション層）。
+        <b>外側から順に1枚ずつ開けていく</b>のが、受け取る側の動きです。
+      </p>
+
+      <!-- ===================== URLから表示まで ===================== -->
+      <h2 id="flow">5. URLを入力してから画面が出るまで</h2>
+      <p>
+        ここまでの知識を使って、ブラウザに <code>https://example.com</code> と入力してからページが表示されるまでを追ってみましょう。
+      </p>
+      <ol class="steps">
+        <li>
+          <h4>DNS で「住所」を調べる<span class="layer-tag">L7 アプリケーション</span></h4>
+          <p>
+            コンピュータは <code>example.com</code> のような名前ではなく、<b>IPアドレス</b>（例：<code>203.0.113.10</code>）で相手を探します。
+            そこでまず <b>DNSサーバー</b>に「example.com の IPアドレスは？」と問い合わせます。これを<b>名前解決</b>と呼びます。電話帳で番号を調べるイメージです。
+          </p>
+        </li>
+        <li>
+          <h4>TCP で接続を確立する<span class="layer-tag">L4 トランスポート</span></h4>
+          <p>
+            調べた IPアドレスのサーバーに対し、HTTPS のポート番号 <b>443</b> 宛てに「つないでいいですか？」「どうぞ」「では始めます」の3回のやりとりで接続します（3ウェイハンドシェイク）。
+          </p>
+        </li>
+        <li>
+          <h4>TLS で通信を暗号化する</h4>
+          <p>
+            HTTPS の「S」は Secure。<b>TLS</b> という仕組みで、サーバーが本物かを<b>証明書</b>で確認し、通信内容を暗号化します。
+            ブラウザの鍵マークはこの確認ができた印です。
+          </p>
+        </li>
+        <li>
+          <h4>HTTP リクエストを送る<span class="layer-tag">L7 アプリケーション</span></h4>
+          <p>「トップページ（<code>/</code>）をください」という<b>リクエスト</b>を送ります。データは前の章のとおり封筒に包まれ、ルータを何台も経由してサーバーへ届きます。</p>
+        </li>
+        <li>
+          <h4>サーバーが処理する</h4>
+          <p>サーバーはリクエストを受け取り、必要に応じてプログラムを動かしたり、データベースから情報を取り出したりして、返す内容を作ります（詳しくは次の章）。</p>
+        </li>
+        <li>
+          <h4>HTTP レスポンスが返ってくる<span class="layer-tag">L7 アプリケーション</span></h4>
+          <p>
+            HTML・CSS・JavaScript・画像などが<b>レスポンス</b>として返されます。成功なら<b>ステータスコード 200</b>、
+            ページが見つからなければおなじみの <b>404</b>、サーバー側のエラーなら <b>500</b> が返ります。
+          </p>
+        </li>
+        <li>
+          <h4>ブラウザが画面を描く</h4>
+          <p>ブラウザが HTML で構造を、CSS で見た目を組み立て、JavaScript で動きを付けて画面に表示します。ここが Lesson 1 で学んだ<b>フロントエンド</b>の担当範囲です。</p>
+        </li>
+      </ol>
+      <div class="note">
+        <strong>ポイント：</strong>
+        普段1秒もかからず表示されるWebページの裏では、これだけの手順が毎回行われています。
+        「ページが表示されない」というトラブルも、<b>DNS の問題か、接続の問題か、サーバーの問題か</b>と層ごとに切り分けて考えると原因を探しやすくなります。
+      </div>
+
+      <!-- ===================== 3層構造 ===================== -->
+      <h2 id="server">6. サーバーの中身（3層構造）</h2>
+      <p>
+        Webアプリのサーバー側は、役割ごとに分けて作るのが一般的です。代表的な形が、次の<b>3層クライアントサーバシステム</b>です。
+      </p>
+      <figure class="figure">
+        <div class="tiers">
+          <div class="box cat-mobile"><b>クライアント</b>ブラウザ<br>スマホアプリ</div>
+          <div class="box cat-web"><b>Webサーバー</b>リクエストの受付<br>画面ファイルを返す<br><small class="muted">プレゼンテーション層</small></div>
+          <div class="box cat-desktop"><b>APサーバー</b>業務処理・計算<br>（バックエンドのプログラム）<br><small class="muted">ファンクション層</small></div>
+          <div class="box cat-embed"><b>DBサーバー</b>データの保存・検索<br>（データベース）<br><small class="muted">データ層</small></div>
+        </div>
+        <figcaption>※ APサーバー＝アプリケーションサーバー。3層クライアントサーバシステムの「プレゼンテーション層」は、OSI参照モデルの第6層とは別物なので混同に注意。</figcaption>
+      </figure>
+
+      <div class="sub-grid">
+        <div class="sub">
+          <h4>なぜ分けるの？</h4>
+          <p>役割ごとに分けると、アクセスが増えたときに<b>足りない部分だけ増強</b>でき、修正の影響範囲も小さくできます。</p>
+        </div>
+        <div class="sub">
+          <h4>データベースと SQL</h4>
+          <p>データは表形式で管理する<b>リレーショナルデータベース（RDB）</b>に保存するのが一般的です。データの取り出しや更新は <b>SQL</b> という言語で指示します。</p>
+          <p><code>SELECT 氏名 FROM 社員 WHERE 部署 = '開発'</code></p>
+        </div>
+      </div>
+
+      <!-- ===================== クラウド ===================== -->
+      <h2 id="cloud">7. クラウド（IaaS / PaaS / SaaS）</h2>
+      <p>
+        以前は自社でサーバー機を購入して設置する<b>オンプレミス</b>が主流でしたが、今は AWS・Azure・Google Cloud などの
+        <b>クラウド</b>を借りて使うのが一般的です。どこまでをクラウド事業者に任せるかで、3つに分けられます。
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>種類</th><th>事業者が用意するもの</th><th>利用者が用意・管理するもの</th><th>例</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>IaaS</th><td>サーバー・ネットワークなどの基盤（インフラ）</td><td>OS・ミドルウェア・アプリ</td><td>Amazon EC2 などの仮想サーバー</td></tr>
+            <tr><th>PaaS</th><td>基盤 ＋ OS・ミドルウェア（実行環境）</td><td>アプリ</td><td>アプリの実行環境・データベースサービス</td></tr>
+            <tr><th>SaaS</th><td>アプリまですべて</td><td>なし（使うだけ）</td><td>Gmail、Microsoft 365、Salesforce</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted">覚え方：I（Infrastructure＝基盤）→ P（Platform＝実行環境）→ S（Software＝アプリ）の順に、任せる範囲が広がります。</p>
+
+      <!-- ===================== モバイル・組み込み ===================== -->
+      <h2 id="other">8. モバイル・組み込みの場合</h2>
+      <p>基本的なしくみは Web と同じです。違うのは「何をやりとりするか」です。</p>
+      <div class="sub-grid">
+        <div class="sub cat-mobile">
+          <h4>モバイルアプリ</h4>
+          <p>画面はアプリ自身が持っているので、サーバーとは<b>データだけ</b>をやりとりします。窓口となるのが <b>API</b> で、データは <b>JSON</b> という形式が主流です。</p>
+          <p><code>{"name": "山田", "point": 120}</code></p>
+        </div>
+        <div class="sub cat-embed">
+          <h4>組み込み・IoT 機器</h4>
+          <p>センサーの値などを定期的にサーバー（クラウド）へ送ります。通信量や電力を抑えるため、<b>MQTT</b> などの軽量なプロトコルが使われることもあります。モバイル回線（4G/LTE）でつながる機器も多くあります。</p>
+        </div>
+      </div>
+      <p>
+        どの種類のアプリでも、<b>OSI参照モデルの下の層（TCP/IP）は共通</b>です。
+        だからこそ、スマホも家電もパソコンも同じインターネットにつながることができます。
+      </p>
+
+      <!-- ===================== 基本情報コラム ===================== -->
+      <h2 id="fe">コラム：基本情報技術者試験とは</h2>
+      <div class="fe-box">
+        <span class="fe-title">基本情報技術者試験（FE：Fundamental Information Technology Engineer Examination）</span>
+        <p style="margin: 4px 0 8px;">
+          IPA（情報処理推進機構）が実施する<b>国家試験</b>で、「ITエンジニアの登竜門」とも呼ばれます。
+          ITを使う仕事に必要な基本的な知識・技能を、幅広く体系的に問う試験です。
+        </p>
+        <ul>
+          <li><b>出題範囲が広い：</b>ネットワーク、データベース、セキュリティ、アルゴリズム、プロジェクト管理、経営・法務まで。</li>
+          <li><b>2つの科目：</b>知識を問う<b>科目A</b>と、アルゴリズムや情報セキュリティの考え方を問う<b>科目B</b>。</li>
+          <li><b>通年で受験できる：</b>全国のテストセンターでパソコンを使って受験する方式（CBT）です。</li>
+        </ul>
+      </div>
+      <h3>なぜ大切なの？</h3>
+      <ul>
+        <li><b>知識が「点」から「線」になる：</b>現場で断片的に覚えた知識が、体系的につながります。今回の OSI参照モデルのように、「なぜそうなっているのか」が分かるようになります。</li>
+        <li><b>共通言語が身につく：</b>お客様や他社のエンジニアと話すとき、同じ用語・同じ物差しで会話できます。</li>
+        <li><b>信頼につながる：</b>国家資格として、お客様やプロジェクトに対して基礎力を客観的に示せます。</li>
+        <li><b>次のステップの土台になる：</b>応用情報技術者試験や、ネットワーク・データベース・セキュリティなどの高度試験へ進むための基礎になります。</li>
+      </ul>
+      <div class="note">
+        <strong>実はこのレッスンの内容も…</strong>
+        OSI参照モデル、IPアドレスや DNS、3層クライアントサーバシステム、クラウドなど、今回学んだ内容は基本情報技術者試験にも出てくるテーマです。
+        このレッスンを読んで「ITってちょっと面白いかも」と思えたなら、それは立派な第一歩。
+        本格的にITに興味が出てきたら、ぜひ基本情報技術者試験の勉強にもチャレンジしてみてください。
+      </div>
+
+      <!-- ===================== クイズ ===================== -->
+      <h2 id="quiz">確認クイズ</h2>
+      <p class="muted">選択肢をクリックしてください。</p>
+
+      <div class="quiz">
+        <div class="q" data-answer="ネットワーク層" data-explain="ルータは IPアドレスを見て経路を選ぶ（ルーティング）機器なので、第3層のネットワーク層で動作します。">
+          <p>Q1. ルータが動作する OSI参照モデルの層はどれ？</p>
+          <div class="choices"><button type="button">物理層</button><button type="button">データリンク層</button><button type="button">ネットワーク層</button><button type="button">トランスポート層</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="データリンク層" data-explain="MACアドレスは同じネットワーク内の機器を識別するアドレスで、第2層のデータリンク層で使われます。">
+          <p>Q2. MACアドレスを使って、同じネットワーク内の機器にデータを届ける層はどれ？</p>
+          <div class="choices"><button type="button">物理層</button><button type="button">データリンク層</button><button type="button">ネットワーク層</button><button type="button">トランスポート層</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="アプリケーション層" data-explain="HTTP は Webページのやりとりを決めるプロトコルで、第7層のアプリケーション層に属します。">
+          <p>Q3. HTTP が属する層はどれ？</p>
+          <div class="choices"><button type="button">アプリケーション層</button><button type="button">セッション層</button><button type="button">トランスポート層</button><button type="button">ネットワーク層</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="DNS" data-explain="DNS はドメイン名と IPアドレスを対応付ける仕組みです。DHCP は IPアドレスの自動割り当て、SMTP はメール送信、NTP は時刻合わせのプロトコルです。">
+          <p>Q4. 「example.com」のようなドメイン名から IPアドレスを調べる仕組みはどれ？</p>
+          <div class="choices"><button type="button">DHCP</button><button type="button">DNS</button><button type="button">SMTP</button><button type="button">NTP</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="UDP" data-explain="UDP は到達確認などを省いて高速に送るため、多少データが欠けても遅延が少ないことが重要な音声通話や動画配信に向いています。">
+          <p>Q5. 確実性よりリアルタイム性が重要な音声通話でよく使われる、トランスポート層のプロトコルはどれ？</p>
+          <div class="choices"><button type="button">TCP</button><button type="button">UDP</button><button type="button">IP</button><button type="button">HTTP</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="SaaS" data-explain="アプリケーションまで事業者が提供し、利用者は使うだけの形態が SaaS です。">
+          <p>Q6. Gmail のように、アプリケーションまで含めてクラウド事業者が提供するサービス形態はどれ？</p>
+          <div class="choices"><button type="button">IaaS</button><button type="button">PaaS</button><button type="button">SaaS</button><button type="button">オンプレミス</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <!-- ===================== まとめ ===================== -->
+      <h2>まとめ</h2>
+      <ul>
+        <li>アプリの通信は、リクエストを送る<b>クライアント</b>と、応える<b>サーバー</b>の関係でできている。</li>
+        <li>通信は<b>プロトコル</b>という共通ルールで行われ、その役割分担を7階層に整理したものが<b>OSI参照モデル</b>。</li>
+        <li>データは層ごとにヘッダが付けられ（<b>カプセル化</b>）、IPアドレス・ポート番号・MACアドレスを頼りに届けられる。</li>
+        <li>Webページの表示は、<b>DNS → TCP接続 → TLS → HTTPリクエスト → サーバー処理 → レスポンス → 描画</b>の順に進む。</li>
+        <li>サーバー側は <b>Web / AP / DB</b> の3層に分けて作るのが一般的で、今はクラウド（IaaS / PaaS / SaaS）上に作ることが多い。</li>
+      </ul>
+
+      <nav class="pager">
+        <a href="what-it-engineers-build.html">← Lesson 1：ITエンジニアは何を作る人？</a>
+        <a href="it-job-roles.html">Lesson 3：IT業界の職種 →</a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">ITK Educate — 社内向け教材</div>
+  </footer>
+</body>
+</html>

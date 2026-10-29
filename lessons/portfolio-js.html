@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ポートフォリオを作ろう③ JavaScript | ITK Educate</title>
+  <meta name="description" content="ポートフォリオサイトを作るシリーズの最終回。JavaScriptでボタンを押すと動く仕掛けを付けて完成させるレッスン。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">ITK <span>Educate</span></a>
+      <div class="header-actions">
+        <a href="../index.html">レッスン一覧</a>
+        <button class="theme-toggle" type="button">☾ ダーク</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <span class="eyebrow">LESSON 9</span>
+        <h1>ポートフォリオを作ろう③<br>JavaScriptで動きを付ける</h1>
+        <p class="lead">
+          いよいよ最終回。<strong>JavaScript</strong> で「〜したら、〜する」という仕掛けを付けて、ポートフォリオを完成させます。
+          今回追加するのは、次の4つの動きです。
+        </p>
+      </section>
+
+      <div class="card-grid">
+        <div class="card cat-web"><h3>① 時間帯のあいさつ</h3><p>開いた時刻に合わせて「おはようございます」「こんにちは」「こんばんは」を切り替える。</p></div>
+        <div class="card cat-mobile"><h3>② 鉄棒アニメーション</h3><p>鉄棒の人が、くるくると回り続ける。クリックで止めたり動かしたりできる。</p></div>
+        <div class="card cat-desktop"><h3>③ コントローラー</h3><p>コントローラーのボタンが、ポチポチと押されたように光る。</p></div>
+        <div class="card cat-embed"><h3>④ ひとことメッセージ</h3><p>ボタンを押すと、メッセージがランダムに切り替わる。</p></div>
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <strong>このページの内容</strong>
+        <ol>
+          <li><a href="#goal">完成イメージ</a></li>
+          <li><a href="#what">JavaScriptの考え方</a></li>
+          <li><a href="#prepare">準備：HTMLとCSSを書き足す</a></li>
+          <li><a href="#greeting">① 時間帯のあいさつ</a></li>
+          <li><a href="#tetsubo">② 鉄棒アニメーション</a></li>
+          <li><a href="#controller">③ コントローラー</a></li>
+          <li><a href="#message">④ ひとことメッセージ</a></li>
+          <li><a href="#finish">全体のコードと完成</a></li>
+          <li><a href="#console">動かないときは「コンソール」を見る</a></li>
+          <li><a href="#quiz">確認クイズ</a></li>
+        </ol>
+      </nav>
+
+      <!-- ===================== 完成イメージ ===================== -->
+      <h2 id="goal">1. 完成イメージ</h2>
+      <p>鉄棒とコントローラーが動いているのを見たら、イラストや「ひとことを見る」ボタンもクリックしてみてください。</p>
+      <div class="browser" style="--h: 560px;">
+        <div class="browser-bar"><i></i><i></i><i></i><span>portfolio/index.html（完成版）</span></div>
+        <iframe src="../samples/portfolio/step3-js/index.html" title="ポートフォリオの完成版" loading="lazy"></iframe>
+      </div>
+
+      <!-- ===================== 考え方 ===================== -->
+      <h2 id="what">2. JavaScriptの考え方</h2>
+      <p>
+        HTML が「骨組み」、CSS が「見た目」なら、JavaScript は<b>「仕掛け」</b>です。
+        JavaScript のプログラムは、ほとんどが次の形の組み合わせでできています。
+      </p>
+      <figure class="figure">
+        <div class="anatomy">
+          <div><code class="t">ボタンが押されたら</code><small>きっかけ（イベント）</small></div>
+          <div><code class="t">→</code><small>&nbsp;</small></div>
+          <div><code class="c">ひとことを変える</code><small>やること（処理）</small></div>
+        </div>
+        <figcaption>家でいえば「人が近づいたら → ドアを開ける」自動ドアや、「スイッチを押したら → 電気をつける」照明と同じです。きっかけは「時間がたったら」でもOK。これを使うとアニメーションが作れます。</figcaption>
+      </figure>
+      <p>
+        JavaScript がページを書き換えるときは、まず<b>「どの部分を書き換えるか」をHTMLの中から探し</b>、次に<b>中身を書き換えます</b>。
+        そのため、HTML のタグに <b>id</b> や <b>class</b> という名札を付けておき、それを目印に探します。
+      </p>
+
+      <!-- ===================== 準備 ===================== -->
+      <h2 id="prepare">3. 準備：HTMLとCSSを書き足す</h2>
+      <h3>index.html を書き換える</h3>
+      <p>
+        イラストを動かすには、<b>「動かない部分」と「動く部分」を別々の画像に分けて重ねる</b>必要があります。
+        紙芝居ではなく、パペット人形劇のイメージです。そこで、画像を次の3つに差し替えます。
+      </p>
+<div class="code-block"><div class="code-head"><span>フォルダの構成</span><button class="copy-btn" type="button">コピー</button></div><pre><code>portfolio/
+├── index.html
+├── style.css
+<span class="add">├── script.js          ← 新しく作る</span>
+└── images/
+<span class="add">    ├── tetsubo-bar.svg  ← 鉄棒だけ（動かない）</span>
+<span class="add">    ├── person.svg       ← 鉄棒の人だけ（動く）</span>
+<span class="add">    └── game-base.svg    ← ボタンなしのコントローラー（動かない）</span></code></pre></div>
+      <p class="muted">
+        練習用のイラスト（<a href="../samples/portfolio/step3-js/images/tetsubo-bar.svg" download>tetsubo-bar.svg</a>・<a href="../samples/portfolio/step3-js/images/person.svg" download>person.svg</a>・<a href="../samples/portfolio/step3-js/images/game-base.svg" download>game-base.svg</a>）は、
+        右クリック →「名前を付けてリンク先を保存」で <code>images</code> フォルダに保存してください。
+      </p>
+      <p>あいさつを表示する場所を、ヘッダーに追加します。</p>
+<div class="code-block"><div class="code-head"><span>index.html（header の中）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>  &lt;header&gt;
+<span class="add">    &lt;p id="greeting"&gt;こんにちは！&lt;/p&gt;</span>
+    &lt;h1&gt;Mayu Takahashi Portfolio&lt;/h1&gt;</code></pre></div>
+      <p>鉄棒の <code>&lt;img&gt;</code> を、2枚の画像を重ねる「舞台（<code>stage</code>）」に置き換えます。</p>
+<div class="code-block"><div class="code-head"><span>index.html（特技の section の中）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>      &lt;p&gt;子どものころから鉄棒が大好きです。&lt;/p&gt;
+<span class="add">      &lt;div class="stage" id="tetsubo"&gt;</span>
+<span class="add">        &lt;img src="images/tetsubo-bar.svg" alt="鉄棒のイラスト"&gt;</span>
+<span class="add">        &lt;img src="images/person.svg" alt="" class="person" id="person"&gt;</span>
+<span class="add">      &lt;/div&gt;</span>
+<span class="add">      &lt;p class="hint"&gt;イラストをクリックすると、止まったり動いたりします。&lt;/p&gt;</span>
+    &lt;/section&gt;</code></pre></div>
+      <p>コントローラーも同じように、本体の画像の上に4つのボタンを重ねます。ボタンは画像ではなく、<code>&lt;span&gt;</code> の箱を CSS で丸く塗って作ります。</p>
+<div class="code-block"><div class="code-head"><span>index.html（ハマっているものの section の中）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>      &lt;p&gt;5人対5人で戦う、チーム対戦型のシューティングゲームです。&lt;/p&gt;
+<span class="add">      &lt;div class="stage"&gt;</span>
+<span class="add">        &lt;img src="images/game-base.svg" alt="ゲームのコントローラーのイラスト"&gt;</span>
+<span class="add">        &lt;span class="pad-button red"&gt;&lt;/span&gt;</span>
+<span class="add">        &lt;span class="pad-button yellow"&gt;&lt;/span&gt;</span>
+<span class="add">        &lt;span class="pad-button green"&gt;&lt;/span&gt;</span>
+<span class="add">        &lt;span class="pad-button blue"&gt;&lt;/span&gt;</span>
+<span class="add">      &lt;/div&gt;</span>
+    &lt;/section&gt;</code></pre></div>
+      <p>最後に、ひとことのカードと、JavaScript ファイルの読み込みを追加します。</p>
+<div class="code-block"><div class="code-head"><span>index.html（main の最後に追加）</span><button class="copy-btn" type="button">コピー</button></div><pre><code><span class="add">    &lt;section class="card"&gt;</span>
+<span class="add">      &lt;h2&gt;ひとこと&lt;/h2&gt;</span>
+<span class="add">      &lt;p id="message"&gt;下のボタンを押してみてね。&lt;/p&gt;</span>
+<span class="add">      &lt;button id="message-button"&gt;ひとことを見る&lt;/button&gt;</span>
+<span class="add">    &lt;/section&gt;</span>
+  &lt;/main&gt;</code></pre></div>
+<div class="code-block"><div class="code-head"><span>index.html（body の終わりの直前）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>  &lt;/footer&gt;
+
+<span class="add">  &lt;script src="script.js"&gt;&lt;/script&gt;</span>
+&lt;/body&gt;</code></pre></div>
+      <ul>
+        <li><code>&lt;div&gt;</code>：特に意味を持たない、汎用の箱。ここでは画像を重ねる「舞台」として使います</li>
+        <li><code>&lt;span&gt;</code>：小さな箱。ここではコントローラーのボタン1つ1つになります</li>
+        <li><code>&lt;button&gt;</code>：押せるボタンを作るタグ</li>
+        <li><code>id="person"</code>：ページの中で<b>1つだけ</b>のものに付ける名札。class と違い、同じ id は1ページに1つまで</li>
+        <li><code>&lt;script src="script.js"&gt;</code>：JavaScript ファイルを読み込む。HTML を全部読み込んでから動かしたいので、<code>&lt;/body&gt;</code> の直前に書きます</li>
+      </ul>
+
+      <h3>style.css に書き足す</h3>
+      <p>ボタンの見た目と、画像を重ねるための設定を、<code>style.css</code> の一番下に追加します。少し長いですが、コピーしてOKです。</p>
+<div class="code-block"><div class="code-head"><span>style.css（一番下に追加）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>/* ===== ここから Lesson 9 で追加 ===== */
+
+/* ボタン */
+button {
+  display: block;
+  margin: 16px auto 0;
+  padding: 8px 24px;
+  border: none;
+  border-radius: 999px;
+  background-color: #4cc38a;
+  color: #17201b;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+button:active {
+  transform: scale(0.92);
+}
+
+#greeting {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#message {
+  text-align: center;
+  font-size: 20px;
+}
+
+/* 画像を重ねるための舞台 */
+.stage {
+  position: relative;
+  max-width: 300px;
+  margin: 16px auto 0;
+}
+
+.stage img {
+  margin: 0;
+}
+
+/* 鉄棒の人（にぎっている手を中心に回る） */
+.person {
+  position: absolute;
+  left: 40%;
+  top: 37.5%;
+  width: 20%;
+  transform-origin: 50% 11.8%;
+}
+
+#tetsubo {
+  cursor: pointer;
+}
+
+.hint {
+  text-align: center;
+  font-size: 14px;
+  color: #93a399;
+}
+
+/* コントローラーのボタン */
+.pad-button {
+  position: absolute;
+  width: 4.4%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  opacity: 0.35;
+  transition: opacity 0.1s, transform 0.1s;
+}
+
+.pad-button.red    { left: 62.8%; top: 48%;    background-color: #ff5a5f; }
+.pad-button.yellow { left: 67.8%; top: 54.8%;  background-color: #ffd25e; }
+.pad-button.green  { left: 57.8%; top: 54.8%;  background-color: #5fd3a3; }
+.pad-button.blue   { left: 62.8%; top: 61.5%;  background-color: #5fb2ff; }
+
+/* 押されている間の見た目 */
+.pad-button.pressed {
+  opacity: 1;
+  transform: scale(0.8);
+  box-shadow: 0 0 12px #ffffff;
+}</code></pre></div>
+      <div class="table-wrap">
+        <table style="min-width: 560px;">
+          <thead><tr><th>ポイント</th><th>意味</th></tr></thead>
+          <tbody>
+            <tr><td><code>position: relative</code> と <code>absolute</code></td><td>舞台（<code>.stage</code>）を基準にして、人やボタンを<b>好きな位置に重ねて置く</b>ための組み合わせ。<code>left</code>・<code>top</code> で位置を決めます</td></tr>
+            <tr><td><code>transform-origin</code></td><td>回転の中心。ここでは「鉄棒をにぎっている手」の位置にしているので、手を中心にくるっと回ります</td></tr>
+            <tr><td><code>.pad-button.pressed</code></td><td>「<code>pad-button</code> と <code>pressed</code> の<b>両方の名札</b>が付いているとき」の見た目。JavaScript でこの名札を付けたり外したりして、光らせます</td></tr>
+            <tr><td><code>:hover</code> ／ <code>:active</code></td><td>「マウスが乗っているとき」／「押している間」の見た目</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted">id を CSS で指定するときは、名前の前に <code>#</code> を付けます。</p>
+
+      <h3>script.js を作る</h3>
+      <p><code>index.html</code> と同じフォルダに、新しいファイル <code>script.js</code> を作ります。ここから先は、このファイルに書いていきます。</p>
+
+      <!-- ===================== あいさつ ===================== -->
+      <h2 id="greeting">4. ① 時間帯のあいさつ</h2>
+<div class="code-block"><div class="code-head"><span>script.js</span><button class="copy-btn" type="button">コピー</button></div><pre><code>// ① 時間帯に合わせて、あいさつを変える
+const greeting = document.getElementById("greeting");
+const hour = new Date().getHours();
+
+if (hour &lt; 10) {
+  greeting.textContent = "おはようございます！";
+} else if (hour &lt; 18) {
+  greeting.textContent = "こんにちは！";
+} else {
+  greeting.textContent = "こんばんは！";
+}</code></pre></div>
+      <p>1行ずつ、日本語に訳してみましょう。</p>
+      <div class="table-wrap">
+        <table style="min-width: 600px;">
+          <thead><tr><th>コード</th><th>日本語にすると</th></tr></thead>
+          <tbody>
+            <tr><td><code>// …</code></td><td>コメント（メモ書き）。プログラムとしては無視される</td></tr>
+            <tr><td><code>const greeting = document.getElementById("greeting");</code></td><td>ページの中から、名札（id）が <code>greeting</code> の部分を探して、<code>greeting</code> という<b>箱（変数）</b>に入れておく</td></tr>
+            <tr><td><code>const hour = new Date().getHours();</code></td><td>今の時刻の「時」（0〜23）を調べて、<code>hour</code> という箱に入れておく</td></tr>
+            <tr><td><code>if (hour &lt; 10) { … }</code></td><td><b>もし</b> 10時より前<b>なら</b>、「おはようございます！」にする</td></tr>
+            <tr><td><code>else if (hour &lt; 18) { … }</code></td><td><b>そうではなく</b> 18時より前<b>なら</b>、「こんにちは！」にする</td></tr>
+            <tr><td><code>else { … }</code></td><td><b>どれでもなければ</b>、「こんばんは！」にする</td></tr>
+            <tr><td><code>greeting.textContent = "…";</code></td><td><code>greeting</code> の部分の文字を書き換える</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        <strong>変数は「名前付きの箱」：</strong>
+        <code>const 名前 = 中身;</code> と書くと、中身に名前を付けて取っておけます。何度も使うものに名前を付けておくと、プログラムが読みやすくなります。
+        <code>if</code> 〜 <code>else</code> は<b>条件分岐</b>といって、「場合によってやることを変える」ための書き方です。
+      </div>
+
+      <!-- ===================== 鉄棒 ===================== -->
+      <h2 id="tetsubo">5. ② 鉄棒アニメーション</h2>
+      <p>あいさつの下に、空行を1行あけて続けて書きます。</p>
+<div class="code-block"><div class="code-head"><span>script.js（続き）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>// ② 鉄棒の人が、くるくる回り続ける
+const person = document.getElementById("person");
+const tetsubo = document.getElementById("tetsubo");
+let angle = 0;
+let moving = true;
+
+setInterval(function () {
+  if (moving) {
+    angle = angle + 5;
+    person.style.transform = "rotate(" + angle + "deg)";
+  }
+}, 30);
+
+tetsubo.addEventListener("click", function () {
+  moving = !moving;
+});</code></pre></div>
+      <div class="table-wrap">
+        <table style="min-width: 600px;">
+          <thead><tr><th>コード</th><th>日本語にすると</th></tr></thead>
+          <tbody>
+            <tr><td><code>let angle = 0;</code></td><td>今の角度を入れておく箱を、0度で用意する（<code>let</code> は、あとで中身を変えられる箱）</td></tr>
+            <tr><td><code>let moving = true;</code></td><td>「今動いているか」を入れておく箱。<code>true</code> は「はい」、<code>false</code> は「いいえ」</td></tr>
+            <tr><td><code>setInterval(function () { … }, 30);</code></td><td><b>30ミリ秒（0.03秒）ごとに</b>、{ } の中をくり返し実行する</td></tr>
+            <tr><td><code>angle = angle + 5;</code></td><td>角度を5度増やす</td></tr>
+            <tr><td><code>person.style.transform = "rotate(" + angle + "deg)";</code></td><td>人の画像を、その角度だけ回転させる（例：<code>rotate(45deg)</code>）</td></tr>
+            <tr><td><code>tetsubo.addEventListener("click", …)</code></td><td>鉄棒のイラストが<b>クリックされたら</b>、{ } の中を実行する</td></tr>
+            <tr><td><code>moving = !moving;</code></td><td><code>!</code> は「反対にする」。動いていれば止める、止まっていれば動かす</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        <strong>アニメーションの正体：</strong>
+        0.03秒ごとに5度ずつ回転させているだけです。パラパラ漫画と同じで、少しずつ変えた絵を素早く切り替えると、人間の目には「動いている」ように見えます。
+        <code>30</code> や <code>5</code> の数字を変えると、回る速さが変わります。いろいろ試してみましょう。
+      </div>
+
+      <!-- ===================== コントローラー ===================== -->
+      <h2 id="controller">6. ③ コントローラー</h2>
+<div class="code-block"><div class="code-head"><span>script.js（続き）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>// ③ コントローラーのボタンが、ポチポチ光る
+const padButtons = document.querySelectorAll(".pad-button");
+
+setInterval(function () {
+  const index = Math.floor(Math.random() * padButtons.length);
+  const padButton = padButtons[index];
+  padButton.classList.add("pressed");
+  setTimeout(function () {
+    padButton.classList.remove("pressed");
+  }, 200);
+}, 350);</code></pre></div>
+      <div class="table-wrap">
+        <table style="min-width: 600px;">
+          <thead><tr><th>コード</th><th>日本語にすると</th></tr></thead>
+          <tbody>
+            <tr><td><code>document.querySelectorAll(".pad-button")</code></td><td>名札（class）が <code>pad-button</code> の部分を<b>全部</b>探す（4つのボタンが、0番〜3番の番号付きで手に入る）</td></tr>
+            <tr><td><code>setInterval(function () { … }, 350);</code></td><td>0.35秒ごとに、{ } の中をくり返す</td></tr>
+            <tr><td><code>Math.random() * padButtons.length</code></td><td>0 以上 4 未満の、でたらめな数（例：2.71…）を作る</td></tr>
+            <tr><td><code>Math.floor( … )</code></td><td>小数点以下を切り捨てる（2.71… → 2）。これで 0〜3 のどれかになる</td></tr>
+            <tr><td><code>padButtons[index]</code></td><td>4つのボタンのうち、index 番目を取り出す</td></tr>
+            <tr><td><code>classList.add("pressed")</code></td><td>そのボタンに <code>pressed</code> の名札を付ける（CSS の指定で光る）</td></tr>
+            <tr><td><code>setTimeout(function () { … }, 200);</code></td><td><b>0.2秒たったら1回だけ</b>、{ } の中を実行する。ここで名札を外して、元の暗い色に戻す</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        <code>setInterval</code> は「〇秒ごとに<b>くり返す</b>」、<code>setTimeout</code> は「〇秒たったら<b>1回だけ</b>」。
+        「光らせる → 0.2秒後に消す」を、0.35秒ごとにランダムなボタンでくり返すことで、だれかがポチポチ押しているように見えます。
+      </p>
+      <p class="muted">プログラムの世界では、番号を <b>0 から</b>数えるのが一般的です。最初は戸惑いますが、すぐに慣れます。</p>
+
+      <!-- ===================== ひとこと ===================== -->
+      <h2 id="message">7. ④ ひとことメッセージ</h2>
+<div class="code-block"><div class="code-head"><span>script.js（続き）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>// ④ ボタンを押すと、ひとことがランダムに変わる
+const messages = [
+  "最近はエアロピクルスも好きだよ",
+  "スーの歌も好きだよ",
+  "ねずみなんだけど丑年なんでスー"
+];
+const message = document.getElementById("message");
+const messageButton = document.getElementById("message-button");
+
+messageButton.addEventListener("click", function () {
+  const index = Math.floor(Math.random() * messages.length);
+  message.textContent = messages[index];
+});</code></pre></div>
+      <div class="table-wrap">
+        <table style="min-width: 600px;">
+          <thead><tr><th>コード</th><th>日本語にすると</th></tr></thead>
+          <tbody>
+            <tr><td><code>const messages = [ … ];</code></td><td>メッセージを3つ並べた<b>リスト（配列）</b>を作る。順番に 0番・1番・2番 と番号が付く</td></tr>
+            <tr><td><code>messageButton.addEventListener("click", …)</code></td><td>「ひとことを見る」ボタンが<b>クリックされたら</b>、{ } の中を実行する</td></tr>
+            <tr><td><code>Math.floor(Math.random() * messages.length)</code></td><td>③ と同じ方法で、0〜2 のどれかの番号をランダムに選ぶ</td></tr>
+            <tr><td><code>message.textContent = messages[index];</code></td><td>リストの index 番目のメッセージに書き換える</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ===================== 完成 ===================== -->
+      <h2 id="finish">8. 全体のコードと完成</h2>
+      <p>完成した3つのファイルの全体はこちらです。</p>
+<div class="code-block"><div class="code-head"><span>script.js</span><button class="copy-btn" type="button">コピー</button></div><pre><code>// ① 時間帯に合わせて、あいさつを変える
+const greeting = document.getElementById("greeting");
+const hour = new Date().getHours();
+
+if (hour &lt; 10) {
+  greeting.textContent = "おはようございます！";
+} else if (hour &lt; 18) {
+  greeting.textContent = "こんにちは！";
+} else {
+  greeting.textContent = "こんばんは！";
+}
+
+// ② 鉄棒の人が、くるくる回り続ける
+const person = document.getElementById("person");
+const tetsubo = document.getElementById("tetsubo");
+let angle = 0;
+let moving = true;
+
+setInterval(function () {
+  if (moving) {
+    angle = angle + 5;
+    person.style.transform = "rotate(" + angle + "deg)";
+  }
+}, 30);
+
+tetsubo.addEventListener("click", function () {
+  moving = !moving;
+});
+
+// ③ コントローラーのボタンが、ポチポチ光る
+const padButtons = document.querySelectorAll(".pad-button");
+
+setInterval(function () {
+  const index = Math.floor(Math.random() * padButtons.length);
+  const padButton = padButtons[index];
+  padButton.classList.add("pressed");
+  setTimeout(function () {
+    padButton.classList.remove("pressed");
+  }, 200);
+}, 350);
+
+// ④ ボタンを押すと、ひとことがランダムに変わる
+const messages = [
+  "最近はエアロピクルスも好きだよ",
+  "スーの歌も好きだよ",
+  "ねずみなんだけど丑年なんでスー"
+];
+const message = document.getElementById("message");
+const messageButton = document.getElementById("message-button");
+
+messageButton.addEventListener("click", function () {
+  const index = Math.floor(Math.random() * messages.length);
+  message.textContent = messages[index];
+});</code></pre></div>
+<div class="code-block"><div class="code-head"><span>index.html</span><button class="copy-btn" type="button">コピー</button></div><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Mayu Takahashi Portfolio&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;p id="greeting"&gt;こんにちは！&lt;/p&gt;
+    &lt;h1&gt;Mayu Takahashi Portfolio&lt;/h1&gt;
+    &lt;p&gt;はじめまして！ 私の好きなものを紹介します。&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section class="card"&gt;
+      &lt;h2&gt;特技：鉄棒&lt;/h2&gt;
+      &lt;p&gt;子どものころから鉄棒が大好きです。&lt;/p&gt;
+      &lt;div class="stage" id="tetsubo"&gt;
+        &lt;img src="images/tetsubo-bar.svg" alt="鉄棒のイラスト"&gt;
+        &lt;img src="images/person.svg" alt="" class="person" id="person"&gt;
+      &lt;/div&gt;
+      &lt;p class="hint"&gt;イラストをクリックすると、止まったり動いたりします。&lt;/p&gt;
+    &lt;/section&gt;
+
+    &lt;section class="card"&gt;
+      &lt;h2&gt;今いちばんハマっているもの：Valorant&lt;/h2&gt;
+      &lt;p&gt;5人対5人で戦う、チーム対戦型のシューティングゲームです。&lt;/p&gt;
+      &lt;div class="stage"&gt;
+        &lt;img src="images/game-base.svg" alt="ゲームのコントローラーのイラスト"&gt;
+        &lt;span class="pad-button red"&gt;&lt;/span&gt;
+        &lt;span class="pad-button yellow"&gt;&lt;/span&gt;
+        &lt;span class="pad-button green"&gt;&lt;/span&gt;
+        &lt;span class="pad-button blue"&gt;&lt;/span&gt;
+      &lt;/div&gt;
+    &lt;/section&gt;
+
+    &lt;section class="card"&gt;
+      &lt;h2&gt;ひとこと&lt;/h2&gt;
+      &lt;p id="message"&gt;下のボタンを押してみてね。&lt;/p&gt;
+      &lt;button id="message-button"&gt;ひとことを見る&lt;/button&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;&amp;copy; 2026 Mayu Takahashi&lt;/p&gt;
+  &lt;/footer&gt;
+
+  &lt;script src="script.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+<div class="code-block"><div class="code-head"><span>style.css</span><button class="copy-btn" type="button">コピー</button></div><pre><code>/* ページ全体 */
+body {
+  margin: 0;
+  background-color: #17201b;
+  color: #f4f1e6;
+  font-family: "Yu Gothic UI", "Meiryo", "Hiragino Sans", sans-serif;
+  line-height: 1.8;
+}
+
+/* 一番上のタイトル部分 */
+header {
+  background: linear-gradient(135deg, #f9d84a, #4cc38a);
+  padding: 48px 16px;
+  text-align: center;
+  color: #17201b;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 36px;
+}
+
+/* 中身を中央に寄せる */
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+/* 紹介カード */
+.card {
+  background-color: #22302a;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.card h2 {
+  margin-top: 0;
+  color: #f9d84a;
+  border-left: 6px solid #4cc38a;
+  padding-left: 12px;
+}
+
+.card img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 16px auto 0;
+  border-radius: 12px;
+}
+
+/* 一番下の部分 */
+footer {
+  text-align: center;
+  padding: 24px;
+  color: #93a399;
+  font-size: 14px;
+}
+
+/* ===== ここから Lesson 9 で追加 ===== */
+
+/* ボタン */
+button {
+  display: block;
+  margin: 16px auto 0;
+  padding: 8px 24px;
+  border: none;
+  border-radius: 999px;
+  background-color: #4cc38a;
+  color: #17201b;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+button:active {
+  transform: scale(0.92);
+}
+
+#greeting {
+  margin: 0 0 8px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#message {
+  text-align: center;
+  font-size: 20px;
+}
+
+/* 画像を重ねるための舞台 */
+.stage {
+  position: relative;
+  max-width: 300px;
+  margin: 16px auto 0;
+}
+
+.stage img {
+  margin: 0;
+}
+
+/* 鉄棒の人（にぎっている手を中心に回る） */
+.person {
+  position: absolute;
+  left: 40%;
+  top: 37.5%;
+  width: 20%;
+  transform-origin: 50% 11.8%;
+}
+
+#tetsubo {
+  cursor: pointer;
+}
+
+.hint {
+  text-align: center;
+  font-size: 14px;
+  color: #93a399;
+}
+
+/* コントローラーのボタン */
+.pad-button {
+  position: absolute;
+  width: 4.4%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  opacity: 0.35;
+  transition: opacity 0.1s, transform 0.1s;
+}
+
+.pad-button.red    { left: 62.8%; top: 48%;    background-color: #ff5a5f; }
+.pad-button.yellow { left: 67.8%; top: 54.8%;  background-color: #ffd25e; }
+.pad-button.green  { left: 57.8%; top: 54.8%;  background-color: #5fd3a3; }
+.pad-button.blue   { left: 62.8%; top: 61.5%;  background-color: #5fb2ff; }
+
+/* 押されている間の見た目 */
+.pad-button.pressed {
+  opacity: 1;
+  transform: scale(0.8);
+  box-shadow: 0 0 12px #ffffff;
+}</code></pre></div>
+      <p>保存して、Chrome で開いてみましょう。鉄棒の人が回り、コントローラーが光り、ボタンでひとことが変われば……</p>
+
+      <aside class="aside">
+        <p>
+          <b>完成です！ おめでとうございます！</b>
+          Lesson 5 で「Hello World!」を表示したところから、HTML・CSS・JavaScript の3つを使って、動くWebサイトを自分の手で作り上げました。
+        </p>
+        <p>
+          ちなみに画面の中の私は、何回逆上がりをしても疲れませんし、目も回りません。うらやましい限りです。
+          そして「ひとことを見る」ボタンを、全部のメッセージが出るまで押し続けてしまうのも、作った人あるあるです。
+        </p>
+      </aside>
+
+      <!-- ===================== コンソール ===================== -->
+      <h2 id="console">9. 動かないときは「コンソール」を見る</h2>
+      <p>
+        JavaScript は、1文字のミスでもまったく動かなくなることがあります。そんなときは、Chrome で <kbd>F12</kbd> を押し、
+        デベロッパーツールの<b>「コンソール（Console）」</b>タブを開いてみましょう。エラーがあれば、<b>赤い文字</b>で原因と場所（ファイル名と行番号）が表示されます。
+      </p>
+      <div class="table-wrap">
+        <table style="min-width: 560px;">
+          <thead><tr><th>よくあるミス</th><th>確認すること</th></tr></thead>
+          <tbody>
+            <tr><td>何も動かない、どのボタンも反応しない</td><td><code>&lt;script src="script.js"&gt;</code> のファイル名が合っているか。<code>script.js</code> が同じフォルダにあるか。</td></tr>
+            <tr><td><code>Cannot read properties of null</code> と出る</td><td>HTML の id や class の名前と、JavaScript で探している名前が一致しているか（<code>person</code> と <code>persan</code> など）。</td></tr>
+            <tr><td>人が変な場所を中心に回る</td><td>CSS の <code>.person</code> の <code>transform-origin</code> や <code>left</code>・<code>top</code> が、上のコードと同じになっているか。</td></tr>
+            <tr><td><code>Unexpected token</code> と出る</td><td>カッコ <code>( )</code> <code>{ }</code> の閉じ忘れや、<code>"</code> の閉じ忘れがないか。全角の記号が混ざっていないか。</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>エラーの意味がわからなかったら、そのメッセージをそのまま Claude Code に見せて聞いてみましょう。</p>
+<div class="code-block"><div class="code-head"><span>Claude Code への質問の例</span><button class="copy-btn" type="button">コピー</button></div><pre><code>Chrome のコンソールに次のエラーが出ました。原因と、どこを直せばいいかを教えてください。
+（ここにエラーメッセージを貼り付ける）</code></pre></div>
+
+      <h3>さらにステップアップするなら</h3>
+      <ul>
+        <li>メッセージを自分らしい言葉に変える、数を増やす</li>
+        <li><code>setInterval</code> の数字を変えて、逆上がりやボタンの速さを変えてみる</li>
+        <li>Claude Code に「画像をクリックしたら大きく表示する機能を付けたい。やり方を教えて」と相談して、新しい動きに挑戦する</li>
+      </ul>
+
+      <!-- ===================== クイズ ===================== -->
+      <h2 id="quiz">確認クイズ</h2>
+      <p class="muted">選択肢をクリックしてください。</p>
+      <div class="quiz">
+        <div class="q" data-answer="JavaScript" data-explain="ボタンを押したら何かが起きる、といった「動き」を担当するのは JavaScript です。">
+          <p>Q1. 「ボタンを押したらメッセージが変わる」のような動きを作る言語は？</p>
+          <div class="choices"><button type="button">HTML</button><button type="button">CSS</button><button type="button">JavaScript</button><button type="button">SQL</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="click" data-explain="addEventListener(&quot;click&quot;, …) で「クリックされたら」という意味になります。">
+          <p>Q2. <code>button.addEventListener("〇〇", …)</code> で「クリックされたら」にするには、〇〇に何を書く？</p>
+          <div class="choices"><button type="button">push</button><button type="button">click</button><button type="button">touch</button><button type="button">button</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="setInterval" data-explain="setInterval は「〇秒ごとにくり返す」、setTimeout は「〇秒たったら1回だけ」です。アニメーションは setInterval でくり返して作りました。">
+          <p>Q3. 「0.03秒ごとに少しずつ回転させる」のように、決まった間隔で処理を<b>くり返す</b>ときに使うのは？</p>
+          <div class="choices"><button type="button">setTimeout</button><button type="button">setInterval</button><button type="button">getElementById</button><button type="button">Math.random</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="0番" data-explain="プログラムの世界では、リスト（配列）の番号は 0 から数えます。">
+          <p>Q4. <code>const messages = ["A", "B", "C"];</code> で、"A" は何番？</p>
+          <div class="choices"><button type="button">0番</button><button type="button">1番</button><button type="button">A番</button><button type="button">3番</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="コンソール" data-explain="JavaScript のエラーは、デベロッパーツールのコンソールに赤い文字で表示されます。">
+          <p>Q5. JavaScript が動かないとき、エラーを確認できるデベロッパーツールのタブは？</p>
+          <div class="choices"><button type="button">コンソール</button><button type="button">ネットワーク</button><button type="button">スタイル</button><button type="button">ダウンロード</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <!-- ===================== まとめ ===================== -->
+      <h2>まとめ</h2>
+      <ul>
+        <li>JavaScript は<b>「きっかけ → やること」</b>の組み合わせで動きを作る。</li>
+        <li><code>getElementById</code>・<code>querySelectorAll</code> で、HTML の中から書き換えたい部分を<b>名札（id / class）を目印に探す</b>。</li>
+        <li><b>変数</b>（<code>const</code> / <code>let</code>）は名前付きの箱、<b>if 〜 else</b> は条件分岐、<b>配列</b>は番号付きのリスト。</li>
+        <li><code>addEventListener("click", …)</code> で「クリックされたら」、<code>setInterval</code> で「〇秒ごとに」の処理を書く。</li>
+        <li>アニメーションは、少しずつ変えた状態を素早く切り替える<b>パラパラ漫画</b>。</li>
+        <li>動かないときは <kbd>F12</kbd> →「コンソール」で赤いエラーを確認する。</li>
+      </ul>
+      <p>
+        HTML で骨組みを作り、CSS で見た目を整え、JavaScript で動きを付ける。
+        これは、世界中の Webサイトが作られているのとまったく同じ流れです。今日作ったポートフォリオは、その立派な第一歩です。
+      </p>
+
+      <nav class="pager">
+        <a href="portfolio-css.html">← Lesson 8：ポートフォリオ② CSS</a>
+        <a href="../index.html">レッスン一覧へ →</a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">ITK Educate — 社内向け教材</div>
+  </footer>
+</body>
+</html>

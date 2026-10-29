@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ポートフォリオを作ろう② CSS | ITK Educate</title>
+  <meta name="description" content="ポートフォリオサイトを作るシリーズの2回目。CSSで色や配置を整え、見た目をおしゃれにするレッスン。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">ITK <span>Educate</span></a>
+      <div class="header-actions">
+        <a href="../index.html">レッスン一覧</a>
+        <button class="theme-toggle" type="button">☾ ダーク</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <span class="eyebrow">LESSON 8</span>
+        <h1>ポートフォリオを作ろう②<br>CSSで色を付ける</h1>
+        <p class="lead">
+          Lesson 7 で作った骨組みに、<strong>CSS</strong>で色や配置を付けていきます。
+          HTMLは一切書き換えずに（ほんの少しだけ書き足して）、見た目をがらっと変えてみましょう。
+        </p>
+      </section>
+
+      <nav class="toc" aria-label="目次">
+        <strong>このページの内容</strong>
+        <ol>
+          <li><a href="#before-after">ビフォーアフター</a></li>
+          <li><a href="#what">CSSの書き方</a></li>
+          <li><a href="#connect">HTMLとCSSをつなぐ</a></li>
+          <li><a href="#body">ページ全体の色を決める</a></li>
+          <li><a href="#header">タイトル部分を飾る</a></li>
+          <li><a href="#card">紹介コーナーをカードにする</a></li>
+          <li><a href="#finish">仕上げと全体のコード</a></li>
+          <li><a href="#devtools">デベロッパーツールで試す</a></li>
+          <li><a href="#quiz">確認クイズ</a></li>
+        </ol>
+      </nav>
+
+      <!-- ===================== ビフォーアフター ===================== -->
+      <h2 id="before-after">1. ビフォーアフター</h2>
+      <p>今回のゴールです。左が Lesson 7（HTMLだけ）、右が今回（CSSを追加）。<b>HTMLの中身はほぼ同じ</b>です。</p>
+      <div class="sub-grid">
+        <div>
+          <div class="browser" style="--h: 380px;">
+            <div class="browser-bar"><i></i><i></i><i></i><span>ビフォー（HTMLだけ）</span></div>
+            <iframe src="../samples/portfolio/step1-html/index.html" title="CSSを付ける前" loading="lazy"></iframe>
+          </div>
+        </div>
+        <div>
+          <div class="browser" style="--h: 380px;">
+            <div class="browser-bar"><i></i><i></i><i></i><span>アフター（CSSを追加）</span></div>
+            <iframe src="../samples/portfolio/step2-css/index.html" title="CSSを付けた後" loading="lazy"></iframe>
+          </div>
+        </div>
+      </div>
+      <aside class="aside">
+        <p>
+          柱と壁だけだった家に、壁紙を貼って、照明を付けて、家具を置いたら……このとおり。
+          リフォーム番組なら、ここで感動の音楽が流れるところです。
+        </p>
+      </aside>
+
+      <!-- ===================== 書き方 ===================== -->
+      <h2 id="what">2. CSSの書き方</h2>
+      <p>CSS は、<b>「どこの」「何を」「どうする」</b>を組み合わせて書きます。</p>
+      <figure class="figure">
+        <div class="anatomy">
+          <div><code class="t">h1</code><small>セレクタ（どこの）</small></div>
+          <div><code class="t">{</code><small>&nbsp;</small></div>
+          <div><code class="c">color</code><small>プロパティ（何を）</small></div>
+          <div><code class="t">:</code><small>&nbsp;</small></div>
+          <div><code class="c">red</code><small>値（どうする）</small></div>
+          <div><code class="t">; }</code><small>&nbsp;</small></div>
+        </div>
+        <figcaption>「<code>h1</code>（見出し）の、<code>color</code>（文字の色）を、<code>red</code>（赤）にする」という意味です。</figcaption>
+      </figure>
+      <p>1つのセレクタに、複数の指定をまとめて書くこともできます。それぞれの行の最後には <code>;</code>（セミコロン）を付けます。</p>
+<div class="code-block"><div class="code-head"><span>例</span><button class="copy-btn" type="button">コピー</button></div><pre><code>h1 {
+  color: red;        /* 文字の色を赤に */
+  font-size: 40px;   /* 文字の大きさを40ピクセルに */
+}</code></pre></div>
+      <p class="muted"><code>/* 〜 */</code> は<b>コメント</b>といって、メモ書きです。ブラウザには無視されるので、説明を書いておくのに使います。</p>
+
+      <!-- ===================== つなぐ ===================== -->
+      <h2 id="connect">3. HTMLとCSSをつなぐ</h2>
+      <ol class="steps">
+        <li>
+          <h4>style.css を作る</h4>
+          <p>VS Code で、<code>index.html</code> と同じ <code>portfolio</code> フォルダの中に、新しいファイル <code>style.css</code> を作ります。</p>
+<div class="code-block"><div class="code-head"><span>フォルダの構成</span><button class="copy-btn" type="button">コピー</button></div><pre><code>portfolio/
+├── index.html
+<span class="add">├── style.css   ← 新しく作る</span>
+└── images/</code></pre></div>
+        </li>
+        <li>
+          <h4>index.html から style.css を読み込む</h4>
+          <p><code>index.html</code> の <code>&lt;head&gt;</code> の中に、次の1行を追加します。「このページの見た目は <code>style.css</code> に書いてあるよ」という案内です。</p>
+<div class="code-block"><div class="code-head"><span>index.html（head の中）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>  &lt;title&gt;Mayu Takahashi Portfolio&lt;/title&gt;
+<span class="add">  &lt;link rel="stylesheet" href="style.css"&gt;</span>
+&lt;/head&gt;</code></pre></div>
+        </li>
+        <li>
+          <h4>section に「名札（class）」を付ける</h4>
+          <p>2つの <code>&lt;section&gt;</code> に、<code>class="card"</code> を書き足します。</p>
+<div class="code-block"><div class="code-head"><span>index.html（2か所とも）</span><button class="copy-btn" type="button">コピー</button></div><pre><code><span class="add">    &lt;section class="card"&gt;</span></code></pre></div>
+          <p>
+            <b>class</b> は、タグに付ける<b>名札</b>のようなものです。「<code>card</code> という名札が付いた箱を、カードの見た目にしてね」と CSS で指定できるようになります。
+            同じ名札は、いくつのタグに付けてもかまいません。
+          </p>
+        </li>
+      </ol>
+
+      <!-- ===================== body ===================== -->
+      <h2 id="body">4. ページ全体の色を決める</h2>
+      <p>ここからは <code>style.css</code> に書いていきます。まずは、ページ全体（<code>body</code>）の背景色・文字色・文字の種類を決めます。</p>
+<div class="code-block"><div class="code-head"><span>style.css</span><button class="copy-btn" type="button">コピー</button></div><pre><code>/* ページ全体 */
+body {
+  margin: 0;
+  background-color: #17201b;
+  color: #f4f1e6;
+  font-family: "Yu Gothic UI", "Meiryo", "Hiragino Sans", sans-serif;
+  line-height: 1.8;
+}</code></pre></div>
+      <div class="table-wrap">
+        <table style="min-width: 560px;">
+          <thead><tr><th>プロパティ</th><th>意味</th></tr></thead>
+          <tbody>
+            <tr><td><code>margin: 0</code></td><td>ページのまわりに自動で付く余白をなくす</td></tr>
+            <tr><td><code>background-color</code></td><td>背景の色</td></tr>
+            <tr><td><code>color</code></td><td>文字の色</td></tr>
+            <tr><td><code>font-family</code></td><td>文字の種類（フォント）。左から順に、パソコンに入っているものが使われる</td></tr>
+            <tr><td><code>line-height</code></td><td>行の高さ。1.8 は「文字の大きさの1.8倍」で、読みやすくなる</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        <strong>色の書き方：</strong>
+        <code>#17201b</code> のような書き方を<b>カラーコード</b>と呼びます。<code>#</code> の後ろの6文字が、
+        赤・緑・青をどれくらい混ぜるかを表しています。<code>red</code> や <code>white</code> のように英語の色名でも指定できます。
+        VS Code では、カラーコードの横に小さな色見本が表示され、クリックするとパレットから色を選べます。
+      </div>
+
+      <!-- ===================== header ===================== -->
+      <h2 id="header">5. タイトル部分を飾る</h2>
+      <p><code>body</code> の下に続けて書きます。ヘッダーの背景を<b>グラデーション</b>にして、文字を中央にそろえます。</p>
+<div class="code-block"><div class="code-head"><span>style.css（続き）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>/* 一番上のタイトル部分 */
+header {
+  background: linear-gradient(135deg, #f9d84a, #4cc38a);
+  padding: 48px 16px;
+  text-align: center;
+  color: #17201b;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 36px;
+}</code></pre></div>
+      <ul>
+        <li><code>linear-gradient(135deg, 色1, 色2)</code>：斜め135度の方向に、色1から色2へ変わるグラデーション</li>
+        <li><code>padding</code>：箱の<b>内側</b>の余白（上下 48px・左右 16px）</li>
+        <li><code>text-align: center</code>：文字を中央ぞろえにする</li>
+        <li><code>color: #17201b</code>：明るい黄色・緑の背景でも読みやすいように、ヘッダーの文字を濃い色にする</li>
+        <li><code>header h1</code>：「<code>header</code> の中にある <code>h1</code>」だけを指定する書き方</li>
+      </ul>
+
+      <!-- ===================== card ===================== -->
+      <h2 id="card">6. 紹介コーナーをカードにする</h2>
+      <p>まず、本体（<code>main</code>）の幅を制限して、画面の中央に寄せます。</p>
+<div class="code-block"><div class="code-head"><span>style.css（続き）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>/* 中身を中央に寄せる */
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}</code></pre></div>
+      <p>
+        <code>max-width: 720px</code> で「幅は最大720ピクセルまで」、<code>margin: 0 auto</code> で「左右の余白を自動で均等に」。
+        この2つの組み合わせは、<b>中央寄せの定番テクニック</b>です。
+      </p>
+      <p>次に、名札 <code>card</code> を付けた箱をカードの見た目にします。class を指定するときは、名前の前に <code>.</code>（ドット）を付けます。</p>
+<div class="code-block"><div class="code-head"><span>style.css（続き）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>/* 紹介カード */
+.card {
+  background-color: #22302a;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.card h2 {
+  margin-top: 0;
+  color: #f9d84a;
+  border-left: 6px solid #4cc38a;
+  padding-left: 12px;
+}
+
+.card img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 16px auto 0;
+  border-radius: 12px;
+}</code></pre></div>
+      <div class="table-wrap">
+        <table style="min-width: 560px;">
+          <thead><tr><th>プロパティ</th><th>意味</th></tr></thead>
+          <tbody>
+            <tr><td><code>border-radius</code></td><td>角を丸くする</td></tr>
+            <tr><td><code>margin-bottom</code></td><td>箱の<b>外側</b>・下の余白（カード同士の間隔）</td></tr>
+            <tr><td><code>box-shadow</code></td><td>影を付けて、浮いているように見せる</td></tr>
+            <tr><td><code>border-left</code></td><td>左側だけに線を引く（見出しの左の緑の線）</td></tr>
+            <tr><td><code>max-width: 100%</code></td><td>画像が、スマホなどの狭い画面からはみ出さないようにする</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        <strong>padding と margin の違い：</strong>
+        <code>padding</code> は箱の<b>内側</b>の余白（額縁の中の余白）、<code>margin</code> は箱の<b>外側</b>の余白（額縁と額縁の間隔）です。
+        CSS で最初につまずきやすいポイントなので、迷ったらこのたとえを思い出してください。
+      </div>
+
+      <!-- ===================== 仕上げ ===================== -->
+      <h2 id="finish">7. 仕上げと全体のコード</h2>
+      <p>最後にフッターを整えます。</p>
+<div class="code-block"><div class="code-head"><span>style.css（続き）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>/* 一番下の部分 */
+footer {
+  text-align: center;
+  padding: 24px;
+  color: #93a399;
+  font-size: 14px;
+}</code></pre></div>
+      <p>完成した2つのファイルの全体はこちらです。</p>
+<div class="code-block"><div class="code-head"><span>style.css</span><button class="copy-btn" type="button">コピー</button></div><pre><code>/* ページ全体 */
+body {
+  margin: 0;
+  background-color: #17201b;
+  color: #f4f1e6;
+  font-family: "Yu Gothic UI", "Meiryo", "Hiragino Sans", sans-serif;
+  line-height: 1.8;
+}
+
+/* 一番上のタイトル部分 */
+header {
+  background: linear-gradient(135deg, #f9d84a, #4cc38a);
+  padding: 48px 16px;
+  text-align: center;
+  color: #17201b;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 36px;
+}
+
+/* 中身を中央に寄せる */
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+/* 紹介カード */
+.card {
+  background-color: #22302a;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.card h2 {
+  margin-top: 0;
+  color: #f9d84a;
+  border-left: 6px solid #4cc38a;
+  padding-left: 12px;
+}
+
+.card img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 16px auto 0;
+  border-radius: 12px;
+}
+
+/* 一番下の部分 */
+footer {
+  text-align: center;
+  padding: 24px;
+  color: #93a399;
+  font-size: 14px;
+}</code></pre></div>
+<div class="code-block"><div class="code-head"><span>index.html</span><button class="copy-btn" type="button">コピー</button></div><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Mayu Takahashi Portfolio&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Mayu Takahashi Portfolio&lt;/h1&gt;
+    &lt;p&gt;はじめまして！ 私の好きなものを紹介します。&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section class="card"&gt;
+      &lt;h2&gt;特技：鉄棒&lt;/h2&gt;
+      &lt;p&gt;子どものころから鉄棒が大好きです。&lt;/p&gt;
+      &lt;img src="images/tetsubo.svg" alt="鉄棒のイラスト" width="300"&gt;
+    &lt;/section&gt;
+
+    &lt;section class="card"&gt;
+      &lt;h2&gt;今いちばんハマっているもの：Valorant&lt;/h2&gt;
+      &lt;p&gt;5人対5人で戦う、チーム対戦型のシューティングゲームです。&lt;/p&gt;
+      &lt;img src="images/game.svg" alt="ゲームのイラスト" width="300"&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;&amp;copy; 2026 Mayu Takahashi&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+      <div class="browser" style="--h: 520px;">
+        <div class="browser-bar"><i></i><i></i><i></i><span>portfolio/index.html（Lesson 8 時点）</span></div>
+        <iframe src="../samples/portfolio/step2-css/index.html" title="CSSを付けたポートフォリオ" loading="lazy"></iframe>
+      </div>
+
+      <!-- ===================== デベロッパーツール ===================== -->
+      <h2 id="devtools">8. デベロッパーツールで試す</h2>
+      <p>「この色、もう少し明るいほうがいいかな？」と思ったら、Chrome のデベロッパーツールで<b>その場で試す</b>ことができます。</p>
+      <ol class="steps">
+        <li>
+          <h4>F12 でデベロッパーツールを開く</h4>
+          <p>自分のポートフォリオを Chrome で開き、<kbd>F12</kbd> を押します。</p>
+        </li>
+        <li>
+          <h4>調べたい部分を選ぶ</h4>
+          <p>デベロッパーツール左上の矢印アイコンをクリックしてから、ページ上のカードなどをクリックします。</p>
+        </li>
+        <li>
+          <h4>値を書き換えてみる</h4>
+          <p>右側（または下側）の「スタイル」欄に、その部分に効いている CSS が表示されます。色や数値をクリックして書き換えると、すぐに画面に反映されます。</p>
+        </li>
+      </ol>
+      <p class="muted">
+        ここでの変更は<b>保存されません</b>（再読み込みすると元に戻ります）。気に入った値が見つかったら、VS Code の <code>style.css</code> に書き写しましょう。
+        何度でも気軽に試せる「お試しスペース」です。
+      </p>
+
+      <h3>自分らしくアレンジしよう</h3>
+      <p>好きな色に変えてみましょう。迷ったら Claude Code に相談するのもおすすめです。</p>
+<div class="code-block"><div class="code-head"><span>Claude Code への質問の例</span><button class="copy-btn" type="button">コピー</button></div><pre><code>style.css の配色を、もっと明るくてやわらかい雰囲気にしたいです。
+どのプロパティを、どんな色に変えるとよいか、候補をいくつか教えてください。</code></pre></div>
+
+      <!-- ===================== クイズ ===================== -->
+      <h2 id="quiz">確認クイズ</h2>
+      <p class="muted">選択肢をクリックしてください。</p>
+      <div class="quiz">
+        <div class="q" data-answer="color" data-explain="文字の色は color、背景の色は background-color で指定します。">
+          <p>Q1. 文字の色を変えるプロパティはどれ？</p>
+          <div class="choices"><button type="button">color</button><button type="button">background-color</button><button type="button">font-size</button><button type="button">text-align</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer=".card" data-explain="class を指定するときは、名前の前に .（ドット）を付けます。">
+          <p>Q2. <code>class="card"</code> を付けたタグを CSS で指定するときの書き方は？</p>
+          <div class="choices"><button type="button">card</button><button type="button">.card</button><button type="button">#card</button><button type="button">&lt;card&gt;</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="padding" data-explain="padding は箱の内側の余白、margin は箱の外側の余白です。">
+          <p>Q3. 箱の「内側」の余白を指定するプロパティは？</p>
+          <div class="choices"><button type="button">margin</button><button type="button">padding</button><button type="button">border</button><button type="button">width</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="link" data-explain="&lt;head&gt; の中に &lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;&gt; と書いて読み込みます。">
+          <p>Q4. HTMLから CSS ファイルを読み込むときに使うタグは？</p>
+          <div class="choices"><button type="button">link</button><button type="button">img</button><button type="button">css</button><button type="button">style.css</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <!-- ===================== まとめ ===================== -->
+      <h2>まとめ</h2>
+      <ul>
+        <li>CSS は <code>セレクタ { プロパティ: 値; }</code> の形で、「どこの・何を・どうする」を書く。</li>
+        <li>HTML の <code>&lt;head&gt;</code> に <code>&lt;link rel="stylesheet" href="style.css"&gt;</code> を書いて読み込む。</li>
+        <li><b>class</b> はタグに付ける名札。CSS では <code>.名前</code> で指定する。</li>
+        <li><code>padding</code> は内側、<code>margin</code> は外側の余白。</li>
+        <li>デベロッパーツール（<kbd>F12</kbd>）で、その場で見た目を試せる。</li>
+      </ul>
+      <p>見た目が整いました！ 最後の Lesson 9 では、JavaScript でボタンを押すと動く仕掛けを付けて、ポートフォリオを完成させます。</p>
+
+      <nav class="pager">
+        <a href="portfolio-html.html">← Lesson 7：ポートフォリオ① HTML</a>
+        <a href="portfolio-js.html">Lesson 9：ポートフォリオ③ JavaScript →</a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">ITK Educate — 社内向け教材</div>
+  </footer>
+</body>
+</html>

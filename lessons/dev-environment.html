@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>開発環境を整えよう | ITK Educate</title>
+  <meta name="description" content="Google Chrome・Visual Studio Code・Claude Code をインストールして、Webページ作りの道具をそろえるレッスン。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">ITK <span>Educate</span></a>
+      <div class="header-actions">
+        <a href="../index.html">レッスン一覧</a>
+        <button class="theme-toggle" type="button">☾ ダーク</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <span class="eyebrow">LESSON 6</span>
+        <h1>開発環境を整えよう</h1>
+        <p class="lead">
+          Lesson 5 ではメモ帳で Webページを作りました。でも、本格的に作るならプロと同じ道具を使ったほうが、ずっと楽で楽しくなります。
+          このレッスンでは、<strong>Chrome・VS Code・Claude Code</strong> の3つをそろえます。
+        </p>
+      </section>
+
+      <aside class="aside">
+        <p>
+          料理にたとえると、メモ帳は<b>包丁1本</b>。もちろんそれでも料理はできますが……
+          VS Code は<b>調理器具がそろったキッチン一式</b>、Chrome は<b>味見と盛り付けチェック用のお皿</b>、
+          そして Claude Code は<b>となりで何でも質問に答えてくれる料理の先生</b>です。
+        </p>
+        <p>先生つきのキッチン、使わない手はありませんよね。</p>
+      </aside>
+
+      <div class="note">
+        <strong>はじめる前に：</strong>
+        会社のパソコンにソフトをインストールするときや、AIツールを使うときは、<b>社内のルールや情報システム担当者の案内に従って</b>ください。
+        このページの手順は Windows のパソコンを前提にしています。画面の見た目や手順は、ソフトのバージョンによって少し変わることがあります。
+      </div>
+
+      <nav class="toc" aria-label="目次">
+        <strong>このページの内容</strong>
+        <ol>
+          <li><a href="#tools">3つの道具の役割</a></li>
+          <li><a href="#chrome">Google Chrome を入れる</a></li>
+          <li><a href="#vscode">VS Code を入れる</a></li>
+          <li><a href="#claude">Claude Code を入れる</a></li>
+          <li><a href="#try">3つを使ってみよう</a></li>
+          <li><a href="#ai">AIと上手に付き合うコツ</a></li>
+          <li><a href="#quiz">確認クイズ</a></li>
+        </ol>
+      </nav>
+
+      <!-- ===================== 道具 ===================== -->
+      <h2 id="tools">1. 3つの道具の役割</h2>
+      <div class="card-grid">
+        <div class="card cat-web">
+          <h3>Google Chrome</h3>
+          <p><b>ブラウザ</b>。作ったページを表示して確認します。開発者向けの調査機能（デベロッパーツール）が便利です。</p>
+        </div>
+        <div class="card cat-desktop">
+          <h3>VS Code</h3>
+          <p>正式名称は Visual Studio Code。Microsoft が無料で公開している<b>コードを書くためのエディタ</b>です。世界中のエンジニアが使っています。</p>
+        </div>
+        <div class="card cat-mobile">
+          <h3>Claude Code</h3>
+          <p>Anthropic 社の <b>AIアシスタント</b>。コードの説明、書き方の相談、間違いの発見などを、会話しながら手伝ってくれます。</p>
+        </div>
+      </div>
+
+      <!-- ===================== Chrome ===================== -->
+      <h2 id="chrome">2. Google Chrome を入れる</h2>
+      <p class="muted">すでにパソコンに入っている場合は、この章は飛ばしてOKです。</p>
+      <ol class="steps">
+        <li>
+          <h4>ダウンロードページを開く</h4>
+          <p>今使っているブラウザ（Microsoft Edge など）で <code>https://www.google.com/chrome/</code> を開きます。</p>
+        </li>
+        <li>
+          <h4>「Chrome をダウンロード」をクリック</h4>
+          <p>インストール用のファイル（<code>ChromeSetup.exe</code>）がダウンロードされます。</p>
+        </li>
+        <li>
+          <h4>ダウンロードしたファイルを開く</h4>
+          <p>「このアプリがデバイスに変更を加えることを許可しますか？」と聞かれたら「はい」を選びます。自動でインストールが進み、Chrome が起動します。</p>
+        </li>
+      </ol>
+      <h3>デベロッパーツールを開いてみよう</h3>
+      <p>
+        Chrome で何かのページを開いた状態で <kbd>F12</kbd> キーを押してみてください。画面の横に、ページの HTML や CSS を調べられる
+        <b>デベロッパーツール</b>が開きます。Lesson 8・9 で使うので、「F12 で開く」とだけ覚えておきましょう。もう一度 <kbd>F12</kbd> を押すと閉じます。
+      </p>
+
+      <!-- ===================== VS Code ===================== -->
+      <h2 id="vscode">3. VS Code を入れる</h2>
+      <ol class="steps">
+        <li>
+          <h4>ダウンロードページを開く</h4>
+          <p>Chrome で <code>https://code.visualstudio.com/</code> を開き、「Download for Windows」をクリックします。</p>
+        </li>
+        <li>
+          <h4>インストーラーを実行する</h4>
+          <p>ダウンロードしたファイル（<code>VSCodeUserSetup-…exe</code>）を開き、「同意する」を選んで「次へ」で進みます。</p>
+        </li>
+        <li>
+          <h4>「追加タスクの選択」でチェックを入れる</h4>
+          <p>途中の画面で、次の項目に<b>チェックを入れておく</b>と便利です。</p>
+          <ul class="examples">
+            <li>エクスプローラーのファイル コンテキスト メニューに [Code で開く] アクションを追加する</li>
+            <li>エクスプローラーのディレクトリ コンテキスト メニューに [Code で開く] アクションを追加する</li>
+            <li>PATH への追加（再起動後に使用可能）</li>
+          </ul>
+          <p>これで、ファイルやフォルダを右クリックして「Code で開く」が使えるようになります。</p>
+        </li>
+        <li>
+          <h4>インストールして起動する</h4>
+          <p>「インストール」→「完了」で VS Code が起動します。</p>
+        </li>
+        <li>
+          <h4>日本語化する</h4>
+          <p>
+            最初は英語で表示されます。左側の四角いアイコン（Extensions）をクリックするか <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>X</kbd> を押し、
+            検索欄に <code>Japanese Language Pack</code> と入力します。Microsoft 製の「Japanese Language Pack for Visual Studio Code」の「Install」を押し、
+            右下に出る「Change Language and Restart」を押すと、日本語で再起動します。
+          </p>
+        </li>
+      </ol>
+
+      <h3>Lesson 5 の hello.html を開いてみよう</h3>
+      <p>
+        VS Code のメニューで「ファイル」→「フォルダーを開く」を選び、Lesson 5 で作った <code>hello</code> フォルダを開きます。
+        （「このフォルダー内のファイルの作成者を信頼しますか？」と聞かれたら、自分で作ったフォルダなので「はい」を選びます）
+        左側の一覧から <code>hello.html</code> をクリックすると……
+      </p>
+      <p>
+        タグや文字が<b>色分けされて</b>表示されるはずです。メモ帳よりずっと読みやすいですよね。
+        さらに VS Code は、<code>&lt;p&gt;</code> と打つと終了タグ <code>&lt;/p&gt;</code> を自動で補ってくれるなど、入力も手伝ってくれます。
+      </p>
+      <div class="note">
+        <strong>小ワザ：</strong>
+        VS Code で新しく <code>.html</code> ファイルを作り、半角で <code>!</code> と入力して <kbd>Enter</kbd>（または <kbd>Tab</kbd>）を押してみてください。
+        Lesson 5 で学んだ「HTMLの基本の形」が一瞬で入力されます。メモ帳で一生懸命打った人は、ちょっと悔しいかもしれません。
+      </div>
+
+      <!-- ===================== Claude Code ===================== -->
+      <h2 id="claude">4. Claude Code を入れる</h2>
+      <p>
+        Claude Code は、<b>ターミナル</b>（文字でパソコンに命令する画面）や VS Code の中で、AI と会話しながら作業できるツールです。
+        「このコードの意味を教えて」「ここをこう変えたい」と日本語で話しかけると、説明したり、実際にファイルを編集したりしてくれます。
+      </p>
+
+      <div class="note">
+        <strong>アカウントについて：</strong>
+        Claude Code を使うには、Claude の有料プラン（Pro / Max）、会社向けプラン（Team / Enterprise）、または Claude Console のアカウントが必要です（無料プランでは使えません）。
+        どのアカウントを使うかは、<b>社内の案内に従って</b>ください。
+      </div>
+
+      <ol class="steps">
+        <li>
+          <h4>VS Code でターミナルを開く</h4>
+          <p>
+            VS Code のメニューで「ターミナル」→「新しいターミナル」を選びます。画面の下に、文字を入力できる黒っぽい領域が開きます。
+            これがターミナル（Windows では PowerShell）です。
+          </p>
+        </li>
+        <li>
+          <h4>インストール用のコマンドを貼り付けて実行する</h4>
+          <p>次の1行をコピーしてターミナルに貼り付け、<kbd>Enter</kbd> を押します。インストールが自動で進みます。</p>
+<div class="code-block"><div class="code-head"><span>PowerShell（Windows）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>irm https://claude.ai/install.ps1 | iex</code></pre></div>
+          <p class="muted">Mac の場合は、ターミナルで <code>curl -fsSL https://claude.ai/install.sh | bash</code> を実行します。</p>
+        </li>
+        <li>
+          <h4>インストールできたか確認する</h4>
+          <p>いったんターミナルを閉じて（ゴミ箱のアイコン）、もう一度「ターミナル」→「新しいターミナル」で開き直してから、次のコマンドを実行します。</p>
+<div class="code-block"><div class="code-head"><span>PowerShell</span><button class="copy-btn" type="button">コピー</button></div><pre><code>claude --version</code></pre></div>
+          <p>バージョン番号（数字）が表示されれば成功です。</p>
+        </li>
+        <li>
+          <h4>起動してログインする</h4>
+          <p>VS Code で <code>hello</code> フォルダを開いた状態で、ターミナルに次のように入力します。</p>
+<div class="code-block"><div class="code-head"><span>PowerShell</span><button class="copy-btn" type="button">コピー</button></div><pre><code>claude</code></pre></div>
+          <p>
+            初回はブラウザが開き、ログイン画面が表示されます。社内の案内に従ったアカウントでログインし、ターミナルに
+            「Login successful」と表示されたら <kbd>Enter</kbd> を押します。これで準備完了です。
+          </p>
+        </li>
+        <li>
+          <h4>（おすすめ）VS Code の拡張機能も入れる</h4>
+          <p>
+            VS Code の拡張機能（<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>X</kbd>）で <code>Claude Code</code> を検索し、Anthropic 製の拡張機能をインストールします。
+            エディタの右上などに表示される Claude のアイコンから、ターミナルを使わずにチャット画面で話しかけられるようになります。
+          </p>
+        </li>
+      </ol>
+
+      <div class="table-wrap">
+        <table style="min-width: 560px;">
+          <thead><tr><th>うまくいかないときは</th><th>確認すること</th></tr></thead>
+          <tbody>
+            <tr><td><code>claude</code> が見つからないと言われる</td><td>インストール後にターミナルを開き直したか確認してください。それでもだめなら VS Code ごと再起動してみてください。</td></tr>
+            <tr><td>インストールのコマンドがエラーになる</td><td>社内ネットワークの設定でブロックされている可能性があります。情報システム担当者に相談してください。</td></tr>
+            <tr><td>動作がおかしい</td><td>ターミナルで <code>claude doctor</code> を実行すると、インストールの状態を診断してくれます。</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted">
+        Git for Windows を入れておくと、Claude Code がより多くの作業を手伝えるようになります（必須ではありません）。
+        最新の手順は公式ドキュメント（<code>https://code.claude.com/docs</code>）で確認できます。
+      </p>
+
+      <!-- ===================== 試す ===================== -->
+      <h2 id="try">5. 3つを使ってみよう</h2>
+      <p>道具がそろったら、さっそく3つを連携させてみましょう。</p>
+      <ol class="steps">
+        <li>
+          <h4>Claude Code に質問する</h4>
+          <p>hello フォルダで Claude Code を起動し、次のように話しかけてみます。</p>
+<div class="code-block"><div class="code-head"><span>Claude Code への質問の例</span><button class="copy-btn" type="button">コピー</button></div><pre><code>hello.html の中身を、HTMLを初めて学ぶ人向けに1行ずつ説明してください。</code></pre></div>
+          <p>Lesson 5 で学んだことを、別の言葉で説明し直してくれるはずです。わからない言葉があれば、続けて質問してOKです。</p>
+        </li>
+        <li>
+          <h4>VS Code で書き換える</h4>
+          <p><code>hello.html</code> の <code>&lt;p&gt;</code> の文章を自由に書き換えて、<kbd>Ctrl</kbd> + <kbd>S</kbd> で保存します。</p>
+        </li>
+        <li>
+          <h4>Chrome で確認する</h4>
+          <p>エクスプローラーで <code>hello.html</code> を右クリック →「プログラムから開く」→「Google Chrome」で開き、書き換えが反映されているか確認します。</p>
+        </li>
+      </ol>
+      <p>
+        <b>「書く（VS Code）→ 聞く（Claude Code）→ 確かめる（Chrome）」</b>。これが、これからのポートフォリオ作りの基本サイクルです。
+      </p>
+
+      <!-- ===================== AI ===================== -->
+      <h2 id="ai">6. AIと上手に付き合うコツ</h2>
+      <p>Claude Code はとても頼りになりますが、<b>学ぶため</b>に使うなら、ちょっとしたコツがあります。</p>
+      <div class="sub-grid">
+        <div class="sub">
+          <h4>◎ おすすめの使い方</h4>
+          <ul class="examples">
+            <li>「このタグは何をしているの？」と<b>意味を聞く</b></li>
+            <li>「うまく表示されない。どこが間違っている？」と<b>間違い探しを頼む</b></li>
+            <li>自分で書いたあとに「もっと良い書き方はある？」と<b>見てもらう</b></li>
+          </ul>
+        </div>
+        <div class="sub">
+          <h4>△ 気をつけたい使い方</h4>
+          <ul class="examples">
+            <li>全部書いてもらって、<b>中身を読まずに</b>終わりにする</li>
+            <li>AI の答えを<b>そのまま信じ込む</b>（AI も間違えることがあります）</li>
+            <li>お客様の情報や社外秘の情報を入力する（<b>社内ルールを守りましょう</b>）</li>
+          </ul>
+        </div>
+      </div>
+      <p>
+        自転車の練習で、ずっと後ろを押してもらっていては乗れるようになりませんよね。
+        Claude Code は「後ろを支えてくれるコーチ」。ペダルをこぐのは自分、を意識すると、ぐんぐん上達します。
+      </p>
+
+      <!-- ===================== クイズ ===================== -->
+      <h2 id="quiz">確認クイズ</h2>
+      <p class="muted">選択肢をクリックしてください。</p>
+      <div class="quiz">
+        <div class="q" data-answer="VS Code" data-explain="VS Code（Visual Studio Code）は、コードを書くためのエディタです。">
+          <p>Q1. コードを書くための道具（エディタ）はどれ？</p>
+          <div class="choices"><button type="button">Google Chrome</button><button type="button">VS Code</button><button type="button">Claude Code</button><button type="button">エクスプローラー</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="F12" data-explain="Chrome では F12 キーでデベロッパーツールを開閉できます。">
+          <p>Q2. Chrome でデベロッパーツールを開くキーは？</p>
+          <div class="choices"><button type="button">F1</button><button type="button">F5</button><button type="button">F12</button><button type="button">Esc</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="claude --version" data-explain="claude --version でバージョン番号が表示されれば、インストールできています。">
+          <p>Q3. Claude Code がインストールできたか確認するコマンドは？</p>
+          <div class="choices"><button type="button">claude --version</button><button type="button">claude install</button><button type="button">hello.html</button><button type="button">F12</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="意味を聞いて理解する" data-explain="学ぶためには、AI に意味を聞いて自分で理解するのがおすすめです。AI も間違えることがあるので、答えは鵜呑みにせず確かめましょう。">
+          <p>Q4. 学ぶために Claude Code を使うとき、おすすめの使い方は？</p>
+          <div class="choices"><button type="button">全部書いてもらう</button><button type="button">意味を聞いて理解する</button><button type="button">答えをそのまま信じる</button><button type="button">社外秘の情報も入力する</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <!-- ===================== まとめ ===================== -->
+      <h2>まとめ</h2>
+      <ul>
+        <li><b>Chrome</b> で表示して確かめ、<b>VS Code</b> でコードを書き、<b>Claude Code</b> に質問しながら進める。</li>
+        <li>Chrome のデベロッパーツールは <kbd>F12</kbd> で開く。</li>
+        <li>VS Code は日本語化しておくと使いやすい。<code>!</code> ＋ <kbd>Enter</kbd> で HTML の基本の形が一瞬で入る。</li>
+        <li>Claude Code はターミナルで <code>claude</code> と入力して起動する。使うアカウントは社内の案内に従う。</li>
+        <li>AI は「コーチ」。意味を聞いて、自分で理解しながら使う。</li>
+      </ul>
+      <p>道具がそろいました！ 次の Lesson 7 からは、いよいよ自分のポートフォリオサイトを作っていきます。</p>
+
+      <nav class="pager">
+        <a href="html-basics.html">← Lesson 5：HTMLとは？</a>
+        <a href="portfolio-html.html">Lesson 7：ポートフォリオ① HTML →</a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">ITK Educate — 社内向け教材</div>
+  </footer>
+</body>
+</html>

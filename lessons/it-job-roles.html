@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IT業界の職種 | ITK Educate</title>
+  <meta name="description" content="プロジェクトマネージャー・SE・PG・デザイナー・フロントエンド・バックエンド・DB・インフラ・テスターなど、IT業界の職種と役割を学ぶレッスン。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">ITK <span>Educate</span></a>
+      <div class="header-actions">
+        <a href="../index.html">レッスン一覧</a>
+        <button class="theme-toggle" type="button">☾ ダーク</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <span class="eyebrow">LESSON 3</span>
+        <h1>IT業界の職種</h1>
+        <p class="lead">
+          1つのアプリやシステムは、1人のスーパーエンジニアが作っているわけではありません。
+          <strong>役割の違うたくさんの人が分担して</strong>作っています。
+          このレッスンでは、IT業界の主な職種と、それぞれが何をしているのかを整理します。
+        </p>
+      </section>
+
+      <aside class="aside">
+        <p>
+          IT業界の名刺は、とにかくカタカナが長いです。「シニア・バックエンド・エンジニア」「クラウド・インフラ・アーキテクト」……
+          初めて見ると、ちょっとした早口言葉です。
+        </p>
+        <p>
+          でも安心してください。分解してみると、<b>「どの部分を」「どの立場で」担当しているか</b>を言っているだけ。
+          このレッスンを読み終わるころには、名刺を見ただけで「この人はこういう仕事をしているんだな」とわかるようになります。
+        </p>
+      </aside>
+
+      <nav class="toc" aria-label="目次">
+        <strong>このページの内容</strong>
+        <ol>
+          <li><a href="#house">家づくりで考える全体像</a></li>
+          <li><a href="#axis">職種は「2つの軸」で見るとわかりやすい</a></li>
+          <li><a href="#se-pg">SE と PG の違い</a></li>
+          <li><a href="#roles">各職種の役割</a></li>
+          <li><a href="#others">そのほかの職種</a></li>
+          <li><a href="#lifecycle">誰がいつ活躍する？</a></li>
+          <li><a href="#career">キャリアの広がり</a></li>
+          <li><a href="#quiz">確認クイズ</a></li>
+        </ol>
+      </nav>
+
+      <!-- ===================== 家づくり ===================== -->
+      <h2 id="house">1. 家づくりで考える全体像</h2>
+      <p>
+        システム開発は、よく<b>家づくり</b>にたとえられます。家を建てるときも、設計する人・工事をする人・内装を考える人など、
+        たくさんの専門家が関わりますよね。IT の職種も、ほぼ同じように対応させることができます。
+      </p>
+
+      <div class="table-wrap">
+        <table style="min-width: 600px;">
+          <thead>
+            <tr><th>家づくりでいうと</th><th>IT の職種</th><th>ひとことで言うと</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>施主（家を建てたい人）</td><td>お客様</td><td>「こんなシステムがほしい」と依頼する</td></tr>
+            <tr><td>現場監督</td><td><a href="#pm">プロジェクトマネージャー（PM）</a></td><td>予算・スケジュール・メンバーを管理する</td></tr>
+            <tr><td>建築士（設計士）</td><td><a href="#se">システムエンジニア（SE）</a></td><td>お客様の要望を聞いて、設計図を書く</td></tr>
+            <tr><td>大工さん</td><td><a href="#pg">プログラマー（PG）</a></td><td>設計図をもとに、実際に作る</td></tr>
+            <tr><td>インテリアデザイナー</td><td><a href="#designer">デザイナー</a></td><td>見た目と使い心地を考える</td></tr>
+            <tr><td>内装工事の職人</td><td><a href="#front">フロントエンドエンジニア</a></td><td>デザインを、実際に触れる画面に仕上げる</td></tr>
+            <tr><td>水道・電気・ガスの設備工事</td><td><a href="#back">バックエンドエンジニア</a></td><td>見えないけれど、ないと暮らせない仕組みを作る</td></tr>
+            <tr><td>収納・倉庫の設計</td><td><a href="#db">DBエンジニア</a></td><td>大切なデータを、整理してしまっておく</td></tr>
+            <tr><td>土地の造成・基礎工事・電線や水道管の引き込み</td><td><a href="#infra">インフラエンジニア</a></td><td>システムが建つ土台を用意し、守る</td></tr>
+            <tr><td>完成検査の検査員</td><td><a href="#tester">テスター / テストエンジニア</a></td><td>引き渡し前に、不具合がないかを徹底的に確かめる</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ===================== 2つの軸 ===================== -->
+      <h2 id="axis">2. 職種は「2つの軸」で見るとわかりやすい</h2>
+      <p>
+        IT の職種名には、実は<b>2種類の分け方</b>が混ざっています。ここを押さえると、職種名がぐっと読み解きやすくなります。
+      </p>
+      <div class="sub-grid">
+        <div class="sub">
+          <h4>① どの「立場」で関わるか（縦の軸）</h4>
+          <p>プロジェクトの中での役割です。<b>PM・SE・PG</b> がこちら。「管理する」「設計する」「作る」の違いです。</p>
+        </div>
+        <div class="sub">
+          <h4>② どの「部分」を担当するか（横の軸）</h4>
+          <p>システムのどこを専門にするかです。<b>フロントエンド・バックエンド・DB・インフラ</b>がこちら。Lesson 2 で学んだ各部分に対応します。</p>
+        </div>
+      </div>
+      <p>この2つを掛け合わせると、次のような表になります。</p>
+
+      <div class="table-wrap">
+        <table class="matrix" style="min-width: 680px;">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="cat-mobile" style="color: var(--c);">フロントエンド<br><small>画面</small></th>
+              <th class="cat-web" style="color: var(--c);">バックエンド<br><small>サーバーの処理</small></th>
+              <th class="cat-desktop" style="color: var(--c);">DB<br><small>データ</small></th>
+              <th class="cat-embed" style="color: var(--c);">インフラ<br><small>土台</small></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th>PM<br><small class="muted">管理する</small></th>
+              <td class="span" colspan="4">プロジェクト全体の予算・スケジュール・品質・メンバーを管理</td>
+            </tr>
+            <tr>
+              <th>SE<br><small class="muted">設計する</small></th>
+              <td>画面の構成・<br>操作の流れを設計</td>
+              <td>機能・処理の<br>仕組みを設計</td>
+              <td>データの持ち方<br>（テーブル）を設計</td>
+              <td>サーバー・ネットワーク<br>の構成を設計</td>
+            </tr>
+            <tr>
+              <th>PG<br><small class="muted">作る</small></th>
+              <td>画面を<br>コーディング</td>
+              <td>処理を<br>プログラミング</td>
+              <td>SQL を書いて<br>データを操作</td>
+              <td>サーバーを構築・<br>設定</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        たとえば「<b>バックエンドの SE</b>」なら「サーバー側の処理を設計する人」、
+        「<b>インフラの SE</b>」なら「サーバーやネットワークの構成を設計する人」です。
+        なお、デザイナーはこの表とは別に、画面の見た目と使いやすさを専門に担当します。
+        実際の現場では、1人が複数のマスを担当することもよくあります。
+      </p>
+      <div class="note">
+        <strong>ポイント：</strong>
+        名刺の「シニア・バックエンド・エンジニア」を分解すると、
+        「シニア（経験豊富な）」＋「バックエンド（横の軸）」＋「エンジニア（技術者）」。
+        カタカナが長くても、軸に当てはめれば怖くありません。
+      </div>
+
+      <!-- ===================== SEとPG ===================== -->
+      <h2 id="se-pg">3. SE と PG の違い</h2>
+      <p>
+        IT 業界でよく聞く <b>SE（システムエンジニア）</b>と <b>PG（プログラマー）</b>。
+        どちらも「エンジニア」ですが、担当する<b>工程（仕事の段階）</b>が違います。
+      </p>
+
+      <div class="sub-grid">
+        <div class="sub cat-desktop">
+          <h4>SE（システムエンジニア）＝「何を・どう作るか」を決める人</h4>
+          <ul class="examples">
+            <li>お客様の要望を聞き取って整理する（<b>要件定義</b>）</li>
+            <li>システムの全体像や画面・機能を決める（<b>基本設計</b>）</li>
+            <li>プログラムの細かい作りを決める（<b>詳細設計</b>）</li>
+            <li>設計書を作り、PG に作業を依頼する</li>
+            <li>出来上がったものが要望どおりか確かめる（<b>テスト</b>）</li>
+          </ul>
+        </div>
+        <div class="sub cat-web">
+          <h4>PG（プログラマー）＝ 設計をもとに「実際に作る」人</h4>
+          <ul class="examples">
+            <li>設計書を読み、プログラムを書く（<b>実装・コーディング</b>）</li>
+            <li>書いたプログラムが正しく動くか確かめる（<b>単体テスト</b>）</li>
+            <li>見つかった不具合（バグ）を直す</li>
+            <li>より良い作り方があれば SE に提案する</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>レストランにたとえると</h3>
+      <p>
+        SE は<b>お客様の注文を聞いてメニューとレシピを考えるシェフ</b>、PG は<b>レシピどおりに手際よく料理を仕上げる料理人</b>です。
+        どちらが欠けても、おいしい料理は出せません。
+      </p>
+
+      <div class="note">
+        <strong>実際の現場では：</strong>
+        SE と PG がはっきり分かれているのは、大規模なシステムを作る会社に多い形です。
+        Web サービスの会社などでは、設計もプログラミングも同じ人が担当し、まとめて「エンジニア」と呼ぶことが増えています。
+        また、PG として経験を積んでから SE になる、というキャリアの進み方も一般的です。
+      </div>
+
+      <!-- ===================== 各職種 ===================== -->
+      <h2 id="roles">4. 各職種の役割</h2>
+      <p>ここからは、主な職種を1つずつ見ていきましょう。</p>
+
+      <h3>まとめる・決める人</h3>
+      <div class="role-grid">
+        <article class="role cat-desktop" id="pm">
+          <h3>プロジェクトマネージャー</h3>
+          <p class="en">Project Manager（PM）</p>
+          <p class="catch">プロジェクトを最後までゴールに導く「現場監督」</p>
+          <dl>
+            <dt>主な仕事</dt>
+            <dd><ul>
+              <li>計画を立てる（いつまでに・誰が・何を作るか）</li>
+              <li>予算・スケジュール・品質の管理</li>
+              <li>メンバー集めと役割分担</li>
+              <li>お客様との調整、トラブルへの対応</li>
+            </ul></dd>
+            <dt>よく使う道具</dt>
+            <dd>Excel（スケジュール表）、ガントチャート、Backlog や Jira などのタスク管理ツール</dd>
+            <dt>向いている人</dt>
+            <dd>全体を見渡すのが好き、人と話して調整するのが得意な人</dd>
+          </dl>
+          <div class="analogy">家づくりでいうと <b>現場監督</b>。自分で釘は打たなくても、家が予定どおり完成するかは監督次第。</div>
+        </article>
+
+        <article class="role cat-desktop" id="se">
+          <h3>システムエンジニア</h3>
+          <p class="en">System Engineer（SE）</p>
+          <p class="catch">お客様の「こうしたい」を設計図に落とし込む人</p>
+          <dl>
+            <dt>主な仕事</dt>
+            <dd><ul>
+              <li>お客様へのヒアリング、要件定義</li>
+              <li>基本設計・詳細設計、設計書の作成</li>
+              <li>テストの計画と確認</li>
+              <li>PG への作業依頼と質問対応</li>
+            </ul></dd>
+            <dt>よく使う道具</dt>
+            <dd>Excel・Word（設計書）、PowerPoint（提案資料）、図を描くツール</dd>
+            <dt>向いている人</dt>
+            <dd>話を聞いて整理するのが得意、論理的に考えるのが好きな人</dd>
+          </dl>
+          <div class="analogy">家づくりでいうと <b>建築士</b>。施主の「広いリビングがほしい」を、柱の位置まで決めた図面にする。</div>
+        </article>
+
+        <article class="role cat-web" id="pg">
+          <h3>プログラマー</h3>
+          <p class="en">Programmer（PG）</p>
+          <p class="catch">設計図をもとに、実際に動くプログラムを作る人</p>
+          <dl>
+            <dt>主な仕事</dt>
+            <dd><ul>
+              <li>プログラミング（コーディング）</li>
+              <li>単体テスト、バグの修正</li>
+              <li>コードレビュー（他の人のプログラムの確認）</li>
+            </ul></dd>
+            <dt>よく使う道具</dt>
+            <dd>エディタ（VS Code など）、Git（変更履歴の管理）、各種プログラミング言語</dd>
+            <dt>向いている人</dt>
+            <dd>ものづくりが好き、コツコツ試行錯誤するのが苦にならない人</dd>
+          </dl>
+          <div class="analogy">家づくりでいうと <b>大工さん</b>。図面どおりに、しっかりした家を組み上げる。</div>
+        </article>
+      </div>
+
+      <h3>見た目と使いやすさを作る人</h3>
+      <div class="role-grid">
+        <article class="role cat-mobile" id="designer">
+          <h3>デザイナー（UI / UX デザイナー）</h3>
+          <p class="en">Designer</p>
+          <p class="catch">「見やすい」「迷わない」「気持ちいい」を設計する人</p>
+          <dl>
+            <dt>主な仕事</dt>
+            <dd><ul>
+              <li>画面のレイアウト・配色・アイコンのデザイン</li>
+              <li>操作の流れ（どの順にボタンを押すか）の設計</li>
+              <li>ユーザーの声を聞いて改善する</li>
+            </ul></dd>
+            <dt>よく使う道具</dt>
+            <dd>Figma、Adobe Illustrator / Photoshop</dd>
+            <dt>向いている人</dt>
+            <dd>使う人の気持ちを想像するのが得意、見た目のこだわりがある人</dd>
+          </dl>
+          <div class="analogy">
+            家づくりでいうと <b>インテリアデザイナー</b>。
+            UI は「画面の見た目や操作部分」、UX は「使ったときの体験全体」のこと。
+          </div>
+        </article>
+
+        <article class="role cat-mobile" id="front">
+          <h3>フロントエンドエンジニア</h3>
+          <p class="en">Frontend Engineer</p>
+          <p class="catch">デザインを、実際に触って動く画面にする人</p>
+          <dl>
+            <dt>主な仕事</dt>
+            <dd><ul>
+              <li>デザインをもとに画面を作る（コーディング）</li>
+              <li>パソコン・スマホなど、どの画面サイズでも崩れないよう調整</li>
+              <li>バックエンドからデータを受け取って表示する</li>
+            </ul></dd>
+            <dt>主な技術</dt>
+            <dd>HTML、CSS、JavaScript / TypeScript、React、Vue.js</dd>
+            <dt>向いている人</dt>
+            <dd>目に見える成果が好き、細かい見た目のズレが気になる人</dd>
+          </dl>
+          <div class="analogy">家づくりでいうと <b>内装工事の職人</b>。デザイン画を、実際に住める部屋に仕上げる。（→ <a href="what-it-engineers-build.html#web">Lesson 1 Webアプリ</a>）</div>
+        </article>
+      </div>
+
+      <h3>裏側と土台を作る人</h3>
+      <div class="role-grid">
+        <article class="role cat-web" id="back">
+          <h3>バックエンドエンジニア</h3>
+          <p class="en">Backend Engineer</p>
+          <p class="catch">画面の裏で動く「仕組み」を作る人</p>
+          <dl>
+            <dt>主な仕事</dt>
+            <dd><ul>
+              <li>ログイン・注文・決済など、サーバー側の処理を作る</li>
+              <li>画面やスマホアプリとやりとりする窓口（API）を作る</li>
+              <li>データベースへの保存・読み出しの処理を作る</li>
+            </ul></dd>
+            <dt>主な技術</dt>
+            <dd>Java、PHP、Python、Go、Node.js、C#、SQL</dd>
+            <dt>向いている人</dt>
+            <dd>仕組みを考えるのが好き、正確さにこだわれる人</dd>
+          </dl>
+          <div class="analogy">家づくりでいうと <b>水道・電気・ガスの設備工事</b>。普段は見えないけれど、止まったら生活できない。（→ <a href="how-apps-work.html#server">Lesson 2 サーバーの中身</a>）</div>
+        </article>
+
+        <article class="role cat-desktop" id="db">
+          <h3>DBエンジニア</h3>
+          <p class="en">Database Engineer</p>
+          <p class="catch">会社の宝物である「データ」を守り、使いやすく整える人</p>
+          <dl>
+            <dt>主な仕事</dt>
+            <dd><ul>
+              <li>どんなデータを、どんな表（テーブル）で持つかを設計</li>
+              <li>データが増えても検索が遅くならないよう調整（チューニング）</li>
+              <li>バックアップや、データが消えたときの復旧</li>
+            </ul></dd>
+            <dt>主な技術</dt>
+            <dd>SQL、MySQL、PostgreSQL、Oracle Database、SQL Server</dd>
+            <dt>向いている人</dt>
+            <dd>整理整頓が好き、慎重に物事を進められる人</dd>
+          </dl>
+          <div class="analogy">家づくりでいうと <b>収納・倉庫の設計</b>。何をどこにしまえば、すぐ取り出せて失くさないかを考える。</div>
+        </article>
+
+        <article class="role cat-embed" id="infra">
+          <h3>インフラエンジニア</h3>
+          <p class="en">Infrastructure Engineer</p>
+          <p class="catch">システムが動く「土台」を用意し、止まらないように守る人</p>
+          <dl>
+            <dt>主な仕事</dt>
+            <dd><ul>
+              <li>サーバー・ネットワーク・クラウド環境の設計と構築</li>
+              <li>システムが止まっていないかの監視、障害時の対応</li>
+              <li>不正アクセスなどへのセキュリティ対策</li>
+            </ul></dd>
+            <dt>主な技術</dt>
+            <dd>AWS・Azure などのクラウド、Linux、ネットワーク機器（ルータ・スイッチ）</dd>
+            <dt>向いている人</dt>
+            <dd>縁の下の力持ちタイプ、トラブル時も落ち着いて原因を探せる人</dd>
+          </dl>
+          <div class="analogy">
+            家づくりでいうと <b>土地の造成・基礎工事・電線や水道管の引き込み</b>。
+            担当によって「サーバーエンジニア」「ネットワークエンジニア」「クラウドエンジニア」とも呼ばれる。（→ <a href="how-apps-work.html#osi">Lesson 2 OSI参照モデル</a>）
+          </div>
+        </article>
+      </div>
+
+      <h3>品質を守る人</h3>
+      <div class="role-grid">
+        <article class="role cat-test" id="tester">
+          <h3>テスター / テストエンジニア</h3>
+          <p class="en">Tester / Test Engineer</p>
+          <p class="catch">「ちゃんと動く？」を徹底的に確かめる、最後の砦</p>
+          <dl>
+            <dt>主な仕事</dt>
+            <dd><ul>
+              <li>何を・どんな手順で確かめるかを決める（<b>テスト設計</b>、テストケースの作成）</li>
+              <li>実際にシステムを操作して、結果が正しいかを確認する（<b>テスト実施</b>）</li>
+              <li>見つけた不具合を、再現手順つきで開発者に報告する</li>
+              <li>修正されたあと、本当に直ったか・他が壊れていないかを再確認する</li>
+            </ul></dd>
+            <dt>よく使う道具</dt>
+            <dd>Excel（テストケース表）、不具合管理ツール（Backlog・Jira など）、テストを自動で実行するツール</dd>
+            <dt>向いている人</dt>
+            <dd>細かいところに気がつく、「こう操作したらどうなる？」と試したくなる人</dd>
+          </dl>
+          <div class="analogy">
+            家づくりでいうと <b>完成検査の検査員</b>。ドアは閉まる？ 水は漏れない？ を引き渡し前に1つずつ確かめる。
+          </div>
+        </article>
+
+        <div class="role" style="border-top-color: var(--border);">
+          <h3>テスターとテストエンジニアの違い</h3>
+          <p class="en">SE と PG の関係に似ています</p>
+          <dl>
+            <dt>テストエンジニア</dt>
+            <dd>「どんなテストをすれば不具合を見つけられるか」を考え、テストの計画やテストケースを作る人。</dd>
+            <dt>テスター</dt>
+            <dd>テストケースに沿って実際にシステムを操作し、結果を確認・記録する人。</dd>
+            <dt>QA エンジニア</dt>
+            <dd>テストだけでなく、開発の進め方も含めて「品質を保証する仕組み」づくりまで担当する人。QA は Quality Assurance（品質保証）の略。</dd>
+          </dl>
+          <div class="analogy" style="background: var(--surface-2);">
+            「エンジニアが自分でテストすればいいのでは？」と思うかもしれません。でも、作った本人はどうしても
+            「正しい使い方」で試してしまいがち。<b>作った人とは別の目</b>で確かめることで、思わぬ不具合が見つかります。
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== そのほか ===================== -->
+      <h2 id="others">5. そのほかの職種</h2>
+      <p>ほかにも、IT 業界にはたくさんの職種があります。代表的なものを紹介します。</p>
+      <div class="table-wrap">
+        <table style="min-width: 560px;">
+          <thead>
+            <tr><th>職種</th><th>どんな仕事？</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b>プロジェクトリーダー（PL）</b></td><td>PM の下で、開発チームを直接まとめる現場のリーダー。</td></tr>
+            <tr><td><b>モバイルアプリエンジニア</b></td><td>iOS / Android アプリを作る。（→ <a href="what-it-engineers-build.html#mobile">Lesson 1</a>）</td></tr>
+            <tr><td><b>組み込みエンジニア</b></td><td>家電・自動車・IoT 機器などの中で動くソフトウェアを作る。（→ <a href="what-it-engineers-build.html#embedded">Lesson 1</a>）</td></tr>
+            <tr><td><b>セキュリティエンジニア</b></td><td>サイバー攻撃や情報漏えいからシステムを守る。</td></tr>
+            <tr><td><b>運用・保守エンジニア</b></td><td>完成したシステムを毎日安定して動かし、問題があれば直す。</td></tr>
+            <tr><td><b>データサイエンティスト</b></td><td>たまったデータを分析して、ビジネスに役立つ発見をする。</td></tr>
+            <tr><td><b>IT コンサルタント</b></td><td>お客様の経営課題を聞き、IT でどう解決するかを提案する。</td></tr>
+            <tr><td><b>IT 営業 / セールスエンジニア</b></td><td>お客様に IT サービスを提案し、技術的な説明も行う。お客様とエンジニアの橋渡し役。</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="note">
+        <strong>ポイント：</strong>
+        営業や管理部門の方も、システムづくりの<b>チームの一員</b>です。
+        お客様の声を最初に聞くのも、完成したシステムを届けるのも、多くの場合エンジニア以外のメンバーです。
+      </div>
+
+      <!-- ===================== 誰がいつ ===================== -->
+      <h2 id="lifecycle">6. 誰がいつ活躍する？</h2>
+      <p>
+        システム開発はいくつかの段階（工程）を順に進めていきます。工程によって、中心になる職種が変わります。
+        工程そのものの詳しい内容は、次の <a href="development-process.html">Lesson 4「開発の流れ」</a>で学びます。
+      </p>
+      <div class="table-wrap">
+        <table class="lifecycle" style="min-width: 760px;">
+          <thead>
+            <tr><th>工程</th><th>PM</th><th>SE</th><th>デザイナー</th><th>PG<br><small>フロント・バック</small></th><th>DB</th><th>インフラ</th><th>テスター</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>要件定義<br><small class="muted">何を作るか決める</small></th><td>◎</td><td>◎</td><td>○</td><td class="none">–</td><td class="none">–</td><td>○</td><td class="none">–</td></tr>
+            <tr><th>設計<br><small class="muted">どう作るか決める</small></th><td>○</td><td>◎</td><td>◎</td><td>○</td><td>◎</td><td>◎</td><td>○</td></tr>
+            <tr><th>開発<br><small class="muted">実際に作る</small></th><td>○</td><td>○</td><td>○</td><td>◎</td><td>○</td><td>◎</td><td>○</td></tr>
+            <tr><th>テスト<br><small class="muted">確かめる</small></th><td>○</td><td>◎</td><td>○</td><td>◎</td><td>○</td><td>○</td><td>◎</td></tr>
+            <tr><th>リリース・運用<br><small class="muted">届けて動かし続ける</small></th><td>◎</td><td>○</td><td class="none">–</td><td>○</td><td>◎</td><td>◎</td><td>○</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted">◎ 中心になって活躍 ／ ○ 関わる ／ – あまり関わらない（プロジェクトによって変わります）</p>
+
+      <!-- ===================== キャリア ===================== -->
+      <h2 id="career">7. キャリアの広がり</h2>
+      <p>職種は固定されたものではありません。経験を積みながら、いろいろな方向に進めます。</p>
+      <div class="sub-grid">
+        <div class="sub">
+          <h4>マネジメントの道</h4>
+          <p>PG → SE → PL → PM のように、作る人から「まとめる人」へ進む道。日本の IT 企業では昔からよくある流れです。</p>
+        </div>
+        <div class="sub">
+          <h4>スペシャリストの道</h4>
+          <p>フロントエンド、インフラ、DB、セキュリティなど、1つの分野を深く極める道。「その分野ならあの人」と頼られる存在になります。</p>
+        </div>
+        <div class="sub">
+          <h4>横に広げる道</h4>
+          <p>フロントもバックも両方できる「フルスタックエンジニア」や、技術がわかる営業・コンサルタントなど、得意分野を組み合わせる道。</p>
+        </div>
+      </div>
+
+      <!-- ===================== クイズ ===================== -->
+      <h2 id="quiz">確認クイズ</h2>
+      <p class="muted">次の仕事をしているのは、どの職種でしょう？ 選択肢をクリックしてください。</p>
+
+      <div class="quiz">
+        <div class="q" data-answer="SE" data-explain="お客様の要望を聞いて何を作るか決め、設計書にまとめるのは SE（システムエンジニア）の仕事です。">
+          <p>Q1. お客様と打ち合わせをして要望を整理し、システムの設計書を書く</p>
+          <div class="choices"><button type="button">PM</button><button type="button">SE</button><button type="button">PG</button><button type="button">デザイナー</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="PG" data-explain="設計書をもとにプログラムを書き、正しく動くか確かめるのは PG（プログラマー）の仕事です。">
+          <p>Q2. 設計書をもとにプログラムを書き、正しく動くかテストする</p>
+          <div class="choices"><button type="button">PM</button><button type="button">SE</button><button type="button">PG</button><button type="button">インフラエンジニア</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="PM" data-explain="スケジュール・予算・メンバーなど、プロジェクト全体を管理するのは PM（プロジェクトマネージャー）です。">
+          <p>Q3. プロジェクトのスケジュールと予算を管理し、遅れそうならメンバーの配置を見直す</p>
+          <div class="choices"><button type="button">PM</button><button type="button">SE</button><button type="button">DBエンジニア</button><button type="button">デザイナー</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="デザイナー" data-explain="画面の見た目や、迷わず使える操作の流れを考えるのはデザイナー（UI / UX デザイナー）です。">
+          <p>Q4. ユーザーが迷わず使えるよう、ボタンの配置や配色、操作の流れを考える</p>
+          <div class="choices"><button type="button">デザイナー</button><button type="button">バックエンドエンジニア</button><button type="button">インフラエンジニア</button><button type="button">DBエンジニア</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="インフラエンジニア" data-explain="サーバーやネットワークを用意し、止まらないよう監視するのはインフラエンジニアです。">
+          <p>Q5. 夜中にシステムが止まったという連絡を受け、サーバーやネットワークの状態を調べる</p>
+          <div class="choices"><button type="button">フロントエンドエンジニア</button><button type="button">デザイナー</button><button type="button">インフラエンジニア</button><button type="button">PG</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="DBエンジニア" data-explain="データの持ち方を設計し、検索が遅くならないよう調整するのは DBエンジニアです。">
+          <p>Q6. 会員データが100万件に増えても検索が遅くならないよう、データの持ち方を見直す</p>
+          <div class="choices"><button type="button">フロントエンドエンジニア</button><button type="button">DBエンジニア</button><button type="button">デザイナー</button><button type="button">PM</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="バックエンドエンジニア" data-explain="ネットショップの注文や決済など、サーバー側の処理を作るのはバックエンドエンジニアです。">
+          <p>Q7. ネットショップで「購入する」ボタンを押したあとの、注文登録や決済の処理を作る</p>
+          <div class="choices"><button type="button">デザイナー</button><button type="button">フロントエンドエンジニア</button><button type="button">バックエンドエンジニア</button><button type="button">インフラエンジニア</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="テスター" data-explain="テストケースに沿って操作し、不具合を見つけて報告するのはテスター（テストエンジニア）の仕事です。">
+          <p>Q8. リリース前に、決められた手順どおりにシステムを操作し、おかしな動きがないか確かめて報告する</p>
+          <div class="choices"><button type="button">PM</button><button type="button">デザイナー</button><button type="button">テスター</button><button type="button">DBエンジニア</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <!-- ===================== まとめ ===================== -->
+      <h2>まとめ</h2>
+      <ul>
+        <li>システムは、<b>役割の違うたくさんの人の分担</b>で作られている（家づくりと同じ）。</li>
+        <li>職種名は、<b>どの「立場」で関わるか（PM・SE・PG）</b>と、<b>どの「部分」を担当するか（フロント・バック・DB・インフラ）</b>の2つの軸で読み解ける。</li>
+        <li><b>SE</b> は「何を・どう作るか」を決める人、<b>PG</b> は設計をもとに「実際に作る」人。</li>
+        <li><b>デザイナー</b>は見た目と使いやすさを、<b>インフラエンジニア</b>はシステムの土台を、<b>テスター</b>は品質の確認を担当する。</li>
+        <li>営業や管理部門も含めて、みんなが<b>チームの一員</b>。</li>
+      </ul>
+
+      <nav class="pager">
+        <a href="how-apps-work.html">← Lesson 2：アプリが動くしくみ</a>
+        <a href="development-process.html">Lesson 4：開発の流れ →</a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">ITK Educate — 社内向け教材</div>
+  </footer>
+</body>
+</html>

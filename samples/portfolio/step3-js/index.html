@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mayu Takahashi Portfolio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <p id="greeting">こんにちは！</p>
+    <h1>Mayu Takahashi Portfolio</h1>
+    <p>はじめまして！ 私の好きなものを紹介します。</p>
+  </header>
+
+  <main>
+    <section class="card">
+      <h2>特技：鉄棒</h2>
+      <p>子どものころから鉄棒が大好きです。</p>
+      <div class="stage" id="tetsubo">
+        <img src="images/tetsubo-bar.svg" alt="鉄棒のイラスト">
+        <img src="images/person.svg" alt="" class="person" id="person">
+      </div>
+      <p class="hint">イラストをクリックすると、止まったり動いたりします。</p>
+    </section>
+
+    <section class="card">
+      <h2>今いちばんハマっているもの：Valorant</h2>
+      <p>5人対5人で戦う、チーム対戦型のシューティングゲームです。</p>
+      <div class="stage">
+        <img src="images/game-base.svg" alt="ゲームのコントローラーのイラスト">
+        <span class="pad-button red"></span>
+        <span class="pad-button yellow"></span>
+        <span class="pad-button green"></span>
+        <span class="pad-button blue"></span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>ひとこと</h2>
+      <p id="message">下のボタンを押してみてね。</p>
+      <button id="message-button">ひとことを見る</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Mayu Takahashi</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

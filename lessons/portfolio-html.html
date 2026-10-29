@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ポートフォリオを作ろう① HTML | ITK Educate</title>
+  <meta name="description" content="自己紹介のポートフォリオサイトを作るシリーズの1回目。HTMLでページの骨組みを作るレッスン。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">ITK <span>Educate</span></a>
+      <div class="header-actions">
+        <a href="../index.html">レッスン一覧</a>
+        <button class="theme-toggle" type="button">☾ ダーク</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <span class="eyebrow">LESSON 7</span>
+        <h1>ポートフォリオを作ろう①<br>HTMLで骨組みを作る</h1>
+        <p class="lead">
+          ここから3回のレッスンで、自分を紹介する<strong>ポートフォリオサイト</strong>を作ります。
+          今回は HTML で<strong>骨組み（中身）</strong>を作るところまで。見た目は次回、動きはその次に付けていきます。
+        </p>
+      </section>
+
+      <nav class="toc" aria-label="目次">
+        <strong>このページの内容</strong>
+        <ol>
+          <li><a href="#goal">完成イメージ</a></li>
+          <li><a href="#prepare">準備：フォルダと画像</a></li>
+          <li><a href="#base">基本の形を作る</a></li>
+          <li><a href="#header">タイトル部分を作る</a></li>
+          <li><a href="#section">紹介コーナーを作る</a></li>
+          <li><a href="#image">画像を貼る</a></li>
+          <li><a href="#finish">仕上げと全体のコード</a></li>
+          <li><a href="#quiz">確認クイズ</a></li>
+        </ol>
+      </nav>
+
+      <!-- ===================== 完成イメージ ===================== -->
+      <h2 id="goal">1. 完成イメージ</h2>
+      <p>Lesson 9 まで終わると、最終的にこんなページになります（実際に操作できます）。</p>
+      <div class="browser" style="--h: 520px;">
+        <div class="browser-bar"><i></i><i></i><i></i><span>portfolio/index.html（Lesson 9 完成版）</span></div>
+        <iframe src="../samples/portfolio/step3-js/index.html" title="ポートフォリオの完成版" loading="lazy"></iframe>
+      </div>
+      <p>そして、<b>今回（HTMLだけ）のゴール</b>はこちら。色も飾りもない、シンプルな見た目です。</p>
+      <div class="browser" style="--h: 420px;">
+        <div class="browser-bar"><i></i><i></i><i></i><span>portfolio/index.html（Lesson 7 時点）</span></div>
+        <iframe src="../samples/portfolio/step1-html/index.html" title="ポートフォリオのHTMLだけの版" loading="lazy"></iframe>
+      </div>
+      <aside class="aside">
+        <p>
+          「え、地味……」と思いましたか？ その感想、正解です。HTMLだけのページは、家でいえば<b>柱と壁だけの状態</b>。
+          でもここをしっかり作っておくと、次の CSS で見違えるほど変わります。ビフォーアフターを楽しみにしていてください。
+        </p>
+      </aside>
+
+      <!-- ===================== 準備 ===================== -->
+      <h2 id="prepare">2. 準備：フォルダと画像</h2>
+      <ol class="steps">
+        <li>
+          <h4>フォルダを作る</h4>
+          <p>デスクトップに <code>portfolio</code> フォルダを作り、その中にさらに <code>images</code> フォルダを作ります。</p>
+<div class="code-block"><div class="code-head"><span>フォルダの構成</span><button class="copy-btn" type="button">コピー</button></div><pre><code>portfolio/
+├── index.html      ← これから作る
+└── images/
+    ├── tetsubo.svg ← 特技の画像
+    └── game.svg    ← ハマっているものの画像</code></pre></div>
+        </li>
+        <li>
+          <h4>画像を用意する</h4>
+          <p>
+            <code>images</code> フォルダに、特技とハマっているものの画像を1枚ずつ入れます。
+            練習用のイラスト（<a href="../samples/portfolio/step1-html/images/tetsubo.svg" download>tetsubo.svg</a>・<a href="../samples/portfolio/step1-html/images/game.svg" download>game.svg</a>）も用意しました。
+            リンクを右クリック →「名前を付けてリンク先を保存」で保存できます。
+          </p>
+          <p>自分で撮った写真（<code>.jpg</code> や <code>.png</code>）を使ってももちろんOKです。</p>
+        </li>
+        <li>
+          <h4>VS Code でフォルダを開く</h4>
+          <p>VS Code の「ファイル」→「フォルダーを開く」で <code>portfolio</code> フォルダを開きます。</p>
+        </li>
+      </ol>
+      <div class="note">
+        <strong>画像の権利に注意：</strong>
+        インターネットで見つけた画像や、ゲーム・アニメなどの画像には<b>著作権</b>があります。
+        使うのは、自分で撮った写真・自分で描いた絵・利用が許可されている素材にしましょう。
+        ゲーム画面のスクリーンショットを使いたい場合は、そのゲーム会社の利用規約を確認してください。
+      </div>
+
+      <!-- ===================== 基本の形 ===================== -->
+      <h2 id="base">3. 基本の形を作る</h2>
+      <p>
+        VS Code の左側で右クリック →「新しいファイル」を選び、<code>index.html</code> という名前で作ります。
+        （<code>index.html</code> は「そのフォルダの表紙」という意味の、特別によく使われる名前です）
+      </p>
+      <p>
+        ファイルを開いたら、Lesson 6 の小ワザ <code>!</code> ＋ <kbd>Enter</kbd> で基本の形を入力します。
+        自動で入る <code>lang="en"</code> を <code>lang="ja"</code> に、<code>&lt;title&gt;</code> の中を自分のサイト名に書き換えましょう。
+      </p>
+<div class="code-block"><div class="code-head"><span>index.html</span><button class="copy-btn" type="button">コピー</button></div><pre><code>&lt;!DOCTYPE html&gt;
+<span class="add">&lt;html lang="ja"&gt;</span>
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+<span class="add">  &lt;title&gt;Mayu Takahashi Portfolio&lt;/title&gt;</span>
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+      <p class="code-legend"><span>色付きの行</span>が、書き換える・書き足す部分です。</p>
+      <p class="muted">
+        <code>&lt;meta name="viewport" …&gt;</code> は「スマホで見たときも、画面の幅に合わせて表示してね」という設定です。
+        （VS Code の <code>!</code> で入る内容は、バージョンによって少し違うことがあります）
+      </p>
+
+      <!-- ===================== ヘッダー ===================== -->
+      <h2 id="header">4. タイトル部分を作る</h2>
+      <p><code>&lt;body&gt;</code> の中に、ページの一番上に表示するタイトル部分を書きます。</p>
+<div class="code-block"><div class="code-head"><span>index.html（body の中）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>&lt;body&gt;
+<span class="add">  &lt;header&gt;</span>
+<span class="add">    &lt;h1&gt;Mayu Takahashi Portfolio&lt;/h1&gt;</span>
+<span class="add">    &lt;p&gt;はじめまして！ 私の好きなものを紹介します。&lt;/p&gt;</span>
+<span class="add">  &lt;/header&gt;</span>
+&lt;/body&gt;</code></pre></div>
+      <p>
+        <code>&lt;header&gt;</code> は「ここはページの頭（ヘッダー）部分です」という意味の<b>箱</b>です。
+        箱自体は画面に何も表示しませんが、中身をグループにまとめておくことで、次回の CSS で「ヘッダーだけ色を変える」といったことができるようになります。
+      </p>
+      <p>保存（<kbd>Ctrl</kbd> + <kbd>S</kbd>）したら、エクスプローラーで <code>index.html</code> を Chrome で開いて確認しましょう。以降も、書いたら保存して Chrome で再読み込み（<kbd>F5</kbd>）、をくり返します。</p>
+
+      <!-- ===================== セクション ===================== -->
+      <h2 id="section">5. 紹介コーナーを作る</h2>
+      <p>次に、ページの本体 <code>&lt;main&gt;</code> を作り、その中に「特技」のコーナーを <code>&lt;section&gt;</code> で作ります。</p>
+<div class="code-block"><div class="code-head"><span>index.html（header のすぐ下に追加）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>  &lt;/header&gt;
+
+<span class="add">  &lt;main&gt;</span>
+<span class="add">    &lt;section&gt;</span>
+<span class="add">      &lt;h2&gt;特技：鉄棒&lt;/h2&gt;</span>
+<span class="add">      &lt;p&gt;子どものころから鉄棒が大好きです。&lt;/p&gt;</span>
+<span class="add">    &lt;/section&gt;</span>
+<span class="add">  &lt;/main&gt;</span>
+&lt;/body&gt;</code></pre></div>
+      <div class="table-wrap">
+        <table style="min-width: 520px;">
+          <thead><tr><th>タグ</th><th>意味</th><th>家でいうと</th></tr></thead>
+          <tbody>
+            <tr><td><code>header</code></td><td>ページの頭の部分</td><td>玄関・表札</td></tr>
+            <tr><td><code>main</code></td><td>ページのいちばん大事な本体</td><td>リビング</td></tr>
+            <tr><td><code>section</code></td><td>テーマごとのまとまり</td><td>それぞれの部屋</td></tr>
+            <tr><td><code>footer</code></td><td>ページの終わりの部分</td><td>裏口・勝手口</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        <code>&lt;h2&gt;</code> は <code>&lt;h1&gt;</code> の次に大きい見出しです。ページの題名が <code>h1</code>、各コーナーの見出しが <code>h2</code>、という関係になっています。
+        本の「タイトル」と「章の見出し」のようなものです。
+      </p>
+      <div class="note">
+        <strong>ポイント：字下げ（インデント）</strong>
+        箱の中に入っているタグは、スペース2つ分ずつ右にずらして書いています。ブラウザの表示には影響しませんが、
+        <b>どの箱に何が入っているか</b>がひと目でわかるので、プロは必ずこう書きます。
+      </div>
+
+      <!-- ===================== 画像 ===================== -->
+      <h2 id="image">6. 画像を貼る</h2>
+      <p>「特技」のコーナーに、<code>&lt;img&gt;</code> タグで画像を追加します。</p>
+<div class="code-block"><div class="code-head"><span>index.html（特技の section の中）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>    &lt;section&gt;
+      &lt;h2&gt;特技：鉄棒&lt;/h2&gt;
+      &lt;p&gt;子どものころから鉄棒が大好きです。&lt;/p&gt;
+<span class="add">      &lt;img src="images/tetsubo.svg" alt="鉄棒のイラスト" width="300"&gt;</span>
+    &lt;/section&gt;</code></pre></div>
+      <div class="table-wrap">
+        <table style="min-width: 520px;">
+          <thead><tr><th>属性</th><th>意味</th></tr></thead>
+          <tbody>
+            <tr><td><code>src="images/tetsubo.svg"</code></td><td>表示する画像の場所。「<code>images</code> フォルダの中の <code>tetsubo.svg</code>」という意味です。自分の写真なら <code>images/tetsubo.jpg</code> のようにファイル名に合わせます。</td></tr>
+            <tr><td><code>alt="鉄棒のイラスト"</code></td><td>画像の説明。画像が表示できないときや、目の不自由な方が音声読み上げで閲覧するときに使われます。</td></tr>
+            <tr><td><code>width="300"</code></td><td>表示する幅（300ピクセル）。</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>同じようにして、「ハマっているもの」のコーナーも、特技のコーナーの下に追加します。</p>
+<div class="code-block"><div class="code-head"><span>index.html（特技の section の下に追加）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>    &lt;/section&gt;
+
+<span class="add">    &lt;section&gt;</span>
+<span class="add">      &lt;h2&gt;今いちばんハマっているもの：Valorant&lt;/h2&gt;</span>
+<span class="add">      &lt;p&gt;5人対5人で戦う、チーム対戦型のシューティングゲームです。&lt;/p&gt;</span>
+<span class="add">      &lt;img src="images/game.svg" alt="ゲームのイラスト" width="300"&gt;</span>
+<span class="add">    &lt;/section&gt;</span>
+  &lt;/main&gt;</code></pre></div>
+      <div class="note">
+        <strong>画像が表示されないときは：</strong>
+        ① <code>images</code> フォルダの名前、② 画像のファイル名（<code>.jpg</code> と <code>.png</code> の違いも含む）、
+        ③ <code>src</code> の書き方、の3つが<b>1文字も違わずに</b>一致しているか確認しましょう。大文字・小文字も区別されることがあります。
+      </div>
+
+      <!-- ===================== 仕上げ ===================== -->
+      <h2 id="finish">7. 仕上げと全体のコード</h2>
+      <p>最後に、ページの一番下に <code>&lt;footer&gt;</code> を追加します。<code>&amp;copy;</code> は「©」マークを表示するための書き方です。</p>
+<div class="code-block"><div class="code-head"><span>index.html（main の下に追加）</span><button class="copy-btn" type="button">コピー</button></div><pre><code>  &lt;/main&gt;
+
+<span class="add">  &lt;footer&gt;</span>
+<span class="add">    &lt;p&gt;&amp;copy; 2026 Mayu Takahashi&lt;/p&gt;</span>
+<span class="add">  &lt;/footer&gt;</span>
+&lt;/body&gt;</code></pre></div>
+      <p>完成した <code>index.html</code> の全体はこちらです。自分のファイルと見比べてみましょう。</p>
+<div class="code-block"><div class="code-head"><span>index.html</span><button class="copy-btn" type="button">コピー</button></div><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="ja"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;Mayu Takahashi Portfolio&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Mayu Takahashi Portfolio&lt;/h1&gt;
+    &lt;p&gt;はじめまして！ 私の好きなものを紹介します。&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section&gt;
+      &lt;h2&gt;特技：鉄棒&lt;/h2&gt;
+      &lt;p&gt;子どものころから鉄棒が大好きです。&lt;/p&gt;
+      &lt;img src="images/tetsubo.svg" alt="鉄棒のイラスト" width="300"&gt;
+    &lt;/section&gt;
+
+    &lt;section&gt;
+      &lt;h2&gt;今いちばんハマっているもの：Valorant&lt;/h2&gt;
+      &lt;p&gt;5人対5人で戦う、チーム対戦型のシューティングゲームです。&lt;/p&gt;
+      &lt;img src="images/game.svg" alt="ゲームのイラスト" width="300"&gt;
+    &lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;&amp;copy; 2026 Mayu Takahashi&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+      <p>Chrome で開いて、<a href="#goal">1章の「今回のゴール」</a>と同じように表示されれば完成です！</p>
+
+      <h3>自分らしくアレンジしよう</h3>
+      <ul>
+        <li>名前・特技・ハマっているものを、自分のものに書き換える</li>
+        <li>画像を自分の写真に差し替える</li>
+        <li><code>&lt;section&gt;</code> をコピーして、「好きな食べ物」などのコーナーを増やす</li>
+      </ul>
+      <p>迷ったら Claude Code に聞いてみましょう。たとえば、こんなふうに。</p>
+<div class="code-block"><div class="code-head"><span>Claude Code への質問の例</span><button class="copy-btn" type="button">コピー</button></div><pre><code>index.html に「好きな食べ物」のコーナーを追加したいです。
+どこに、どんなタグを書けばいいか、理由も含めて教えてください。コードはまだ書き換えないでください。</code></pre></div>
+      <p class="muted">「コードはまだ書き換えないで」と添えると、答えを教えてもらうだけで、手を動かすのは自分、という練習ができます。</p>
+
+      <!-- ===================== クイズ ===================== -->
+      <h2 id="quiz">確認クイズ</h2>
+      <p class="muted">選択肢をクリックしてください。</p>
+      <div class="quiz">
+        <div class="q" data-answer="img" data-explain="画像は img タグで表示します。終了タグがないのが特徴です。">
+          <p>Q1. 画像を表示するタグはどれ？</p>
+          <div class="choices"><button type="button">pic</button><button type="button">img</button><button type="button">image</button><button type="button">photo</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="src" data-explain="src で画像の場所（ファイル名）を指定します。alt は画像の説明です。">
+          <p>Q2. img タグで「どの画像を表示するか」を指定する属性は？</p>
+          <div class="choices"><button type="button">alt</button><button type="button">width</button><button type="button">src</button><button type="button">href</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="section" data-explain="テーマごとのまとまり（コーナー）は section で囲みます。">
+          <p>Q3. 「特技」「ハマっているもの」のような、テーマごとのまとまりを囲むタグは？</p>
+          <div class="choices"><button type="button">header</button><button type="button">section</button><button type="button">footer</button><button type="button">title</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="自分で撮った写真" data-explain="ネットで見つけた画像やゲーム画面には著作権があります。自分で撮った写真や、利用が許可された素材を使いましょう。">
+          <p>Q4. ポートフォリオに使う画像として、いちばん安心なのはどれ？</p>
+          <div class="choices"><button type="button">ネットで見つけた画像</button><button type="button">自分で撮った写真</button><button type="button">ゲームの公式サイトの画像</button><button type="button">友だちのSNSの写真</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <!-- ===================== まとめ ===================== -->
+      <h2>まとめ</h2>
+      <ul>
+        <li><code>header</code>・<code>main</code>・<code>section</code>・<code>footer</code> は、ページの部分をまとめる<b>箱</b>。</li>
+        <li>見出しはページの題名が <code>h1</code>、各コーナーが <code>h2</code>。</li>
+        <li>画像は <code>&lt;img src="場所" alt="説明"&gt;</code> で貼る。ファイル名は1文字も違わずに。</li>
+        <li>箱の中身は字下げして、構造がひと目でわかるように書く。</li>
+        <li>画像の<b>著作権</b>に気をつける。</li>
+      </ul>
+      <p>骨組みが完成しました。次の Lesson 8 では、CSS でこのページに色を付けて、一気におしゃれにしていきます。</p>
+
+      <nav class="pager">
+        <a href="dev-environment.html">← Lesson 6：開発環境を整えよう</a>
+        <a href="portfolio-css.html">Lesson 8：ポートフォリオ② CSS →</a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">ITK Educate — 社内向け教材</div>
+  </footer>
+</body>
+</html>

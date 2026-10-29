@@ -1,0 +1,60 @@
+/* ページ全体 */
+body {
+  margin: 0;
+  background-color: #17201b;
+  color: #f4f1e6;
+  font-family: "Yu Gothic UI", "Meiryo", "Hiragino Sans", sans-serif;
+  line-height: 1.8;
+}
+
+/* 一番上のタイトル部分 */
+header {
+  background: linear-gradient(135deg, #f9d84a, #4cc38a);
+  padding: 48px 16px;
+  text-align: center;
+  color: #17201b;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 36px;
+}
+
+/* 中身を中央に寄せる */
+main {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 32px 16px;
+}
+
+/* 紹介カード */
+.card {
+  background-color: #22302a;
+  border-radius: 16px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.card h2 {
+  margin-top: 0;
+  color: #f9d84a;
+  border-left: 6px solid #4cc38a;
+  padding-left: 12px;
+}
+
+.card img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 16px auto 0;
+  border-radius: 12px;
+}
+
+/* 一番下の部分 */
+footer {
+  text-align: center;
+  padding: 24px;
+  color: #93a399;
+  font-size: 14px;
+}

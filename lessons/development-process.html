@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>開発の流れ | ITK Educate</title>
+  <meta name="description" content="要件定義から設計・開発・テスト・リリース・運用まで、システム開発の工程と、ウォーターフォール・アジャイルなどの進め方を学ぶレッスン。">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="../assets/js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../index.html">ITK <span>Educate</span></a>
+      <div class="header-actions">
+        <a href="../index.html">レッスン一覧</a>
+        <button class="theme-toggle" type="button">☾ ダーク</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <span class="eyebrow">LESSON 4</span>
+        <h1>開発の流れ</h1>
+        <p class="lead">
+          Lesson 3 では「誰が」システムを作るのかを学びました。今回は、その人たちが<strong>どんな順番で、何をしながら</strong>
+          システムを完成させていくのかを見ていきます。
+        </p>
+      </section>
+
+      <aside class="aside">
+        <p>
+          「システム開発って、パソコンに向かってひたすらプログラムを書くことでしょ？」……と思っていた方。
+          実は、<b>プログラムを書いている時間は全体のほんの一部</b>です。
+        </p>
+        <p>
+          設計図なしでいきなり家を建て始めたら、完成してから「あれ、トイレがない」となりかねません。
+          システムも同じで、書き始める前と、書き終わった後にこそ大事な仕事がたくさんあります。
+        </p>
+      </aside>
+
+      <nav class="toc" aria-label="目次">
+        <strong>このページの内容</strong>
+        <ol>
+          <li><a href="#house">家づくりで考える全体像</a></li>
+          <li><a href="#phases">開発の工程</a></li>
+          <li><a href="#vmodel">作る工程と確かめる工程（V字モデル）</a></li>
+          <li><a href="#tests">テストの種類</a></li>
+          <li><a href="#rework">「後から変更」はなぜ大変？</a></li>
+          <li><a href="#methods">開発の進め方（ウォーターフォールとアジャイル）</a></li>
+          <li><a href="#ops">リリースしてからが本番</a></li>
+          <li><a href="#quiz">確認クイズ</a></li>
+        </ol>
+      </nav>
+
+      <!-- ===================== 家づくり ===================== -->
+      <h2 id="house">1. 家づくりで考える全体像</h2>
+      <p>Lesson 3 に続いて、今回も家づくりで考えてみましょう。家が完成するまでには、だいたい次のような流れがあります。</p>
+
+      <div class="table-wrap">
+        <table style="min-width: 600px;">
+          <thead>
+            <tr><th>家づくり</th><th>システム開発</th><th>やること</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>施主の希望を聞く</td><td>要件定義</td><td>「何を作るか」を決める</td></tr>
+            <tr><td>間取り図を描く</td><td>基本設計</td><td>お客様から見える部分（画面・機能）を決める</td></tr>
+            <tr><td>施工図を描く</td><td>詳細設計</td><td>中の作り（プログラムの構造）を決める</td></tr>
+            <tr><td>工事をする</td><td>開発（実装）</td><td>実際にプログラムを書く</td></tr>
+            <tr><td>完成検査・内覧会</td><td>テスト</td><td>ちゃんと動くか、要望どおりかを確かめる</td></tr>
+            <tr><td>引き渡し</td><td>リリース</td><td>お客様が使い始められる状態にする</td></tr>
+            <tr><td>点検・修繕・リフォーム</td><td>運用・保守</td><td>動かし続け、直し、改善していく</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ===================== 工程 ===================== -->
+      <h2 id="phases">2. 開発の工程</h2>
+      <p>
+        それぞれの工程を、もう少し詳しく見ていきます。各工程では、次の工程に引き継ぐための<b>成果物（ドキュメントやプログラム）</b>が作られます。
+        前半の「何を・どう作るか決める」工程を<b>上流工程</b>、後半の「作って確かめる」工程を<b>下流工程</b>と呼びます。
+      </p>
+
+      <ol class="steps">
+        <li>
+          <h4>要件定義<span class="layer-tag">上流工程</span></h4>
+          <p>
+            お客様に「何に困っているのか」「システムで何をしたいのか」をヒアリングし、作るものの範囲と条件を決めます。
+            「何ができればゴールか」を、お客様と開発側で合意する、最も大切な工程です。
+          </p>
+          <p class="muted">主な担当：<a href="it-job-roles.html#pm">PM</a>・<a href="it-job-roles.html#se">SE</a>　／　成果物：要件定義書</p>
+        </li>
+        <li>
+          <h4>基本設計（外部設計）<span class="layer-tag">上流工程</span></h4>
+          <p>
+            要件をもとに、<b>お客様から見える部分</b>を決めます。どんな画面があり、どのボタンを押すと何が起きるか、
+            どんな帳票が出力されるか、他のシステムとどうつながるか、など。お客様に確認してもらいながら進めます。
+          </p>
+          <p class="muted">主な担当：<a href="it-job-roles.html#se">SE</a>・<a href="it-job-roles.html#designer">デザイナー</a>・<a href="it-job-roles.html#infra">インフラ</a>・<a href="it-job-roles.html#db">DB</a>　／　成果物：基本設計書、画面設計書</p>
+        </li>
+        <li>
+          <h4>詳細設計（内部設計）<span class="layer-tag">上流工程</span></h4>
+          <p>
+            基本設計を実現するための、<b>システムの中の作り</b>を決めます。プログラムをどう分けるか、データをどう処理するか、など。
+            PG がこれを読めば迷わずプログラムを書ける、というレベルまで具体的にします。
+          </p>
+          <p class="muted">主な担当：<a href="it-job-roles.html#se">SE</a>　／　成果物：詳細設計書</p>
+        </li>
+        <li>
+          <h4>開発（実装・プログラミング）<span class="layer-tag">下流工程</span></h4>
+          <p>
+            詳細設計書をもとにプログラムを書きます。書いたプログラムが部品として正しく動くかを確かめる<b>単体テスト</b>も、この工程で行います。
+            同時にインフラエンジニアは、システムを動かすサーバーなどの環境を用意します。
+          </p>
+          <p class="muted">主な担当：<a href="it-job-roles.html#pg">PG</a>（<a href="it-job-roles.html#front">フロント</a>・<a href="it-job-roles.html#back">バック</a>）・<a href="it-job-roles.html#infra">インフラ</a>　／　成果物：プログラム（ソースコード）</p>
+        </li>
+        <li>
+          <h4>テスト<span class="layer-tag">下流工程</span></h4>
+          <p>
+            部品を組み合わせたとき、システム全体として動かしたとき、お客様が実際に使ったとき……と、範囲を広げながら段階的に確かめます。
+            見つかった不具合は修正し、もう一度テストします（詳しくは<a href="#tests">4章</a>）。
+          </p>
+          <p class="muted">主な担当：<a href="it-job-roles.html#tester">テスター</a>・<a href="it-job-roles.html#se">SE</a>・<a href="it-job-roles.html#pg">PG</a>・お客様　／　成果物：テスト仕様書、テスト結果報告書</p>
+        </li>
+        <li>
+          <h4>リリース（本番移行）<span class="layer-tag">下流工程</span></h4>
+          <p>
+            完成したシステムを本番の環境に載せ、お客様が使い始められるようにします。
+            古いシステムからのデータの引っ越し（データ移行）や、利用者向けの説明・マニュアル作りもここで行います。
+          </p>
+          <p class="muted">主な担当：<a href="it-job-roles.html#pm">PM</a>・<a href="it-job-roles.html#infra">インフラ</a>・<a href="it-job-roles.html#db">DB</a>　／　成果物：移行手順書、操作マニュアル</p>
+        </li>
+        <li>
+          <h4>運用・保守</h4>
+          <p>
+            システムが毎日問題なく動いているかを見守り、トラブルがあれば対応し、要望に応じて機能を改善していきます（詳しくは<a href="#ops">7章</a>）。
+          </p>
+          <p class="muted">主な担当：運用・保守エンジニア・<a href="it-job-roles.html#infra">インフラ</a>・<a href="it-job-roles.html#se">SE</a>　／　成果物：運用手順書、障害報告書</p>
+        </li>
+      </ol>
+
+      <div class="note">
+        <strong>ポイント：</strong>
+        工程の名前や分け方は、会社やプロジェクトによって少しずつ違います。「外部設計」「内部設計」と呼ぶ会社もあれば、
+        基本設計と詳細設計をまとめて「設計」と呼ぶこともあります。大切なのは、<b>決める → 作る → 確かめる → 届ける</b>という大きな流れです。
+      </div>
+
+      <!-- ===================== V字モデル ===================== -->
+      <h2 id="vmodel">3. 作る工程と確かめる工程（V字モデル）</h2>
+      <p>
+        工程を左上から下へ「決めて作る」、下から右上へ「確かめる」と並べると、アルファベットの <b>V</b> の形になります。
+        これを <b>V字モデル</b>と呼びます。ポイントは、<b>左右の工程がペアになっている</b>ことです。
+      </p>
+
+      <figure class="figure">
+        <div class="vmodel">
+          <div class="box left" style="--i: 0;"><b>要件定義</b><small>何を作るか</small></div>
+          <div class="link"><span>確かめる</span></div>
+          <div class="box right" style="--i: 0;"><b>受入テスト</b><small>お客様の要望どおり？</small></div>
+
+          <div class="box left" style="--i: 1;"><b>基本設計</b><small>見える部分</small></div>
+          <div class="link"><span>確かめる</span></div>
+          <div class="box right" style="--i: 1;"><b>総合テスト</b><small>システム全体で動く？</small></div>
+
+          <div class="box left" style="--i: 2;"><b>詳細設計</b><small>中の作り</small></div>
+          <div class="link"><span>確かめる</span></div>
+          <div class="box right" style="--i: 2;"><b>結合テスト</b><small>部品同士がつながる？</small></div>
+
+          <div class="box bottom"><b>開発（実装）＋ 単体テスト</b><small>部品を作って、1つずつ確かめる</small></div>
+        </div>
+        <div class="vmodel-legend">
+          <span class="down">↘ 決めて、作る</span>
+          <span class="up">確かめる ↗</span>
+        </div>
+        <figcaption>左側で決めたことが正しく実現できているかを、同じ高さの右側のテストで確かめます。</figcaption>
+      </figure>
+
+      <p>
+        たとえば、要件定義で決めた「お客様のやりたいこと」は、最後の受入テストで「本当にできるようになったか」を確かめます。
+        設計の段階から「これはどうやってテストするか」を考えておけるのが、V字モデルの良いところです。
+      </p>
+
+      <!-- ===================== テスト ===================== -->
+      <h2 id="tests">4. テストの種類</h2>
+      <p>テストは一度にまとめて行うのではなく、<b>小さな範囲から大きな範囲へ</b>、段階を踏んで進めます。</p>
+
+      <div class="table-wrap">
+        <table style="min-width: 680px;">
+          <thead>
+            <tr><th>テスト</th><th>何を確かめる？</th><th>主に誰が？</th><th>家づくりでいうと</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b>単体テスト</b></td><td>1つ1つの部品（プログラム）が正しく動くか</td><td>PG</td><td>ドア・窓・蛇口などの部品を、取り付ける前に検査</td></tr>
+            <tr><td><b>結合テスト</b></td><td>部品同士を組み合わせたとき、正しく連携するか</td><td>PG・SE・テスター</td><td>部屋ごとに、電気・水道がちゃんとつながっているか確認</td></tr>
+            <tr><td><b>総合テスト</b><br><small class="muted">（システムテスト）</small></td><td>システム全体として、設計どおりに動くか。大量のアクセスに耐えられるか</td><td>SE・テスター</td><td>家全体を通して、住める状態か完成検査</td></tr>
+            <tr><td><b>受入テスト</b><br><small class="muted">（運用テスト）</small></td><td>お客様が実際の業務で使って、要望どおりか</td><td>お客様（開発側がサポート）</td><td>施主さんの内覧会。「住んでみてどうか」を確かめる</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="note">
+        <strong>ポイント：</strong>
+        不具合を直したら、その修正で<b>他の部分が壊れていないか</b>も確かめます。これを<b>回帰テスト（リグレッションテスト）</b>と呼びます。
+        「蛇口を直したら、なぜか隣の部屋の電気が消えた」……システムでは、こういうことが本当に起こるのです。
+      </div>
+
+      <!-- ===================== 手戻り ===================== -->
+      <h2 id="rework">5. 「後から変更」はなぜ大変？</h2>
+      <p>
+        前の工程に戻ってやり直すことを<b>手戻り（てもどり）</b>と呼びます。
+        同じ「ここを変えたい」という変更でも、<b>気づくのが後の工程になるほど、直すのが大変</b>になります。
+      </p>
+
+      <figure class="figure">
+        <div class="cost-bars">
+          <div class="row"><span class="label">要件定義</span><div class="bar" style="--w: 12%;">メモを書き直すだけ</div></div>
+          <div class="row"><span class="label">設計</span><div class="bar" style="--w: 26%;">設計書を書き直す</div></div>
+          <div class="row"><span class="label">開発</span><div class="bar" style="--w: 45%;">設計書 ＋ プログラムを直す</div></div>
+          <div class="row"><span class="label">テスト</span><div class="bar" style="--w: 70%;">設計書 ＋ プログラム ＋ テストをやり直す</div></div>
+          <div class="row"><span class="label">リリース後</span><div class="bar" style="--w: 100%;">上のすべて ＋ 利用中のお客様への影響・データの修正</div></div>
+        </div>
+        <figcaption>変更にかかる手間のイメージ。後の工程ほど、やり直す範囲が雪だるま式に増えていきます。</figcaption>
+      </figure>
+
+      <p>
+        家で言えば、「窓の位置を変えたい」が間取り図の段階なら<b>消しゴムで消すだけ</b>。
+        でも、家が完成してからだと<b>壁を壊して作り直し</b>です。
+      </p>
+      <div class="note">
+        <strong>だからこそ：</strong>
+        要件定義でお客様の要望をしっかり聞き取ることが、プロジェクト成功のいちばんの近道です。
+        営業やお客様窓口の方が最初に聞いた「ちょっとした一言」が、実はとても大事な要件だった、ということもよくあります。
+      </div>
+
+      <!-- ===================== 開発手法 ===================== -->
+      <h2 id="methods">6. 開発の進め方（ウォーターフォールとアジャイル）</h2>
+      <p>工程をどんな順番・サイクルで進めるかには、代表的な2つのやり方があります。</p>
+
+      <div class="sub-grid">
+        <div class="sub">
+          <h4>ウォーターフォール</h4>
+          <p>
+            滝（waterfall）の水が上から下へ流れるように、<b>工程を1つずつ順番に完了させて</b>進める方法。
+            基本的に前の工程には戻りません。
+          </p>
+          <div class="method-flow">
+            <span>要件定義</span><i>→</i><span>設計</span><i>→</i><span>開発</span><i>→</i><span>テスト</span><i>→</i><span>リリース</span>
+          </div>
+          <dl>
+            <dt>良いところ</dt><dd>計画・予算・スケジュールを最初に立てやすい。進み具合がわかりやすい。</dd>
+            <dt>苦手なところ</dt><dd>途中の仕様変更に弱い。完成品を見られるのが最後になる。</dd>
+            <dt>向いているもの</dt><dd>作るものがはっきり決まっているシステム（銀行・行政・基幹システムなど）</dd>
+          </dl>
+        </div>
+        <div class="sub">
+          <h4>アジャイル</h4>
+          <p>
+            アジャイル（agile）は「素早い」という意味。<b>小さな機能単位で「設計 → 開発 → テスト」を短い期間で繰り返し</b>、
+            少しずつ完成に近づける方法。1回の繰り返しは1〜4週間程度で、代表的なやり方の「スクラム」では<b>スプリント</b>と呼びます。
+          </p>
+          <div class="method-flow">
+            <span>計画</span><i>→</i><span>設計・開発・テスト</span><i>→</i><span>リリース・振り返り</span><i>↻ 繰り返す</i>
+          </div>
+          <dl>
+            <dt>良いところ</dt><dd>仕様変更に強い。動くものを早く見せて、意見をもらいながら改善できる。</dd>
+            <dt>苦手なところ</dt><dd>最終的な完成形・費用・期間を最初に見積もりにくい。お客様にも継続的な参加が必要。</dd>
+            <dt>向いているもの</dt><dd>変化の速い Web サービスやスマホアプリ、新しいサービスの立ち上げ</dd>
+          </dl>
+        </div>
+      </div>
+
+      <h3>料理にたとえると</h3>
+      <p>
+        ウォーターフォールは<b>結婚式のフルコース</b>。メニューを事前にしっかり決め、当日はその通りに出します。途中で「やっぱり中華に」とは言えません。
+        アジャイルは<b>常連さんの居酒屋</b>。まず一品出して「もう少し濃いめがいい」と聞いたら、次の一品で調整する。食べながら一緒に最高の献立を作っていくイメージです。
+      </p>
+
+      <div class="note">
+        <strong>実際の現場では：</strong>
+        どちらが正解ということはなく、システムの性質やお客様の状況に合わせて選びます。
+        「大枠はウォーターフォールで決めて、画面まわりはアジャイルで改善する」のように、組み合わせることもよくあります。
+        また、試作品（プロトタイプ）を早めに作ってお客様に触ってもらう「プロトタイピング」という方法もあります。
+      </div>
+
+      <!-- ===================== 運用・保守 ===================== -->
+      <h2 id="ops">7. リリースしてからが本番</h2>
+      <p>
+        システムは作って終わりではありません。むしろ、<b>リリースしてから使われなくなるまでの期間のほうがずっと長い</b>のが普通です。
+        何年、場合によっては10年以上、毎日動き続けます。
+      </p>
+      <div class="sub-grid">
+        <div class="sub">
+          <h4>運用</h4>
+          <p>システムが毎日正しく動くように<b>見守る</b>仕事。動いているかの監視、定期的なバックアップ、利用者からの問い合わせ対応など。</p>
+        </div>
+        <div class="sub">
+          <h4>保守</h4>
+          <p>システムを<b>直したり、良くしたり</b>する仕事。不具合の修正、法律や制度の変更への対応、新しい機能の追加、セキュリティの更新など。</p>
+        </div>
+      </div>
+      <p>
+        家と同じで、定期的な点検や修繕をしないと、システムも少しずつ使いにくく、危なくなっていきます。
+        保守で新しい機能を追加するときも、小さな「要件定義 → 設計 → 開発 → テスト → リリース」の流れを繰り返します。
+      </p>
+
+      <!-- ===================== クイズ ===================== -->
+      <h2 id="quiz">確認クイズ</h2>
+      <p class="muted">選択肢をクリックしてください。</p>
+
+      <div class="quiz">
+        <div class="q" data-answer="要件定義" data-explain="お客様の要望を聞き、何を作るかを決めて合意するのは要件定義です。">
+          <p>Q1. お客様に要望をヒアリングし、「何を作るか」を決めて合意する工程は？</p>
+          <div class="choices"><button type="button">要件定義</button><button type="button">基本設計</button><button type="button">詳細設計</button><button type="button">結合テスト</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="基本設計" data-explain="画面やボタンの動きなど、お客様から見える部分を決めるのは基本設計（外部設計）です。">
+          <p>Q2. 「どんな画面があり、どのボタンを押すと何が起きるか」を決める工程は？</p>
+          <div class="choices"><button type="button">要件定義</button><button type="button">基本設計</button><button type="button">詳細設計</button><button type="button">開発</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="単体テスト" data-explain="1つ1つの部品（プログラム）が正しく動くかを確かめるのは単体テストです。">
+          <p>Q3. 書いたプログラムを1つの部品として、正しく動くか確かめるテストは？</p>
+          <div class="choices"><button type="button">単体テスト</button><button type="button">結合テスト</button><button type="button">総合テスト</button><button type="button">受入テスト</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="受入テスト" data-explain="お客様が実際の業務で使って要望どおりかを確かめるのは受入テストです。家づくりの内覧会にあたります。">
+          <p>Q4. お客様が実際の業務で使ってみて、要望どおりかを確かめるテストは？</p>
+          <div class="choices"><button type="button">単体テスト</button><button type="button">結合テスト</button><button type="button">総合テスト</button><button type="button">受入テスト</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="要件定義" data-explain="変更は後の工程で気づくほど、やり直す範囲が広がります。最も手間が少ないのは最初の要件定義の段階です。">
+          <p>Q5. 「ここを変えたい」という変更が、いちばん少ない手間で済むのはどの段階で気づいたとき？</p>
+          <div class="choices"><button type="button">要件定義</button><button type="button">開発</button><button type="button">テスト</button><button type="button">リリース後</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+        <div class="q" data-answer="アジャイル" data-explain="短い期間で開発を繰り返し、意見をもらいながら改善していくのはアジャイルです。">
+          <p>Q6. 新しいスマホアプリを、2週間ごとに少しずつ機能を追加し、利用者の意見を聞きながら改善していく。この進め方は？</p>
+          <div class="choices"><button type="button">ウォーターフォール</button><button type="button">アジャイル</button><button type="button">V字モデル</button><button type="button">回帰テスト</button></div>
+          <p class="feedback" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <!-- ===================== まとめ ===================== -->
+      <h2>まとめ</h2>
+      <ul>
+        <li>システム開発は<b>要件定義 → 設計 → 開発 → テスト → リリース → 運用・保守</b>の流れで進む。</li>
+        <li>前半の「決める」工程を<b>上流工程</b>、後半の「作って確かめる」工程を<b>下流工程</b>と呼ぶ。</li>
+        <li><b>V字モデル</b>では、決める工程と確かめる工程（テスト）がペアになっている。</li>
+        <li>テストは<b>単体 → 結合 → 総合 → 受入</b>と、小さな範囲から大きな範囲へ進める。</li>
+        <li>変更は後になるほど大変（<b>手戻り</b>）。だから最初の要件定義がいちばん大切。</li>
+        <li>進め方には、順番に進める<b>ウォーターフォール</b>と、短いサイクルを繰り返す<b>アジャイル</b>がある。</li>
+        <li>システムは<b>リリースしてからが本番</b>。運用・保守で長く支えていく。</li>
+      </ul>
+
+      <nav class="pager">
+        <a href="it-job-roles.html">← Lesson 3：IT業界の職種</a>
+        <a href="html-basics.html">Lesson 5：HTMLとは？ →</a>
+      </nav>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">ITK Educate — 社内向け教材</div>
+  </footer>
+</body>
+</html>
